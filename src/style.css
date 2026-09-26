@@ -2876,3 +2876,333 @@ body::after {
   }
 }
 
+/* =========================================================================
+   AUTHENTIC TRANSPARENT SILHOUETTE COMPOSITIONS & STAGE ELEMENTS
+   ========================================================================= */
+.silhouette-stage-backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  max-width: 650px;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.16;
+  background-size: contain;
+  background-position: center right;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 35px rgba(255, 17, 45, 0.45));
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+.silhouette-stage-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.silhouette-rock-hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 340px;
+  padding: 20px;
+}
+
+.silhouette-img-cutout {
+  max-height: 380px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 25px rgba(255, 17, 45, 0.55)) contrast(1.15);
+  pointer-events: none;
+  animation: silhouetteFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes silhouetteFloat {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-8px) scale(1.02); }
+}
+
+.silhouette-accent-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .silhouette-accent-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 6-step Tournament Cable Flow */
+.steps-flow-grid.six-steps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1200px) {
+  .steps-flow-grid.six-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .steps-flow-grid.six-steps {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Purpose Mission Vision 3-card Grid */
+.pmv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+@media (max-width: 900px) {
+  .pmv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pmv-card {
+  background: rgba(18, 16, 24, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 30px 24px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: all 0.35s ease;
+}
+
+.pmv-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff112d, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pmv-card:hover {
+  border-color: rgba(255, 17, 45, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(255, 17, 45, 0.15);
+}
+
+.pmv-card:hover::before {
+  opacity: 1;
+}
+
+.pmv-tag {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: #ff112d;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.pmv-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+
+.pmv-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #a4a2ad;
+}
+
+/* 5 Stands For Grid */
+.stands-for-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+}
+
+@media (max-width: 1100px) {
+  .stands-for-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .stands-for-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stand-card {
+  background: rgba(14, 13, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  padding: 22px 18px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stand-card:hover {
+  border-color: #ff112d;
+  background: rgba(255, 17, 45, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 17, 45, 0.2);
+}
+
+.stand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stand-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.stand-card:hover .stand-name {
+  color: #ff112d;
+}
+
+.stand-desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #9c99a6;
+}
+
+/* 5 Platform Architecture Cards */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+}
+
+@media (max-width: 1100px) {
+  .platform-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.platform-card {
+  background: rgba(16, 14, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.platform-card:hover {
+  border-color: #ff112d;
+  background: rgba(255, 17, 45, 0.07);
+  box-shadow: 0 10px 30px rgba(255, 17, 45, 0.22);
+  transform: translateY(-3px);
+}
+
+.platform-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.platform-desc {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #a4a2b0;
+}
+
+/* 11 Partner Ownership Badges */
+.partner-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.partner-badge-card {
+  background: rgba(18, 16, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 6px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.partner-badge-card:hover {
+  border-color: #ff112d;
+  background: rgba(255, 17, 45, 0.1);
+  transform: translateX(4px);
+  box-shadow: 0 4px 18px rgba(255, 17, 45, 0.25);
+}
+
+.partner-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff112d;
+  box-shadow: 0 0 8px #ff112d;
+  flex-shrink: 0;
+}
+
+.partner-badge-text {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #e5e3ec;
+  text-transform: uppercase;
+}
+
+.partner-badge-card:hover .partner-badge-text {
+  color: #ffffff;
+}
+
+.footer-property-note {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: #ff112d;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+

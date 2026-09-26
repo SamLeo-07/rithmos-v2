@@ -15,7 +15,7 @@ function multiPageMiddleware() {
           req.url = '/contact/index.html';
         } else if (url === '/register' || url === '/register/') {
           req.url = '/register/index.html';
-        } else if (url === '/sponsors' || url === '/sponsors/') {
+        } else if (url === '/sponsors' || url === '/sponsors/' || url === '/partners' || url === '/partners/') {
           req.url = '/sponsors/index.html';
         }
         next();
@@ -27,7 +27,7 @@ function multiPageMiddleware() {
 export default defineConfig({
   plugins: [multiPageMiddleware()],
   server: {
-    port: 8008,
+    port: 5045,
     open: false,
     host: true
   },
