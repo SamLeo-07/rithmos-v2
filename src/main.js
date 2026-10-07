@@ -7,10 +7,12 @@ import { ParticleSystem } from './scene/Particles.js';
 import { CameraJourney } from './scene/CameraJourney.js';
 import { ConcertAudio } from './audio/ConcertAudio.js';
 import { ModalManager } from './ui/ModalManager.js';
+import { MobileNav } from './ui/MobileNav.js';
 
 class RithmosApp {
   constructor() {
     this.canvas = document.getElementById('webgl-canvas');
+    this.mobileNav = new MobileNav();
     this.initSmoothScroll();
     this.initStageStepping();
     this.init3D();

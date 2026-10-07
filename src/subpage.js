@@ -3,7 +3,10 @@
  * Handles navigation, registration modal triggers, and form interactions for /about, /competition, /contact
  */
 
+import { MobileNav } from './ui/MobileNav.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  new MobileNav();
   // Highlight active nav link based on current path
   const currentPath = window.location.pathname.replace(/\/$/, '');
   document.querySelectorAll('.nav-link').forEach((link) => {
