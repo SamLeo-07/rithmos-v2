@@ -1593,6 +1593,197 @@
 }
 
 /* ==========================================================================
+   EXECUTIVE COMMERCIAL TRUST & GOVERNANCE STYLES (/sponsors)
+   ========================================================================== */
+.corporate-trust-ribbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 32px 0 40px;
+  padding: 22px 24px;
+  background: rgba(14, 12, 19, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.trust-ribbon-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.trust-ribbon-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 17, 45, 0.08);
+  border: 1px solid rgba(255, 17, 45, 0.28);
+  color: #ff3b4e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-ribbon-title {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.trust-ribbon-sub {
+  font-size: 0.78rem;
+  color: #9e9ba8;
+  line-height: 1.4;
+}
+
+/* Promoter Pedigree Dossier Box */
+.promoter-credibility-box {
+  background: linear-gradient(135deg, rgba(20, 16, 26, 0.95) 0%, rgba(10, 8, 14, 0.98) 100%);
+  border: 1px solid rgba(255, 17, 45, 0.35);
+  border-radius: 10px;
+  padding: 38px 34px;
+  margin: 36px 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+}
+
+.promoter-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .promoter-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trust-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 17, 45, 0.08);
+  border: 1px solid rgba(255, 17, 45, 0.25);
+  border-radius: 4px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #ff475b;
+  letter-spacing: 0.06em;
+}
+
+/* Audience Insights Grid */
+.audience-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin: 32px 0 16px;
+}
+
+.audience-stat-card {
+  background: rgba(14, 12, 19, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 24px 20px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.audience-stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 17, 45, 0.4);
+}
+
+.stat-category-label {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ff475b;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.stat-giant-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.stat-giant-num .accent-sign {
+  color: #ff112d;
+}
+
+.stat-desc {
+  font-size: 0.86rem;
+  color: #a4a1b4;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Corporate Concierge Strip */
+.corporate-concierge-card {
+  background: rgba(18, 14, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.concierge-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.concierge-item-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Tier Status Badges */
+.tier-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-exclusive {
+  background: rgba(255, 17, 45, 0.15);
+  color: #ff475b;
+  border: 1px solid rgba(255, 17, 45, 0.35);
+}
+
+.status-limited {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.35);
+}
+
+/* ==========================================================================
    PARTNERSHIP DELIVERABLES & MEASURABLE ROI STYLES (/sponsors)
    ========================================================================== */
 .working-doc-notice {
