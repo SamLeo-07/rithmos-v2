@@ -481,6 +481,30 @@
   box-shadow: 0 0 12px rgba(255, 28, 54, 0.6);
 }
 
+.heritage-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.heritage-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #ff112d;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 17, 45, 0.25);
+  background: linear-gradient(160deg, rgba(255, 17, 45, 0.12) 0%, #13101a 100%);
+}
+
+.heritage-card:hover .card-heading {
+  color: #ff334b;
+  text-shadow: 0 0 14px rgba(255, 17, 45, 0.6);
+}
+
+.heritage-card:hover .card-timeline-tag {
+  background: #ff112d;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 17, 45, 0.8);
+}
+
 .heritage-card.highlight-border {
   border-color: rgba(255, 28, 54, 0.5);
   background: linear-gradient(160deg, rgba(255, 28, 54, 0.06) 0%, #0d0c12 100%);

@@ -16,12 +16,14 @@ export class ModalManager {
   }
 
   initEventListeners() {
-    // 1. Open Register Modal (For Bands)
-    document.querySelectorAll('#nav-register-btn, #main-register-btn, .open-band-modal-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.openModal(this.registerModal);
-      });
+    // 1. Open Register Modal (Only for explicit inline modal triggers, allowing CTA buttons to navigate directly to /register)
+    document.querySelectorAll('.open-band-modal-btn').forEach(btn => {
+      if (!btn.getAttribute('href') || btn.getAttribute('href') === '#') {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.openModal(this.registerModal);
+        });
+      }
     });
 
     // Close Register Modal

@@ -240,9 +240,9 @@
         <span class="section-label">03 // OFFICIAL INTAKE DESK</span>
         <span class="tag-accent-bar red"></span>
       </div>
-      <h2 class="section-title">BAND REGISTRATION DOSSIER</h2>
+      <h2 class="section-title">BAND REGISTRATION FORM</h2>
       <p class="section-desc">
-        Submit your band details and audition link below. Complete all fields accurately. Once received, our screening panel will review your material and issue qualification status within 48 hours.
+        Submit your band details and audition video link below. Complete all fields accurately. Once received, our screening panel will review your material and issue qualification status within 48 hours.
       </p>
 
       <div class="contact-form-card" style="max-width: 860px; margin: 0 auto;">
@@ -255,40 +255,14 @@
               <input type="text" id="b-name" name="bandName" placeholder="e.g. Asura Syndicate" required>
             </div>
 
-            <!-- Primary Genre -->
+            <!-- Band Performing Language -->
             <div class="form-group">
-              <label for="b-genre">Primary Genre *</label>
-              <select id="b-genre" name="genre" required>
-                <option value="" disabled selected>Select Musical Genre</option>
-                <option value="Hard Rock / Classic Rock">Hard Rock / Classic Rock</option>
-                <option value="Heavy Metal / Thrash">Heavy Metal / Thrash</option>
-                <option value="Progressive Rock / Metal">Progressive Rock / Metal</option>
-                <option value="Indie Rock / Alternative">Indie Rock / Alternative</option>
-                <option value="Blues Rock / Funk Fusion">Blues Rock / Funk Fusion</option>
-                <option value="Carnatic / Indian Classical Rock Fusion">Carnatic / Indian Rock Fusion</option>
-                <option value="Punk / Post-Hardcore">Punk / Post-Hardcore</option>
-                <option value="Other Live Rock Style">Other Live Rock Style</option>
+              <label for="b-lang">Band Performing Language *</label>
+              <select id="b-lang" name="language" required>
+                <option value="" disabled>Select Performing Language</option>
+                <option value="Telugu (Mandatory)" selected>Telugu (Mandatory)</option>
+                <option value="Telugu + Multilingual">Telugu + Multilingual</option>
               </select>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
-            <!-- City of Origin -->
-            <div class="form-group">
-              <label for="b-city">Hometown / Base City *</label>
-              <input type="text" id="b-city" name="city" placeholder="e.g. Hyderabad / Secunderabad" required>
-            </div>
-
-            <!-- Formation Year -->
-            <div class="form-group">
-              <label for="b-year">Year Formed *</label>
-              <input type="number" id="b-year" name="formedYear" placeholder="2022" min="1980" max="2026" required>
-            </div>
-
-            <!-- Member Count -->
-            <div class="form-group">
-              <label for="b-members">Band Members Count *</label>
-              <input type="number" id="b-members" name="membersCount" placeholder="e.g. 5" min="2" max="12" required>
             </div>
           </div>
 
@@ -299,33 +273,33 @@
               <input type="text" id="b-leader" name="leaderName" placeholder="e.g. Vikramaditya Rao" required>
             </div>
 
-            <!-- Role in Band -->
+            <!-- Base City -->
             <div class="form-group">
-              <label for="b-role">Band Role *</label>
-              <input type="text" id="b-role" name="leaderRole" placeholder="e.g. Lead Guitarist / Manager" required>
+              <label for="b-city">Base City *</label>
+              <input type="text" id="b-city" name="city" placeholder="e.g. Hyderabad / Secunderabad" required>
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-            <!-- Phone / WhatsApp -->
+            <!-- Mobile Number -->
             <div class="form-group">
-              <label for="b-phone">WhatsApp Contact Number *</label>
+              <label for="b-phone">Mobile Number *</label>
               <input type="tel" id="b-phone" name="phone" placeholder="+91 98765 43210" required>
             </div>
 
-            <!-- Email -->
+            <!-- Official Email -->
             <div class="form-group">
-              <label for="b-email">Official Band Email *</label>
-              <input type="email" id="b-email" name="email" placeholder="management@banddomain.com" required>
+              <label for="b-email">Official Email *</label>
+              <input type="email" id="b-email" name="email" placeholder="official@banddomain.com" required>
             </div>
           </div>
 
-          <!-- Demo / Video URL -->
+          <!-- Audition Link -->
           <div class="form-group">
-            <label for="b-link">Audition Link (YouTube / Spotify / Drive) *</label>
-            <input type="url" id="b-link" name="demoUrl" placeholder="https://youtube.com/watch?v=... or Drive folder" required>
+            <label for="b-link">Audition Link (YouTube / Google Drive) *</label>
+            <input type="url" id="b-link" name="demoUrl" placeholder="https://youtube.com/watch?v=... or Google Drive link" required>
             <span style="font-size: 0.74rem; color: #848197; margin-top: 4px; display: block;">
-              Provide a clear rehearsal audio or live gig video showcasing your original musicianship. Rehearsal phone recordings are completely acceptable.
+              Provide a clear live gig or rehearsal video showcasing your original musicianship.
             </span>
           </div>
 
@@ -336,7 +310,7 @@
               <input type="text" id="b-social" name="socialUrl" placeholder="@yourbandhandle or linktr.ee">
             </div>
 
-            <!-- Stage Input Summary -->
+            <!-- Stage Lineup Summary -->
             <div class="form-group">
               <label for="b-tech">Stage Lineup / Channel Brief</label>
               <input type="text" id="b-tech" name="techBrief" placeholder="e.g. 2 Guitars, 1 Bass, 5-pc Kit, 2 Vocals">
@@ -363,7 +337,7 @@
           <div id="band-form-success" style="display: none; margin-top: 24px; padding: 20px; background: rgba(30, 200, 110, 0.1); border: 1px solid rgba(30, 200, 110, 0.3); border-radius: 8px;">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
               <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #1ec86e;"></span>
-              <strong style="color: #1ec86e; font-family: 'Space Grotesk', monospace; letter-spacing: 0.1em; font-size: 0.85rem;">DOSSIER TRANSMITTED TO JURY DESK</strong>
+              <strong style="color: #1ec86e; font-family: 'Space Grotesk', monospace; letter-spacing: 0.1em; font-size: 0.85rem;">APPLICATION TRANSMITTED TO JURY DESK</strong>
             </div>
             <p style="color: #d6d3e6; font-size: 0.9rem; margin: 0;">
               Your band registration has been securely logged (Ref ID: <span id="band-ref-code" style="color: #fff; font-family: monospace; font-weight: 700;">RTH-2026-BND</span>). Our curator committee will review your audition material and contact your band lead within 48 hours.
@@ -380,8 +354,10 @@
     <div class="static-container">
       <div class="footer-layout-row">
         <div class="footer-brand-lockup">
-          <span class="footer-brand-title">RITHMOS</span>
-          <span class="footer-brand-sub">WHERE BANDS RISE</span>
+          <a href="/" class="brand-link" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+            <img src="/assets/logo.png" alt="RITHMOS" style="height: 38px; width: auto;">
+          </a>
+          <span class="footer-brand-sub" style="margin-top: 6px;">WHERE BANDS RISE</span>
           <p class="footer-property-note">A property of Right Hand Entertainments</p>
         </div>
 
@@ -395,7 +371,34 @@
         </nav>
 
         <div class="footer-meta-col">
-          <span class="footer-tagline">MUSIC LIVES ON.</span>
+          <div class="footer-social-icons">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="X / Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+            </a>
+            <a href="https://threads.net" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Threads">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-legal-bar" style="margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.72rem; color: #6e6c78;">
+        <div>&copy; 2026 RITHMOS. A property of Right Hand Entertainments. All rights reserved.</div>
+        <div style="display: flex; gap: 18px;">
+          <a href="#" class="legal-link-terms" style="color: #8e8d94; text-decoration: none;">Terms &amp; Conditions</a>
+          <a href="#" class="legal-link-privacy" style="color: #8e8d94; text-decoration: none;">Privacy Policy</a>
         </div>
       </div>
     </div>
