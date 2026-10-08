@@ -54,19 +54,10 @@
 .subpage-hero.competition-hero {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(150px, 15vw, 200px);
-  padding-bottom: clamp(95px, 10vw, 135px);
+  min-height: 560px;
+  padding-top: clamp(145px, 14vw, 185px);
+  padding-bottom: clamp(130px, 12vw, 175px);
   background-color: #07060b;
-  background-image: 
-    /* Primary horizontal gradient: Deep dark fade on left protecting text contrast, opening into stage view on right */
-    linear-gradient(90deg, #07060b 0%, rgba(7, 6, 11, 0.93) 26%, rgba(7, 6, 11, 0.65) 50%, rgba(7, 6, 11, 0.16) 78%, rgba(7, 6, 11, 0.06) 100%),
-    /* Vertical gradients: Seamless top blend with header and bottom blend with Section 01 */
-    linear-gradient(180deg, #07060b 0%, rgba(7, 6, 11, 0.3) 16%, transparent 38%, rgba(7, 6, 11, 0.7) 84%, #07060b 100%),
-    /* Live concert arena background */
-    url('/assets/competition-stage-bg.png');
-  background-position: right 2% center;
-  background-size: cover;
-  background-repeat: no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -75,18 +66,40 @@
   z-index: 2;
 }
 
-/* Subtle red atmospheric backlight bloom behind the right stage */
-.subpage-hero.competition-hero::after {
-  content: "";
+.competition-hero-backdrop {
   position: absolute;
-  top: 15%;
-  right: 5%;
-  width: 480px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(255, 17, 45, 0.22) 0%, transparent 70%);
+  inset: 0;
   pointer-events: none;
   z-index: 1;
-  filter: blur(48px);
+  overflow: hidden;
+}
+
+.competition-stage-img {
+  position: absolute;
+  width: 125%;
+  min-width: 1350px;
+  height: auto;
+  left: 50%;
+  top: 80px;
+  transform: translateX(-56%);
+  opacity: 0.92;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.competition-hero-shade {
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Gradient Black across top to protect navbar and headline */
+    linear-gradient(180deg, #07060b 0%, #07060b 26%, rgba(7, 6, 11, 0.88) 42%, rgba(7, 6, 11, 0.3) 68%, transparent 85%, #07060b 100%),
+    /* Left text shield gradient */
+    linear-gradient(90deg, #07060b 0%, rgba(7, 6, 11, 0.96) 24%, rgba(7, 6, 11, 0.5) 45%, transparent 70%),
+    /* Right edge atmospheric fade */
+    linear-gradient(270deg, #07060b 0%, transparent 18%),
+    /* Bottom section blend */
+    linear-gradient(0deg, #07060b 0%, transparent 15%);
+  pointer-events: none;
 }
 
 .subpage-kicker {
@@ -2360,12 +2373,18 @@
   }
 
   .subpage-hero.competition-hero {
+    min-height: auto !important;
     padding-top: 105px !important;
     padding-bottom: 55px !important;
-    background-position: 72% 25% !important;
-    background-image: 
-      linear-gradient(180deg, rgba(7, 6, 11, 0.95) 0%, rgba(7, 6, 11, 0.72) 45%, rgba(7, 6, 11, 0.94) 100%),
-      url('/assets/competition-stage-bg.png') !important;
+  }
+
+  .competition-stage-img {
+    width: 180% !important;
+    min-width: 700px !important;
+    left: 45% !important;
+    top: 50px !important;
+    transform: translateX(-50%) !important;
+    opacity: 0.75 !important;
   }
 
   .subpage-container {
