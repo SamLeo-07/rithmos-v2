@@ -50,6 +50,45 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* Competition Page Specific Hero with Stage Concert Background */
+.subpage-hero.competition-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(150px, 15vw, 200px);
+  padding-bottom: clamp(95px, 10vw, 135px);
+  background-color: #07060b;
+  background-image: 
+    /* Primary horizontal gradient: Deep dark fade on left protecting text contrast, opening into stage view on right */
+    linear-gradient(90deg, #07060b 0%, rgba(7, 6, 11, 0.93) 26%, rgba(7, 6, 11, 0.65) 50%, rgba(7, 6, 11, 0.16) 78%, rgba(7, 6, 11, 0.06) 100%),
+    /* Vertical gradients: Seamless top blend with header and bottom blend with Section 01 */
+    linear-gradient(180deg, #07060b 0%, rgba(7, 6, 11, 0.3) 16%, transparent 38%, rgba(7, 6, 11, 0.7) 84%, #07060b 100%),
+    /* Live concert arena background */
+    url('/assets/competition-stage-bg.png');
+  background-position: right 2% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.subpage-hero.competition-hero .subpage-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Subtle red atmospheric backlight bloom behind the right stage */
+.subpage-hero.competition-hero::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 480px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255, 17, 45, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(48px);
+}
+
 .subpage-kicker {
   display: inline-flex;
   align-items: center;
@@ -2318,6 +2357,15 @@
   .subpage-hero {
     padding-top: 90px !important;
     padding-bottom: 40px !important;
+  }
+
+  .subpage-hero.competition-hero {
+    padding-top: 105px !important;
+    padding-bottom: 55px !important;
+    background-position: 72% 25% !important;
+    background-image: 
+      linear-gradient(180deg, rgba(7, 6, 11, 0.95) 0%, rgba(7, 6, 11, 0.72) 45%, rgba(7, 6, 11, 0.94) 100%),
+      url('/assets/competition-stage-bg.png') !important;
   }
 
   .subpage-container {
