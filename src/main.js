@@ -389,6 +389,25 @@ class RithmosApp {
       checkTerminal(term05);
       checkTerminal(term06);
 
+      // SECTION 03: Live SVG Red Cable + Step Cards
+      if (secHowItWorks) {
+        const pWorks = getProgress(secHowItWorks, winH);
+        const cablePathGlow = document.getElementById('cable-path-glow');
+        if (cablePathGlow) {
+          const clamped = Math.min(1.0, Math.max(0, pWorks * 1.35));
+          const offset = 1200 * (1.0 - clamped);
+          cablePathGlow.style.strokeDashoffset = `${offset}`;
+        }
+        const stepCards = secHowItWorks.querySelectorAll('.step-card');
+        stepCards.forEach((card, idx) => {
+          if (pWorks >= 0.08 + idx * 0.12) {
+            card.classList.add('is-energized');
+          } else {
+            card.classList.remove('is-energized');
+          }
+        });
+      }
+
       // SECTION 04: Benefit Cards & Isometric Ascending Steps
       if (secBands) {
         const pBands = getProgress(secBands, winH);

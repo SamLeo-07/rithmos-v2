@@ -2551,5 +2551,45 @@
   }
 }
 
+/* ==========================================================================
+   INTERACTIVE SUBPAGE CARDS & ANIMATED EQUALIZER EFFECTS
+   ========================================================================== */
+.stand-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background-color 0.35s ease;
+  cursor: default;
+}
+
+.stand-card:hover,
+.platform-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff112d !important;
+  box-shadow: 0 14px 35px rgba(255, 17, 45, 0.22);
+}
+
+.stand-card:hover .stand-icon-wrap,
+.platform-card:hover svg {
+  transform: scale(1.15);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stand-card .eq-bar,
+.platform-card .eq-bar,
+.subpage-card .eq-bar,
+.benefit-box .eq-bar {
+  background: #ff1c36 !important;
+  box-shadow: 0 0 6px rgba(255, 28, 54, 0.75);
+  animation: eqBounce 0.9s infinite ease-in-out alternate;
+}
+
+.subpage-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 28, 54, 0.7) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 28, 54, 0.15);
+  transition: all 0.35s ease;
+}
+
 
 
