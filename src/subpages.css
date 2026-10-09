@@ -102,6 +102,111 @@
   pointer-events: none;
 }
 
+/* About Page Hero Arena Stage Showcase */
+.subpage-hero.about-hero {
+  position: relative;
+  background: radial-gradient(circle at 50% 10%, rgba(255, 17, 45, 0.16) 0%, rgba(7, 6, 11, 0.98) 70%, #07060b 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-hero-stage-visual {
+  margin-top: 36px;
+  position: relative;
+  border: 1px solid rgba(255, 17, 45, 0.35);
+  border-radius: 12px;
+  background: #09080e;
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.8),
+    0 0 32px rgba(255, 17, 45, 0.18);
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-hero-stage-visual:hover {
+  border-color: rgba(255, 17, 45, 0.65);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.9),
+    0 0 44px rgba(255, 17, 45, 0.32);
+}
+
+.about-stage-visual-badge {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(10, 8, 14, 0.88);
+  border: 1px solid rgba(255, 17, 45, 0.35);
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ff8a98;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.about-stage-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff112d;
+  box-shadow: 0 0 10px #ff112d;
+  animation: jackPulse 1.8s infinite ease-in-out;
+}
+
+.about-stage-visual-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 11px;
+}
+
+.about-stage-visual-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+  filter: contrast(1.06) brightness(0.98);
+}
+
+.about-hero-stage-visual:hover .about-stage-visual-img {
+  transform: scale(1.02);
+  filter: contrast(1.1) brightness(1.02);
+}
+
+.about-stage-visual-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 6, 11, 0.35) 0%, transparent 25%, transparent 75%, rgba(7, 6, 11, 0.55) 100%);
+}
+
+@media (max-width: 768px) {
+  .about-hero-stage-visual {
+    margin-top: 24px;
+    border-radius: 8px;
+  }
+  .about-stage-visual-badge {
+    top: 10px;
+    left: 10px;
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    letter-spacing: 0.1em;
+  }
+  .about-stage-badge-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
 .subpage-kicker {
   display: inline-flex;
   align-items: center;
