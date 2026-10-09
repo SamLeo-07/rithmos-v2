@@ -102,108 +102,76 @@
   pointer-events: none;
 }
 
-/* About Page Hero Arena Stage Showcase */
+/* About Page Hero with Authentic Arena Stage Concert Background */
 .subpage-hero.about-hero {
   position: relative;
-  background: radial-gradient(circle at 50% 10%, rgba(255, 17, 45, 0.16) 0%, rgba(7, 6, 11, 0.98) 70%, #07060b 100%);
+  overflow: hidden;
+  min-height: 580px;
+  padding-top: clamp(140px, 13vw, 185px);
+  padding-bottom: clamp(110px, 10vw, 150px);
+  background-color: #07060b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.about-hero-stage-visual {
-  margin-top: 36px;
+.subpage-hero.about-hero .subpage-container {
   position: relative;
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  border-radius: 12px;
-  background: #09080e;
-  box-shadow: 
-    0 16px 48px rgba(0, 0, 0, 0.8),
-    0 0 32px rgba(255, 17, 45, 0.18);
-  overflow: hidden;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  z-index: 2;
 }
 
-.about-hero-stage-visual:hover {
-  border-color: rgba(255, 17, 45, 0.65);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.9),
-    0 0 44px rgba(255, 17, 45, 0.32);
-}
-
-.about-stage-visual-badge {
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: rgba(10, 8, 14, 0.88);
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  border-radius: 4px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #ff8a98;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.about-stage-badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ff112d;
-  box-shadow: 0 0 10px #ff112d;
-  animation: jackPulse 1.8s infinite ease-in-out;
-}
-
-.about-stage-visual-frame {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 11px;
-}
-
-.about-stage-visual-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  transform: scale(1);
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
-  filter: contrast(1.06) brightness(0.98);
-}
-
-.about-hero-stage-visual:hover .about-stage-visual-img {
-  transform: scale(1.02);
-  filter: contrast(1.1) brightness(1.02);
-}
-
-.about-stage-visual-glow {
+.about-hero-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(7, 6, 11, 0.35) 0%, transparent 25%, transparent 75%, rgba(7, 6, 11, 0.55) 100%);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.about-hero-bg-img {
+  position: absolute;
+  width: 120%;
+  min-width: 1300px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.72;
+  filter: contrast(1.18) brightness(0.92);
+  pointer-events: none;
+}
+
+.about-hero-shade {
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Gradient Black from top to shield navbar, kicker, and headline */
+    linear-gradient(180deg, #07060b 0%, #07060b 24%, rgba(7, 6, 11, 0.88) 44%, rgba(7, 6, 11, 0.35) 70%, transparent 85%, #07060b 100%),
+    /* Text shield gradient from left */
+    linear-gradient(90deg, #07060b 0%, rgba(7, 6, 11, 0.95) 28%, rgba(7, 6, 11, 0.55) 50%, transparent 75%),
+    /* Right side atmospheric fade */
+    linear-gradient(270deg, #07060b 0%, transparent 20%),
+    /* Bottom blend to Chapter 01 */
+    linear-gradient(0deg, #07060b 0%, transparent 18%);
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  .about-hero-stage-visual {
-    margin-top: 24px;
-    border-radius: 8px;
+  .subpage-hero.about-hero {
+    min-height: 480px;
+    padding-top: 130px;
+    padding-bottom: 80px;
   }
-  .about-stage-visual-badge {
-    top: 10px;
-    left: 10px;
-    font-size: 0.65rem;
-    padding: 4px 8px;
-    letter-spacing: 0.1em;
+  .about-hero-bg-img {
+    width: 160%;
+    min-width: 800px;
+    object-position: center 80%;
+    opacity: 0.65;
   }
-  .about-stage-badge-dot {
-    width: 6px;
-    height: 6px;
+  .about-hero-shade {
+    background: 
+      linear-gradient(180deg, #07060b 0%, rgba(7, 6, 11, 0.92) 32%, rgba(7, 6, 11, 0.65) 60%, rgba(7, 6, 11, 0.4) 80%, #07060b 100%),
+      linear-gradient(90deg, #07060b 0%, rgba(7, 6, 11, 0.85) 50%, transparent 100%);
   }
 }
 
