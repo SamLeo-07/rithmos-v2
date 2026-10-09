@@ -39,7 +39,11 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="subpage-hero">
+  <section class="subpage-hero competition-hero about-hero">
+    <div class="competition-hero-backdrop" aria-hidden="true">
+      <img src="/assets/competition-stage-bg.png" alt="" class="competition-stage-img">
+      <div class="competition-hero-shade"></div>
+    </div>
     <div class="subpage-container">
       <div class="subpage-kicker">
         <span class="kicker-dot"></span>
@@ -50,17 +54,8 @@
         <span class="accent-text">EVERY STORY NEEDS A STAGE. RITHMOS IS THE STAGE.</span>
       </h1>
       <p class="subpage-lead">
-        RITHMOS is a stage created for live bands, their music and the stories they have to tell. It is a celebration of talent, performance and the energy of live music — bringing bands and audiences together for moments that deserve to be heard, seen and remembered.
+        RITHMOS is a stage created for live bands, their music and the stories they have to tell. It is a celebration of talent, performance and the energy of live music &mdash; bringing bands and audiences together for moments that deserve to be heard, seen and remembered.
       </p>
-
-      <!-- Concert Stage Visual Showcase (Replacing old text cards) -->
-      <div class="about-hero-stage-visual" style="margin-top: 36px; border: 1px solid rgba(255, 17, 45, 0.35); border-radius: 8px; overflow: hidden; position: relative; background: radial-gradient(circle at center, rgba(255, 17, 45, 0.15) 0%, rgba(10, 8, 14, 0.95) 70%); box-shadow: 0 12px 48px rgba(255, 17, 45, 0.2);">
-        <div style="position: absolute; top: 16px; left: 20px; z-index: 2; display: flex; align-items: center; gap: 8px;">
-          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ff112d; box-shadow: 0 0 10px #ff112d;"></span>
-          <span style="font-family: 'Space Grotesk', monospace; font-size: 0.72rem; color: #ff8a98; letter-spacing: 0.14em; font-weight: 700;">LIVE ARENA STAGE // HYDERABAD 2026</span>
-        </div>
-        <img src="/assets/stage-platform.png" alt="RITHMOS Concert Live Stage Architecture" style="width: 100%; height: auto; display: block; filter: contrast(1.1) brightness(0.95); transform: scale(1.02); transition: transform 0.6s ease;">
-      </div>
     </div>
   </section>
 
@@ -297,17 +292,90 @@
     </div>
   </section>
 
-  <!-- CTA Banner -->
-  <div class="subpage-container" style="margin-top: 40px;">
-    <div class="subpage-cta-banner">
-      <h3>YOUR BAND. YOUR SOUND. YOUR SHOT.</h3>
-      <p>Applications for the 2026 Hyderabad tournament circuit are officially open. Zero entry fee for all genuine live bands.</p>
-      <a href="/register" class="pill-cta-btn center-btn" style="text-decoration: none;">
-        <span>REGISTER YOUR BAND</span>
-        <span class="arrow-sym">→</span>
-      </a>
+  <!-- Ready to Rise Section with 3D Isometric Ascending Steps Graphic -->
+  <section class="subpage-section" style="margin-top: 40px;">
+    <div class="subpage-container">
+      <div class="stage-split-layout" style="background: rgba(14, 12, 18, 0.85); border: 1px solid rgba(255, 17, 45, 0.25); border-radius: 8px; padding: 40px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 32px;">
+        <div class="stage-left-text" style="flex: 1; min-width: 300px;">
+          <div class="section-tag-kicker red-accent" style="margin-bottom: 12px;">
+            <span class="tag-num" style="font-family: 'Space Grotesk', monospace; color: #ff112d; font-weight: 700;">CALL FOR FAME</span>
+            <span class="tag-divider" style="color: #666; margin: 0 6px;">/</span>
+            <span class="tag-label" style="font-size: 0.75rem; color: #a4a1b4; letter-spacing: 0.1em;">AUDITIONS OPEN</span>
+          </div>
+          <h2 class="static-headline text-white" style="font-size: 2.4rem; font-family: var(--font-heading); margin-bottom: 14px;">READY TO RISE?</h2>
+          <p class="static-subhead text-muted" style="font-size: 1.05rem; line-height: 1.6; color: #c4c1d0; margin-bottom: 24px;">
+            If your band believes it has something to say, something to play and something worth sharing &mdash; this is your call for fame!
+          </p>
+          <a href="/register" class="pill-cta-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
+            <span>REGISTER YOUR BAND</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="isometric-steps-col" id="isometric-steps-col" style="flex: 1; min-width: 320px; display: flex; justify-content: center;">
+          <svg class="isometric-steps-svg" id="iso-steps-svg" viewBox="0 0 540 320" fill="none" style="width: 100%; max-width: 480px; height: auto;">
+            <defs>
+              <linearGradient id="redTopAbout" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff3b4e"/>
+                <stop offset="100%" stop-color="#ff112d"/>
+              </linearGradient>
+              <linearGradient id="redFrontAbout" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ff112d"/>
+                <stop offset="100%" stop-color="#aa081a"/>
+              </linearGradient>
+              <linearGradient id="redSideAbout" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#800412"/>
+                <stop offset="100%" stop-color="#4d020a"/>
+              </linearGradient>
+              <filter id="redFloorGlowAbout" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="16" result="blur"/>
+              </filter>
+            </defs>
+            <ellipse cx="320" cy="275" rx="190" ry="24" fill="rgba(0,0,0,0.1)"/>
+            <ellipse cx="430" cy="270" rx="65" ry="20" fill="rgba(255,17,45,0.22)" filter="url(#redFloorGlowAbout)"/>
+
+            <g class="iso-step step-1 is-lit" id="about-step-1">
+              <polygon points="120,240 152,224 184,240 152,256" fill="#3d3d45"/>
+              <polygon points="120,240 152,256 152,278 120,262" fill="#202026"/>
+              <polygon points="152,256 184,240 184,262 152,278" fill="#15151a"/>
+            </g>
+            <g class="iso-step step-2 is-lit" id="about-step-2">
+              <polygon points="160,220 192,204 224,220 192,236" fill="#42424b"/>
+              <polygon points="160,220 192,236 192,272 160,256" fill="#24242c"/>
+              <polygon points="192,236 224,220 224,256 192,272" fill="#18181f"/>
+            </g>
+            <g class="iso-step step-3 is-lit" id="about-step-3">
+              <polygon points="200,200 232,184 264,200 232,216" fill="#484852"/>
+              <polygon points="200,200 232,216 232,268 200,252" fill="#282832"/>
+              <polygon points="232,216 264,200 264,252 232,268" fill="#1c1c24"/>
+            </g>
+            <g class="iso-step step-4 is-lit" id="about-step-4">
+              <polygon points="240,180 272,164 304,180 272,196" fill="#4f4f5a"/>
+              <polygon points="240,180 272,196 272,266 240,250" fill="#2d2d38"/>
+              <polygon points="272,196 304,180 304,250 272,266" fill="#20202a"/>
+            </g>
+            <g class="iso-step step-5 is-lit" id="about-step-5">
+              <polygon points="280,160 312,144 344,160 312,176" fill="#565663"/>
+              <polygon points="280,160 312,176 312,268 280,252" fill="#32323f"/>
+              <polygon points="312,176 344,160 344,252 312,268" fill="#252530"/>
+            </g>
+            <g class="iso-step step-6 is-lit" id="about-step-6">
+              <polygon points="320,140 352,124 384,140 352,156" fill="#5e5e6c"/>
+              <polygon points="320,140 352,156 352,274 320,258" fill="#383846"/>
+              <polygon points="352,156 384,140 384,258 352,274" fill="#2a2a37"/>
+            </g>
+            <g class="iso-step step-7 is-peak" id="about-step-7">
+              <polygon points="370,80 415,56 460,80 415,104" fill="url(#redTopAbout)"/>
+              <polygon points="370,80 415,104 415,284 370,260" fill="url(#redFrontAbout)"/>
+              <polygon points="415,104 460,80 460,260 415,284" fill="url(#redSideAbout)"/>
+              <line x1="415" y1="56" x2="415" y2="284" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.8"/>
+              <line x1="370" y1="80" x2="415" y2="104" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.9"/>
+            </g>
+          </svg>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- Master Footer -->
   <footer class="static-master-footer theme-dark">
