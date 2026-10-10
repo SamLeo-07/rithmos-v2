@@ -1962,246 +1962,300 @@
 }
 
 /* ==========================================================================
-   FULL-WIDTH SECTION: BRAND ENVIRONMENT SIMULATOR
-   - ZERO CARDS
-   - EDGE-TO-EDGE SECTION BACKGROUND (100% Full Viewport Width)
-   - Seamless Background Transitions on the Webpage Section Itself
+   SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR
+   - Photorealistic AI Images as Right-Side Atmospheric Background
+   - Multi-Directional Gradient Overlay Blending Smoothly into Pure Black
+   - Left Side: All Text & Interactive Pillar Items Restored (Zero Box Cards)
    ========================================================================== */
 
 .brand-environment-section {
   position: relative;
   width: 100%;
-  min-height: 80vh;
-  padding: 100px 0 80px;
+  min-height: 820px;
+  padding: 90px 0 80px;
+  background: #07050a;
   overflow: hidden;
-  background: #050308;
   border-top: 1px solid rgba(255, 17, 45, 0.2);
   border-bottom: 1px solid rgba(255, 17, 45, 0.2);
-  /* Explicitly ZERO card properties */
-  border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
-/* 1. Dynamic Edge-to-Edge Section Background (100% Full Bleed, Zero Cards) */
-.section-bg-viewport {
+/* 1. Right-Side Background Image Layers (Zero Cards, True Background) */
+.showcase-right-backdrop {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 58%;
   height: 100%;
   z-index: 1;
-  overflow: hidden;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.stage-bg-slide {
+.right-backdrop-slide {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   transform: scale(1.04);
-  transition: opacity 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-  pointer-events: none;
+  transition: opacity 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.stage-bg-slide.active {
+.right-backdrop-slide.active {
   opacity: 1;
   transform: scale(1);
   z-index: 2;
 }
 
-.stage-bg-img {
+.right-backdrop-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
+  object-position: center 30%;
   filter: contrast(1.08) saturate(1.15);
 }
 
-/* Atmospheric Section Scrim & Top/Bottom Seamless Fade */
-.section-bg-scrim {
+/* Multi-Stop Gradient Overlay: Seamlessly dissolves image into background black */
+.right-backdrop-gradient {
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: 
-    linear-gradient(180deg, 
-      rgba(5, 3, 8, 0.96) 0%, 
-      rgba(5, 3, 8, 0.6) 18%, 
-      rgba(5, 3, 8, 0.35) 45%, 
-      rgba(5, 3, 8, 0.65) 80%, 
-      rgba(5, 3, 8, 0.98) 100%
-    ),
-    radial-gradient(circle at center, transparent 35%, rgba(5, 3, 8, 0.75) 100%);
   pointer-events: none;
+  background: 
+    /* Horizontal Fade: Solid #07050a on left, gradually revealing image to the right */
+    linear-gradient(to right, 
+      #07050a 0%, 
+      #07050a 12%, 
+      rgba(7, 5, 10, 0.85) 32%, 
+      rgba(7, 5, 10, 0.4) 60%, 
+      rgba(7, 5, 10, 0.1) 85%, 
+      rgba(7, 5, 10, 0.3) 100%
+    ),
+    /* Vertical Fade: Soft blend into page top and bottom */
+    linear-gradient(180deg, 
+      #07050a 0%, 
+      rgba(7, 5, 10, 0.2) 16%, 
+      transparent 35%, 
+      transparent 70%, 
+      rgba(7, 5, 10, 0.5) 86%, 
+      #07050a 100%
+    );
 }
 
-/* 2. Section Content Container (Centered on top of full-bleed background) */
-.brand-section-container {
+/* 2. Content Container & Two-Column Grid */
+.showcase-content-container {
   position: relative;
   z-index: 5;
-  max-width: 1280px;
+  max-width: 1260px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 28px;
+}
+
+.showcase-content-grid {
+  display: grid;
+  grid-template-columns: 540px 1fr;
+  gap: 48px;
+  align-items: center;
+  min-height: 640px;
+}
+
+/* Left Column: All Text & Interactive Pillar Items */
+.showcase-text-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(80vh - 180px);
 }
 
-/* Section Header */
-.section-takeover-header {
-  text-align: center;
-  max-width: 860px;
-  margin: 0 auto 36px;
-}
-
-.section-takeover-title {
+.showcase-headline {
   font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
   letter-spacing: 0.04em;
   color: #ffffff;
   margin: 10px 0 8px;
   text-transform: uppercase;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
-  line-height: 0.98;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
 }
 
-.section-takeover-subhead {
-  font-size: 1.05rem;
-  color: #cfcce0;
+.showcase-subhead {
+  font-size: 0.95rem;
+  color: #aba8ba;
   line-height: 1.6;
-  margin: 0 auto;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  margin: 0 0 26px;
+  max-width: 500px;
 }
 
-/* 3. Floating Glass Pillar Dock (Tabs floating directly over background) */
-.stage-pill-dock {
+/* 5 Interactive Pillar Rows (Sleek, transparent, NO chunky cards) */
+.brand-pillar-list {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto 40px;
-  padding: 8px 12px;
-  background: rgba(10, 8, 16, 0.68);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 17, 45, 0.15);
-  width: fit-content;
-  max-width: 100%;
-}
-
-.stage-dock-pill {
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 30px;
-  padding: 10px 22px;
-  color: #b5b1c5;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
-  font-family: 'Space Grotesk', monospace;
+}
+
+.pillar-interactive-row {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: rgba(14, 11, 20, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 14px 18px;
+  cursor: pointer;
   outline: none;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.stage-dock-pill:hover {
-  color: #ffffff;
-  background: rgba(255, 17, 45, 0.16);
-  border-color: rgba(255, 17, 45, 0.4);
-  transform: translateY(-2px);
+.pillar-interactive-row:hover,
+.pillar-interactive-row:focus-visible {
+  background: rgba(22, 16, 30, 0.92);
+  border-color: rgba(255, 17, 45, 0.45);
+  transform: translateX(4px);
 }
 
-.stage-dock-pill.active {
-  background: linear-gradient(135deg, rgba(255, 17, 45, 0.35) 0%, rgba(190, 8, 30, 0.25) 100%);
+.pillar-interactive-row.active {
+  background: linear-gradient(90deg, rgba(255, 17, 45, 0.2) 0%, rgba(20, 15, 28, 0.95) 75%);
   border-color: #ff112d;
-  color: #ffffff;
-  box-shadow: 0 0 24px rgba(255, 17, 45, 0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 17, 45, 0.25);
+  transform: translateX(6px);
 }
 
-.dock-num {
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #ff334b;
+.row-indicator-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: transparent;
+  border-radius: 8px 0 0 8px;
+  transition: all 0.25s ease;
 }
 
-.stage-dock-pill.active .dock-num {
-  color: #ffffff;
-  text-shadow: 0 0 8px #ff112d;
+.pillar-interactive-row.active .row-indicator-bar {
+  background: #ff112d;
+  box-shadow: 0 0 10px #ff112d;
 }
 
-.dock-label {
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.row-content {
+  flex: 1;
 }
 
-.dock-sub {
-  font-size: 0.68rem;
-  color: #8b879c;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding-left: 8px;
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.stage-dock-pill.active .dock-sub {
-  color: #ffcdd4;
-}
-
-/* 4. Bottom Cinema HUD Horizon Bar */
-.stage-hud-bar {
+.row-top-line {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 32px;
-  background: rgba(9, 6, 14, 0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  border-radius: 12px;
-  padding: 24px 32px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), inset 0 0 25px rgba(255, 17, 45, 0.08);
-}
-
-.hud-scenarios-container {
-  flex: 1;
-  min-width: 0;
-}
-
-.hud-detail-panel {
-  display: none;
-  animation: hudFadeIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.hud-detail-panel.active {
-  display: block;
-}
-
-@keyframes hudFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hud-meta-kicker {
-  display: flex;
   align-items: center;
-  gap: 8px;
   margin-bottom: 4px;
 }
 
-.hud-live-beacon {
+.row-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ff475b;
+}
+
+.row-badge {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #8c899c;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pillar-interactive-row.active .row-badge {
+  color: #ffffff;
+  border-color: rgba(255, 17, 45, 0.4);
+  background: rgba(255, 17, 45, 0.18);
+}
+
+.row-title {
+  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  margin: 0 0 3px 0;
+  line-height: 1.1;
+  transition: color 0.25s ease;
+}
+
+.pillar-interactive-row.active .row-title {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 17, 45, 0.4);
+}
+
+.row-desc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #b0adb9;
+  margin: 0 0 8px 0;
+}
+
+.row-footer-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.row-meta {
+  color: #7a7888;
+  text-transform: uppercase;
+}
+
+.row-action {
+  color: #ff475b;
+  font-weight: 700;
+  transition: transform 0.25s ease;
+}
+
+.pillar-interactive-row:hover .row-action,
+.pillar-interactive-row.active .row-action {
+  transform: translateX(3px);
+  color: #ff112d;
+}
+
+/* Right Column: Floating Telemetry HUD Badge (No window card, just a glass status chip) */
+.showcase-visual-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hud-telemetry-badge {
+  background: rgba(10, 8, 16, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 17, 45, 0.35);
+  border-radius: 12px;
+  padding: 22px 26px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 0 16px rgba(255, 17, 45, 0.08);
+  pointer-events: auto;
+  transition: all 0.35s ease;
+}
+
+.hud-scenario-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hud-pulse-led {
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -2215,207 +2269,143 @@
   50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-.hud-kicker-text {
+.hud-scenario-tag {
   font-family: 'Space Grotesk', monospace;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: #ff475b;
   text-transform: uppercase;
 }
 
-.hud-takeover-title {
+.hud-scenario-headline {
   font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-size: 1.45rem;
   letter-spacing: 0.05em;
   color: #ffffff;
-  margin: 4px 0 6px;
+  margin: 0 0 6px 0;
   text-transform: uppercase;
-  text-shadow: 0 0 14px rgba(255, 17, 45, 0.4);
+  text-shadow: 0 0 12px rgba(255, 17, 45, 0.4);
   line-height: 1.1;
 }
 
-.hud-takeover-desc {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: #d1cde0;
-  margin: 0 0 14px;
-  max-width: 860px;
+.hud-scenario-sub {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #c9c6d8;
+  margin: 0 0 12px 0;
 }
 
-.hud-chips-row {
+.hud-chips-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
-.hud-chip {
+.hud-chip-item {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #a7a4b6;
-  background: rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.06em;
+  color: #a4a1b4;
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  padding: 4px 10px;
+  border-radius: 3px;
+  padding: 3px 8px;
 }
 
-.hud-chip.highlight {
+.hud-chip-item.highlight {
   color: #ffffff;
   background: rgba(255, 17, 45, 0.18);
   border-color: rgba(255, 17, 45, 0.5);
 }
 
-/* Stepper & Indicators */
-.hud-controls-col {
+.hud-bottom-telemetry {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.hud-stepper {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.hud-nav-arrow {
-  width: 36px;
-  height: 36px;
+.telemetry-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.t-dot-btn {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  outline: none;
-}
-
-.hud-nav-arrow:hover {
-  background: #ff112d;
-  border-color: #ff112d;
-  box-shadow: 0 0 12px #ff112d;
-  transform: scale(1.08);
-}
-
-.hud-indicator-dots {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.h-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #2b2535;
+  background: #332d40;
   border: none;
   cursor: pointer;
   transition: all 0.25s ease;
   padding: 0;
 }
 
-.h-dot.active {
+.t-dot-btn.active {
   background: #ff112d;
-  box-shadow: 0 0 10px #ff112d;
-  transform: scale(1.25);
+  box-shadow: 0 0 8px #ff112d;
+  transform: scale(1.2);
 }
 
-.hud-signal-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.telemetry-live-text {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.65rem;
-  color: #8c889a;
-  letter-spacing: 0.1em;
-}
-
-.signal-live-led {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #2ecc71;
-  box-shadow: 0 0 6px #2ecc71;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: #8c899c;
 }
 
 /* Responsive Scaling */
 @media (max-width: 1024px) {
-  .brand-environment-section {
-    padding: 70px 0 50px;
-    min-height: auto;
+  .showcase-content-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
-  .stage-hud-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 20px 24px;
-  }
-
-  .hud-controls-col {
+  .showcase-right-backdrop {
     width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 14px;
+    opacity: 0.35;
+  }
+
+  .right-backdrop-gradient {
+    background: linear-gradient(180deg, #07050a 0%, rgba(7, 5, 10, 0.7) 40%, #07050a 100%);
+  }
+
+  .showcase-visual-col {
+    align-items: flex-start;
+  }
+
+  .hud-telemetry-badge {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .brand-environment-section {
-    padding: 55px 0 40px;
+    padding: 60px 0 40px;
   }
 
-  .brand-section-container {
-    padding: 0 18px;
+  .showcase-content-container {
+    padding: 0 16px;
   }
 
-  .section-takeover-title {
-    font-size: clamp(2.1rem, 7vw, 2.8rem);
+  .showcase-headline {
+    font-size: 2.2rem;
   }
 
-  .stage-pill-dock {
-    width: 100%;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 6px 8px;
-    border-radius: 20px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+  .pillar-interactive-row {
+    padding: 12px 14px;
   }
 
-  .stage-pill-dock::-webkit-scrollbar {
-    display: none;
+  .row-title {
+    font-size: 1.15rem;
   }
 
-  .stage-dock-pill {
-    padding: 8px 14px;
-    flex-shrink: 0;
-  }
-
-  .dock-sub {
-    display: none;
-  }
-
-  .stage-hud-bar {
-    padding: 16px 18px;
-  }
-
-  .hud-takeover-title {
-    font-size: 1.35rem;
-  }
-
-  .hud-takeover-desc {
-    font-size: 0.82rem;
+  .row-desc {
+    font-size: 0.78rem;
   }
 }
 

@@ -362,15 +362,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR (FULL BACKGROUND STAGE)
+  // SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR (RIGHT-SIDE BACKGROUND)
   // ==========================================================================
-  const stageBgSlides = document.querySelectorAll('.stage-bg-slide');
-  const stageDockPills = document.querySelectorAll('.stage-dock-pill');
-  const hudDetailPanels = document.querySelectorAll('.hud-detail-panel');
-  const hudDots = document.querySelectorAll('.h-dot');
-  const hudPrevBtn = document.getElementById('hud-prev-btn');
-  const hudNextBtn = document.getElementById('hud-next-btn');
-  const stageContainer = document.getElementById('brand-pillars-showcase');
+  const backdropSlides = document.querySelectorAll('.right-backdrop-slide');
+  const pillarRows = document.querySelectorAll('.pillar-interactive-row');
+  const telemetryDots = document.querySelectorAll('.t-dot-btn');
+  const stageSection = document.getElementById('brand-pillars-showcase');
+
+  const hudTag = document.getElementById('hud-scenario-tag');
+  const hudHeadline = document.getElementById('hud-scenario-headline');
+  const hudSub = document.getElementById('hud-scenario-sub');
+  const hudChip1 = document.getElementById('hud-chip-1');
+  const hudChip2 = document.getElementById('hud-chip-2');
+  const hudChip3 = document.getElementById('hud-chip-3');
+
+  const scenarioMeta = {
+    '1': {
+      tag: 'SCENARIO 01 // MAIN STAGE TAKEOVER',
+      headline: '[ YOUR BRAND ] MAIN STAGE TAKEOVER',
+      sub: 'Main proscenium LED screen, dual stadium side towers & overhead steel rigging across all headline sets.',
+      chip1: '10,000+ ARENA ATTENDEES',
+      chip2: 'CATEGORY EXCLUSIVE',
+      chip3: '100% SIGHTLINE TAKEOVER'
+    },
+    '2': {
+      tag: 'SCENARIO 02 // ARTIST & BAND ECOSYSTEM',
+      headline: '[ YOUR BRAND ] BACKSTAGE & GEAR INTEGRATION',
+      sub: 'VIP artist credentials, official kick drumhead decals, amplifier badges & backstage media wall presence.',
+      chip1: 'IN EVERY BAND PHOTO & REEL',
+      chip2: 'GEAR LOCKUP',
+      chip3: 'DIRECT TALENT AFFILIATION'
+    },
+    '3': {
+      tag: 'SCENARIO 03 // LIVE STADIUM FAN ZONE',
+      headline: '[ YOUR BRAND ] FAN ZONE & RFID WRISTBANDS',
+      sub: 'Smart glowing RFID wristbands on every attendee plus dedicated neon brand activation lounge in the stadium concourse.',
+      chip1: '10,000+ FANS EQUIPPED',
+      chip2: '7.2 HRS AVG DWELL TIME',
+      chip3: 'HIGH ENGAGEMENT'
+    },
+    '4': {
+      tag: 'SCENARIO 04 // 4K LIVESTREAM BROADCAST',
+      headline: '[ YOUR BRAND ] 4K LIVESTREAM TAKEOVER',
+      sub: 'Broadcast TV lower-third graphics, digital scorecard branding, YouTube stream watermarks & live chat sponsor banners.',
+      chip1: '150K+ PEAK CONCURRENT',
+      chip2: '1.8M+ IMPRESSIONS',
+      chip3: 'GLOBAL LIVESTREAM BUG'
+    },
+    '5': {
+      tag: 'SCENARIO 05 // GLOBAL TELUGU DIASPORA',
+      headline: '[ YOUR BRAND ] WORLDWIDE TELUGU NETWORK',
+      sub: 'Satellite OTT watermarks reaching USA, UK, UAE, Australia & Singapore diaspora, plus the Global Fan Choice Award sponsorship.',
+      chip1: '5 CONTINENTS REACH',
+      chip2: '1.8M+ TELUGU AUDIENCE',
+      chip3: 'PREMIUM DEMOGRAPHIC'
+    }
+  };
 
   let currentScenario = 1;
   const totalScenarios = 5;
@@ -383,8 +430,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentScenario = num;
     const numStr = String(num);
 
-    // 1. Crossfade Full Background Slides
-    stageBgSlides.forEach((slide) => {
+    // 1. Crossfade Right-Side Background Slides
+    backdropSlides.forEach((slide) => {
       if (slide.dataset.scenario === numStr) {
         slide.classList.add('active');
       } else {
@@ -392,99 +439,90 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 2. Update Dock Pills (No cards - sleek glass tabs)
-    stageDockPills.forEach((pill) => {
-      if (pill.dataset.pillar === numStr) {
-        pill.classList.add('active');
-        pill.setAttribute('aria-selected', 'true');
+    // 2. Update Left-Side Interactive Pillar Rows
+    pillarRows.forEach((row) => {
+      if (row.dataset.pillar === numStr) {
+        row.classList.add('active');
       } else {
-        pill.classList.remove('active');
-        pill.setAttribute('aria-selected', 'false');
+        row.classList.remove('active');
       }
     });
 
-    // 3. Update HUD Detail Panels
-    hudDetailPanels.forEach((panel) => {
-      if (panel.dataset.detail === numStr) {
-        panel.classList.add('active');
-      } else {
-        panel.classList.remove('active');
-      }
-    });
-
-    // 4. Update Indicator Dots
-    hudDots.forEach((dot) => {
+    // 3. Update Telemetry Dots
+    telemetryDots.forEach((dot) => {
       if (dot.dataset.target === numStr) {
         dot.classList.add('active');
       } else {
         dot.classList.remove('active');
       }
     });
+
+    // 4. Update Telemetry Floating Badge Details
+    const data = scenarioMeta[numStr];
+    if (data) {
+      if (hudTag) hudTag.textContent = data.tag;
+      if (hudHeadline) hudHeadline.textContent = data.headline;
+      if (hudSub) hudSub.textContent = data.sub;
+      if (hudChip1) hudChip1.textContent = data.chip1;
+      if (hudChip2) hudChip2.textContent = data.chip2;
+      if (hudChip3) hudChip3.textContent = data.chip3;
+    }
   }
 
-  // Interactivity: Hover & Click on Dock Pills
-  stageDockPills.forEach((pill) => {
-    const pId = pill.dataset.pillar;
-    pill.addEventListener('mouseenter', () => {
+  // Interactivity: Hover & Click on Pillar Rows
+  pillarRows.forEach((row) => {
+    const pId = row.dataset.pillar;
+    row.addEventListener('mouseenter', () => {
       activateEnvironment(pId);
     });
-    pill.addEventListener('click', () => {
+    row.addEventListener('click', () => {
       activateEnvironment(pId);
+    });
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateEnvironment(pId);
+      }
     });
   });
 
-  // Indicator Dots
-  hudDots.forEach((dot) => {
+  // Telemetry dot buttons
+  telemetryDots.forEach((dot) => {
     dot.addEventListener('click', () => {
       activateEnvironment(dot.dataset.target);
     });
   });
 
-  // Next / Previous Navigation
-  if (hudPrevBtn) {
-    hudPrevBtn.addEventListener('click', () => {
-      const prev = currentScenario === 1 ? totalScenarios : currentScenario - 1;
-      activateEnvironment(prev);
-    });
-  }
-
-  if (hudNextBtn) {
-    hudNextBtn.addEventListener('click', () => {
-      const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
-      activateEnvironment(next);
-    });
-  }
-
-  // Keyboard navigation when stage is in focus or viewport
-  if (stageContainer) {
-    stageContainer.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') {
+  // Keyboard navigation when section is in focus or viewport
+  if (stageSection) {
+    stageSection.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
         activateEnvironment(next);
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         const prev = currentScenario === 1 ? totalScenarios : currentScenario - 1;
         activateEnvironment(prev);
       }
     });
 
     // Pause auto-rotation on mouseenter
-    stageContainer.addEventListener('mouseenter', () => {
+    stageSection.addEventListener('mouseenter', () => {
       isHovered = true;
     });
 
-    stageContainer.addEventListener('mouseleave', () => {
+    stageSection.addEventListener('mouseleave', () => {
       isHovered = false;
     });
   }
 
-  // Subtle auto-advance every 7 seconds when not hovered
-  if (stageBgSlides.length > 0) {
+  // Subtle auto-advance every 8 seconds when not hovered
+  if (backdropSlides.length > 0) {
     setInterval(() => {
       if (!isHovered) {
         const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
         activateEnvironment(next);
       }
-    }, 7000);
+    }, 8000);
   }
 });
 
