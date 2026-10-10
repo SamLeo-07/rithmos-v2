@@ -360,5 +360,110 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ==========================================================================
+  // SPONSORS DECK // INTERACTIVE BRAND MOCKUP SIMULATOR
+  // ==========================================================================
+  const brandPillars = document.querySelectorAll('.brand-pillar-card');
+  const mockupScenes = document.querySelectorAll('.mockup-scene');
+  const scenarioTag = document.getElementById('scenario-active-tag');
+  const consoleContextText = document.getElementById('console-context-text');
+  const mobilePills = document.querySelectorAll('.mobile-pillar-pill');
+
+  const scenarioMeta = {
+    '1': {
+      tag: 'SCENARIO 01: MAIN STAGE TAKEOVER',
+      context: 'MAIN STAGE 120FT LED WALL & TRUSS RIGGING TAKEOVER'
+    },
+    '2': {
+      tag: 'SCENARIO 02: ARTIST & BAND ECOSYSTEM',
+      context: 'VIP ARTIST ACCESS LANYARDS & INSTRUMENT GEAR LOCKUP'
+    },
+    '3': {
+      tag: 'SCENARIO 03: LIVE STADIUM FAN ZONE',
+      context: 'HOLOGRAPHIC RFID WRISTBANDS & FAN ACTIVATION BOOTH'
+    },
+    '4': {
+      tag: 'SCENARIO 04: 4K LIVESTREAM BROADCAST',
+      context: 'BROADCAST LOWER-THIRDS & DIGITAL STREAM SPONSOR BUG'
+    },
+    '5': {
+      tag: 'SCENARIO 05: GLOBAL TELUGU DIASPORA',
+      context: 'WORLDWIDE SATELLITE OTT BUG & GLOBAL FAN CHOICE'
+    }
+  };
+
+  function activatePillar(pillarNum) {
+    const numStr = String(pillarNum);
+
+    // Update Pillar Cards
+    brandPillars.forEach((card) => {
+      if (card.dataset.pillar === numStr) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+    });
+
+    // Update Mobile Pills
+    mobilePills.forEach((pill) => {
+      if (pill.dataset.target === numStr) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+
+    // Update Mockup Scenes
+    mockupScenes.forEach((scene) => {
+      if (scene.dataset.scene === numStr) {
+        scene.classList.add('active');
+      } else {
+        scene.classList.remove('active');
+      }
+    });
+
+    // Update Meta text
+    if (scenarioMeta[numStr]) {
+      if (scenarioTag) scenarioTag.textContent = scenarioMeta[numStr].tag;
+      if (consoleContextText) consoleContextText.textContent = scenarioMeta[numStr].context;
+    }
+  }
+
+  // Desktop & Mobile card triggers: Mouseenter (hover), Click, and Keydown
+  brandPillars.forEach((card) => {
+    const pillarId = card.dataset.pillar;
+    card.addEventListener('mouseenter', () => activatePillar(pillarId));
+    card.addEventListener('click', () => activatePillar(pillarId));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activatePillar(pillarId);
+      }
+    });
+  });
+
+  // Mobile quick switcher pills
+  mobilePills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      activatePillar(pill.dataset.target);
+    });
+  });
+
+  // Scroll Observer (Switches preview on scroll for mobile and responsive views)
+  if (brandPillars.length > 0 && 'IntersectionObserver' in window) {
+    const pillarObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          activatePillar(entry.target.dataset.pillar);
+        }
+      });
+    }, {
+      threshold: [0.5, 0.75],
+      rootMargin: '-10% 0px -10% 0px'
+    });
+
+    brandPillars.forEach((card) => pillarObserver.observe(card));
+  }
 });
 
