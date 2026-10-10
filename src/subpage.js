@@ -362,125 +362,129 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // SPONSORS DECK // INTERACTIVE BRAND MOCKUP SIMULATOR
+  // SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR (FULL BACKGROUND STAGE)
   // ==========================================================================
-  const brandPillars = document.querySelectorAll('.brand-pillar-card');
-  const mockupScenes = document.querySelectorAll('.mockup-scene');
-  const scenarioTag = document.getElementById('scenario-active-tag');
-  const consoleContextText = document.getElementById('console-context-text');
-  const mobilePills = document.querySelectorAll('.mobile-pillar-pill');
-  const consoleDots = document.querySelectorAll('.c-dot');
+  const stageBgSlides = document.querySelectorAll('.stage-bg-slide');
+  const stageDockPills = document.querySelectorAll('.stage-dock-pill');
+  const hudDetailPanels = document.querySelectorAll('.hud-detail-panel');
+  const hudDots = document.querySelectorAll('.h-dot');
+  const hudPrevBtn = document.getElementById('hud-prev-btn');
+  const hudNextBtn = document.getElementById('hud-next-btn');
+  const stageContainer = document.getElementById('brand-pillars-showcase');
 
-  const scenarioMeta = {
-    '1': {
-      tag: 'SCENARIO 01: MAIN STAGE TAKEOVER',
-      context: 'MAIN STAGE 120FT LED WALL & TRUSS RIGGING TAKEOVER'
-    },
-    '2': {
-      tag: 'SCENARIO 02: ARTIST & BAND ECOSYSTEM',
-      context: 'VIP ARTIST ACCESS LANYARDS & INSTRUMENT GEAR LOCKUP'
-    },
-    '3': {
-      tag: 'SCENARIO 03: LIVE STADIUM FAN ZONE',
-      context: 'HOLOGRAPHIC RFID WRISTBANDS & FAN ACTIVATION BOOTH'
-    },
-    '4': {
-      tag: 'SCENARIO 04: 4K LIVESTREAM BROADCAST',
-      context: 'BROADCAST LOWER-THIRDS & DIGITAL STREAM SPONSOR BUG'
-    },
-    '5': {
-      tag: 'SCENARIO 05: GLOBAL TELUGU DIASPORA',
-      context: 'WORLDWIDE SATELLITE OTT BUG & GLOBAL FAN CHOICE'
-    }
-  };
+  let currentScenario = 1;
+  const totalScenarios = 5;
+  let isHovered = false;
 
-  function activatePillar(pillarNum) {
-    const numStr = String(pillarNum);
+  function activateEnvironment(scenarioNum) {
+    let num = parseInt(scenarioNum, 10);
+    if (isNaN(num) || num < 1) num = 1;
+    if (num > totalScenarios) num = totalScenarios;
+    currentScenario = num;
+    const numStr = String(num);
 
-    // Update Pillar Cards
-    brandPillars.forEach((card) => {
-      if (card.dataset.pillar === numStr) {
-        card.classList.add('active');
+    // 1. Crossfade Full Background Slides
+    stageBgSlides.forEach((slide) => {
+      if (slide.dataset.scenario === numStr) {
+        slide.classList.add('active');
       } else {
-        card.classList.remove('active');
+        slide.classList.remove('active');
       }
     });
 
-    // Update Mobile Pills
-    mobilePills.forEach((pill) => {
-      if (pill.dataset.target === numStr) {
+    // 2. Update Dock Pills (No cards - sleek glass tabs)
+    stageDockPills.forEach((pill) => {
+      if (pill.dataset.pillar === numStr) {
         pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
       } else {
         pill.classList.remove('active');
+        pill.setAttribute('aria-selected', 'false');
       }
     });
 
-    // Update Console Dots
-    consoleDots.forEach((dot) => {
+    // 3. Update HUD Detail Panels
+    hudDetailPanels.forEach((panel) => {
+      if (panel.dataset.detail === numStr) {
+        panel.classList.add('active');
+      } else {
+        panel.classList.remove('active');
+      }
+    });
+
+    // 4. Update Indicator Dots
+    hudDots.forEach((dot) => {
       if (dot.dataset.target === numStr) {
         dot.classList.add('active');
       } else {
         dot.classList.remove('active');
       }
     });
-
-    // Update Mockup Scenes
-    mockupScenes.forEach((scene) => {
-      if (scene.dataset.scene === numStr) {
-        scene.classList.add('active');
-      } else {
-        scene.classList.remove('active');
-      }
-    });
-
-    // Update Meta text
-    if (scenarioMeta[numStr]) {
-      if (scenarioTag) scenarioTag.textContent = scenarioMeta[numStr].tag;
-      if (consoleContextText) consoleContextText.textContent = scenarioMeta[numStr].context;
-    }
   }
 
-  // Desktop & Mobile card triggers: Mouseenter (hover), Click, and Keydown
-  brandPillars.forEach((card) => {
-    const pillarId = card.dataset.pillar;
-    card.addEventListener('mouseenter', () => activatePillar(pillarId));
-    card.addEventListener('click', () => activatePillar(pillarId));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        activatePillar(pillarId);
+  // Interactivity: Hover & Click on Dock Pills
+  stageDockPills.forEach((pill) => {
+    const pId = pill.dataset.pillar;
+    pill.addEventListener('mouseenter', () => {
+      activateEnvironment(pId);
+    });
+    pill.addEventListener('click', () => {
+      activateEnvironment(pId);
+    });
+  });
+
+  // Indicator Dots
+  hudDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      activateEnvironment(dot.dataset.target);
+    });
+  });
+
+  // Next / Previous Navigation
+  if (hudPrevBtn) {
+    hudPrevBtn.addEventListener('click', () => {
+      const prev = currentScenario === 1 ? totalScenarios : currentScenario - 1;
+      activateEnvironment(prev);
+    });
+  }
+
+  if (hudNextBtn) {
+    hudNextBtn.addEventListener('click', () => {
+      const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
+      activateEnvironment(next);
+    });
+  }
+
+  // Keyboard navigation when stage is in focus or viewport
+  if (stageContainer) {
+    stageContainer.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
+        activateEnvironment(next);
+      } else if (e.key === 'ArrowLeft') {
+        const prev = currentScenario === 1 ? totalScenarios : currentScenario - 1;
+        activateEnvironment(prev);
       }
     });
-  });
 
-  // Mobile quick switcher pills
-  mobilePills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      activatePillar(pill.dataset.target);
-    });
-  });
-
-  // Console dot buttons
-  consoleDots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      activatePillar(dot.dataset.target);
-    });
-  });
-
-  // Scroll Observer (Switches preview on scroll for mobile and responsive views)
-  if (brandPillars.length > 0 && 'IntersectionObserver' in window) {
-    const pillarObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          activatePillar(entry.target.dataset.pillar);
-        }
-      });
-    }, {
-      threshold: [0.5, 0.75],
-      rootMargin: '-10% 0px -10% 0px'
+    // Pause auto-rotation on mouseenter
+    stageContainer.addEventListener('mouseenter', () => {
+      isHovered = true;
     });
 
-    brandPillars.forEach((card) => pillarObserver.observe(card));
+    stageContainer.addEventListener('mouseleave', () => {
+      isHovered = false;
+    });
+  }
+
+  // Subtle auto-advance every 7 seconds when not hovered
+  if (stageBgSlides.length > 0) {
+    setInterval(() => {
+      if (!isHovered) {
+        const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
+        activateEnvironment(next);
+      }
+    }, 7000);
   }
 });
 
