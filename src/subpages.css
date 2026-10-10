@@ -1962,21 +1962,29 @@
 }
 
 /* ==========================================================================
-   SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR
+   SPONSORS DECK // UNIFIED HERO & BRAND ENVIRONMENT SIMULATOR
+   - Single Seamless Hero Section (Zero Artificial Section Breaks)
    - Photorealistic AI Images as Right-Side Atmospheric Background
    - Multi-Directional Gradient Overlay Blending Smoothly into Pure Black
-   - Left Side: All Text & Interactive Pillar Items Restored (Zero Box Cards)
+   - Left Side: Hero Title, Lead, CTA + All 5 Interactive Pillars (Zero Box Cards)
    ========================================================================== */
 
-.brand-environment-section {
+.subpage-hero.sponsors-hero {
   position: relative;
   width: 100%;
-  min-height: 820px;
-  padding: 90px 0 80px;
+  min-height: 100vh;
+  padding-top: 140px;
+  padding-bottom: 80px;
   background: #07050a;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 17, 45, 0.2);
-  border-bottom: 1px solid rgba(255, 17, 45, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-simulator-subhead {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* 1. Right-Side Background Image Layers (Zero Cards, True Background) */
@@ -2054,9 +2062,9 @@
 
 .showcase-content-grid {
   display: grid;
-  grid-template-columns: 540px 1fr;
+  grid-template-columns: minmax(460px, 560px) 1fr;
   gap: 48px;
-  align-items: center;
+  align-items: flex-end;
   min-height: 640px;
 }
 
@@ -2068,12 +2076,12 @@
 
 .showcase-headline {
   font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   letter-spacing: 0.04em;
   color: #ffffff;
-  margin: 10px 0 8px;
+  margin: 6px 0 8px;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
 }
 
@@ -2384,8 +2392,9 @@
 }
 
 @media (max-width: 640px) {
-  .brand-environment-section {
-    padding: 60px 0 40px;
+  .subpage-hero.sponsors-hero {
+    padding-top: 110px;
+    padding-bottom: 50px;
   }
 
   .showcase-content-container {
