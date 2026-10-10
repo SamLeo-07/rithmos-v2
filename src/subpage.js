@@ -369,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scenarioTag = document.getElementById('scenario-active-tag');
   const consoleContextText = document.getElementById('console-context-text');
   const mobilePills = document.querySelectorAll('.mobile-pillar-pill');
+  const consoleDots = document.querySelectorAll('.c-dot');
 
   const scenarioMeta = {
     '1': {
@@ -414,6 +415,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Update Console Dots
+    consoleDots.forEach((dot) => {
+      if (dot.dataset.target === numStr) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+
     // Update Mockup Scenes
     mockupScenes.forEach((scene) => {
       if (scene.dataset.scene === numStr) {
@@ -447,6 +457,13 @@ document.addEventListener('DOMContentLoaded', () => {
   mobilePills.forEach((pill) => {
     pill.addEventListener('click', () => {
       activatePillar(pill.dataset.target);
+    });
+  });
+
+  // Console dot buttons
+  consoleDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      activatePillar(dot.dataset.target);
     });
   });
 
