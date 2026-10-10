@@ -3,10 +3,7 @@
  * Handles navigation, registration modal triggers, and form interactions for /about, /competition, /contact
  */
 
-import { MobileNav } from './ui/MobileNav.js';
-
 document.addEventListener('DOMContentLoaded', () => {
-  new MobileNav();
   // Highlight active nav link based on current path
   const currentPath = window.location.pathname.replace(/\/$/, '');
   document.querySelectorAll('.nav-link').forEach((link) => {
@@ -253,22 +250,115 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Scroll Reveal Animations Observer for Cards & Isometric Steps
-  const scrollElements = document.querySelectorAll('.stand-card, .platform-card, .stage-split-layout, .subpage-card');
-  scrollElements.forEach((el) => el.classList.add('scroll-reveal'));
+  // ==========================================================================
+  // SCROLL MOTION & INTERACTIVE HOVER EFFECTS (About Page Foundations & 5 Pillars)
+  // ==========================================================================
+  const motionObserverOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  };
 
-  const scrollObserver = new IntersectionObserver((entries, observer) => {
+  const sectionMotionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+
+        // Staggered reveal for Foundation cards (Img 3)
+        if (entry.target.id === 'foundations-grid') {
+          const cards = entry.target.querySelectorAll('.foundation-interactive-card');
+          cards.forEach((card, idx) => {
+            setTimeout(() => {
+              card.classList.add('card-entered');
+            }, idx * 140);
+          });
+
+          // Gentle welcome highlight wave across Purpose -> Mission -> Vision
+          setTimeout(() => {
+            cards.forEach((card, idx) => {
+              setTimeout(() => {
+                card.style.borderColor = 'rgba(255, 28, 54, 0.7)';
+                card.style.boxShadow = '0 0 20px rgba(255, 28, 54, 0.25)';
+                setTimeout(() => {
+                  card.style.borderColor = '';
+                  card.style.boxShadow = '';
+                }, 600);
+              }, idx * 240);
+            });
+          }, 600);
+        }
+
+        // Staggered reveal for 5 Pillars Rack (Img 4)
+        if (entry.target.id === 'pillars-grid') {
+          const cards = entry.target.querySelectorAll('.pillar-rack-card');
+          cards.forEach((card, idx) => {
+            setTimeout(() => {
+              card.classList.add('card-entered');
+            }, idx * 90);
+          });
+        }
+
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -30px 0px'
-  });
+  }, motionObserverOptions);
 
-  scrollElements.forEach((el) => scrollObserver.observe(el));
+  const foundationsGrid = document.getElementById('foundations-grid');
+  if (foundationsGrid) {
+    sectionMotionObserver.observe(foundationsGrid);
+
+    // Interactive 3D micro-tilt for Foundation cards
+    const fCards = foundationsGrid.querySelectorAll('.foundation-interactive-card');
+    fCards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / rect.height) * 8;
+        const rotateY = (x / rect.width) * 8;
+        card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-8px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  const pillarsGrid = document.getElementById('pillars-grid');
+  if (pillarsGrid) {
+    sectionMotionObserver.observe(pillarsGrid);
+
+    // Interactive 3D micro-tilt & VU meter pulse for 5 Pillars
+    const pCards = pillarsGrid.querySelectorAll('.pillar-rack-card');
+    pCards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / rect.height) * 6;
+        const rotateY = (x / rect.width) * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-8px)`;
+      });
+
+      card.addEventListener('mouseenter', () => {
+        const dots = card.querySelectorAll('.vu-dot');
+        dots.forEach((dot, idx) => {
+          setTimeout(() => {
+            dot.style.background = '#ff1c36';
+            dot.style.boxShadow = '0 0 8px rgba(255, 28, 54, 0.9)';
+          }, idx * 60);
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        const dots = card.querySelectorAll('.vu-dot');
+        dots.forEach((dot) => {
+          dot.style.background = '';
+          dot.style.boxShadow = '';
+        });
+      });
+    });
+  }
 });
 

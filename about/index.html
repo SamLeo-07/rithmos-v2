@@ -39,28 +39,22 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="subpage-hero about-hero">
-    <div class="about-hero-backdrop" aria-hidden="true">
-      <img src="/assets/about-stage-arena.jpg" alt="" class="about-hero-bg-img">
-      <div class="about-hero-shade"></div>
-    </div>
-    <div class="subpage-container">
-      <div class="subpage-kicker">
-        <span class="kicker-dot"></span>
-        <span>ORIGIN // THE RITHMOS STORY</span>
-      </div>
+  <!-- Hero Section with Live Concert Arena Backdrop -->
+  <section class="subpage-hero about-hero-cinematic">
+    <div class="hero-bg-overlay"></div>
+    <div class="subpage-container relative-z">
       <h1 class="subpage-title">
         EVERY BAND HAS A STORY.<br>
         <span class="accent-text">EVERY STORY NEEDS A STAGE. RITHMOS IS THE STAGE.</span>
       </h1>
       <p class="subpage-lead">
-        RITHMOS is a stage created for live bands, their music and the stories they have to tell. It is a celebration of talent, performance and the energy of live music &mdash; bringing bands and audiences together for moments that deserve to be heard, seen and remembered.
+        RITHMOS is a stage created for live bands, their music and the stories they have to tell. It is a celebration of talent, performance and the energy of live music — bringing bands and audiences together for moments that deserve to be heard, seen and remembered.
       </p>
     </div>
   </section>
 
   <!-- Chapter 01: The RITHMOS Story -->
-  <section class="subpage-section">
+  <section class="subpage-section" id="roots-ambition-section">
     <div class="subpage-container">
       <div class="section-label-row">
         <span class="section-label">01 // THE ROOTS & AMBITION</span>
@@ -71,31 +65,34 @@
         Born in Hyderabad, the first edition - RITHMOS has a strong connection to the Telugu music-loving audience — in the city, across Telangana and Andhra Pradesh, and among Telugu audiences around the world. Our ambition is to create a live-music property that begins here, speaks to this audience, and grows far beyond.
       </p>
 
-      <!-- 3 Foundations: Purpose, Mission, Vision with Interactive Hover Animations -->
-      <div class="grid-3col">
-        <div class="subpage-card heritage-card">
+      <!-- 3 Foundations: Purpose, Mission, Vision with Interactive Hover & Scroll Motion -->
+      <div class="grid-3col foundations-interactive-grid" id="foundations-grid">
+        <div class="subpage-card heritage-card foundation-interactive-card" data-card="purpose">
           <div class="card-timeline-tag">FOUNDATION 01</div>
           <h3 class="card-heading">OUR PURPOSE</h3>
           <p class="card-text">To create a credible, exciting and professionally produced platform where live bands can perform, compete, connect with audiences and open doors to new opportunities.</p>
+          <div class="card-accent-glow"></div>
         </div>
 
-        <div class="subpage-card heritage-card">
+        <div class="subpage-card heritage-card foundation-interactive-card" data-card="mission">
           <div class="card-timeline-tag">FOUNDATION 02</div>
           <h3 class="card-heading">OUR MISSION</h3>
           <p class="card-text">To discover, showcase and celebrate live-band talent by creating high-quality stages, meaningful audience experiences and opportunities that extend beyond a single performance.</p>
+          <div class="card-accent-glow"></div>
         </div>
 
-        <div class="subpage-card heritage-card highlight-border">
-          <div class="card-timeline-tag red-tag">FOUNDATION 03</div>
+        <div class="subpage-card heritage-card foundation-interactive-card" data-card="vision">
+          <div class="card-timeline-tag">FOUNDATION 03</div>
           <h3 class="card-heading">OUR VISION</h3>
           <p class="card-text">To build RITHMOS into a nationally recognised live-music property — a platform where bands aspire to perform, audiences look forward to experiencing, and partners see meaningful opportunities to connect with the music community.</p>
+          <div class="card-accent-glow"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Chapter 02: What RITHMOS Stands For (5 Core Pillars) -->
-  <section class="subpage-section soundboard-section">
+  <!-- Chapter 02: What RITHMOS Stands For -->
+  <section class="subpage-section soundboard-section" id="pillars-section">
     <div class="subpage-container">
       <div class="section-label-row">
         <span class="section-label">02 // WHAT RITHMOS STANDS FOR</span>
@@ -104,94 +101,216 @@
       <h2 class="section-title">FIVE PILLARS.<br>ONE UNCOMPROMISING STAGE.</h2>
       <p class="section-desc">RITHMOS is built around five fundamental commitments to bands, audiences, and live music culture.</p>
 
-      <div class="stands-for-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin-top: 30px;">
-        <div class="stand-card" style="border: 1px solid rgba(255,17,45,0.3); background: rgba(18,15,24,0.9); padding: 24px 20px; border-radius: 8px; transition: all 0.35s ease;">
-          <div class="stand-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="stand-icon-wrap" style="color: #ff112d; display: flex; align-items: center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              </div>
-              <span class="stand-name" style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">TALENT</span>
-            </div>
-            <div class="card-eq-bars">
-              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+      <!-- 5 Pillars Soundboard Rack with Professional SVG Icons, Smooth Environment & Motion -->
+      <div class="pillars-rack-grid" id="pillars-grid">
+        <!-- 01 TALENT -->
+        <div class="pillar-rack-card" data-pillar="01">
+          <div class="pillar-rack-top">
+            <span class="pillar-badge">PILLAR 01</span>
+            <div class="pillar-vu-mini">
+              <span class="vu-dot active"></span>
+              <span class="vu-dot active"></span>
+              <span class="vu-dot peak"></span>
             </div>
           </div>
-          <p class="stand-desc" style="font-size: 0.9rem; color: #b7b4c7; line-height: 1.5; margin: 0;">Giving bands an opportunity to be seen and heard on a professionally produced live stage.</p>
+          <div class="pillar-icon-wrapper">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3 class="pillar-title">TALENT</h3>
+          <p class="pillar-desc">Giving bands an opportunity to be seen and heard on a professionally produced live stage.</p>
+          <div class="pillar-meta-tag">AUTHENTIC RAW ENERGY</div>
         </div>
 
-        <div class="stand-card" style="border: 1px solid rgba(255,17,45,0.3); background: rgba(18,15,24,0.9); padding: 24px 20px; border-radius: 8px; transition: all 0.35s ease;">
-          <div class="stand-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="stand-icon-wrap" style="color: #ff112d; display: flex; align-items: center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
-              </div>
-              <span class="stand-name" style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">OPPORTUNITY</span>
-            </div>
-            <div class="card-eq-bars">
-              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        <!-- 02 OPPORTUNITY -->
+        <div class="pillar-rack-card" data-pillar="02">
+          <div class="pillar-rack-top">
+            <span class="pillar-badge">PILLAR 02</span>
+            <div class="pillar-vu-mini">
+              <span class="vu-dot active"></span>
+              <span class="vu-dot active"></span>
+              <span class="vu-dot peak"></span>
             </div>
           </div>
-          <p class="stand-desc" style="font-size: 0.9rem; color: #b7b4c7; line-height: 1.5; margin: 0;">Creating possibilities beyond the competition itself for collaborations and industry recognition.</p>
+          <div class="pillar-icon-wrapper">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+              <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5"></path>
+              <path d="M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5"></path>
+            </svg>
+          </div>
+          <h3 class="pillar-title">OPPORTUNITY</h3>
+          <p class="pillar-desc">Creating possibilities beyond the competition itself for collaborations and industry recognition.</p>
+          <div class="pillar-meta-tag">EXPANSION & PATHWAY</div>
         </div>
 
-        <div class="stand-card" style="border: 1px solid rgba(255,17,45,0.3); background: rgba(18,15,24,0.9); padding: 24px 20px; border-radius: 8px; transition: all 0.35s ease;">
-          <div class="stand-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="stand-icon-wrap" style="color: #ff112d; display: flex; align-items: center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-              </div>
-              <span class="stand-name" style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">EXPERIENCE</span>
-            </div>
-            <div class="card-eq-bars">
-              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        <!-- 03 EXPERIENCE -->
+        <div class="pillar-rack-card" data-pillar="03">
+          <div class="pillar-rack-top">
+            <span class="pillar-badge">PILLAR 03</span>
+            <div class="pillar-vu-mini">
+              <span class="vu-dot active"></span>
+              <span class="vu-dot active"></span>
+              <span class="vu-dot peak"></span>
             </div>
           </div>
-          <p class="stand-desc" style="font-size: 0.9rem; color: #b7b4c7; line-height: 1.5; margin: 0;">Presenting live music with professional production, concert acoustics, and authentic energy.</p>
+          <div class="pillar-icon-wrapper">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m19 5-3-3"></path>
+              <path d="m2 22 3-3"></path>
+              <path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L21 9a2.4 2.4 0 0 0 0-3.4l-2.6-2.6a2.4 2.4 0 0 0-3.4 0L3.7 14.3a2.4 2.4 0 0 0 0 3.4z"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="m14 7 3 3"></path>
+            </svg>
+          </div>
+          <h3 class="pillar-title">EXPERIENCE</h3>
+          <p class="pillar-desc">Presenting live music with professional production, concert acoustics, and authentic energy.</p>
+          <div class="pillar-meta-tag">CONCERT PRODUCTION</div>
         </div>
 
-        <div class="stand-card" style="border: 1px solid rgba(255,17,45,0.3); background: rgba(18,15,24,0.9); padding: 24px 20px; border-radius: 8px; transition: all 0.35s ease;">
-          <div class="stand-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="stand-icon-wrap" style="color: #ff112d; display: flex; align-items: center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <span class="stand-name" style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">COMMUNITY</span>
-            </div>
-            <div class="card-eq-bars">
-              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        <!-- 04 COMMUNITY -->
+        <div class="pillar-rack-card" data-pillar="04">
+          <div class="pillar-rack-top">
+            <span class="pillar-badge">PILLAR 04</span>
+            <div class="pillar-vu-mini">
+              <span class="vu-dot active"></span>
+              <span class="vu-dot active"></span>
+              <span class="vu-dot peak"></span>
             </div>
           </div>
-          <p class="stand-desc" style="font-size: 0.9rem; color: #b7b4c7; line-height: 1.5; margin: 0;">Bringing musicians, audiences, corporate brands and the wider music ecosystem together.</p>
+          <div class="pillar-icon-wrapper">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3 class="pillar-title">COMMUNITY</h3>
+          <p class="pillar-desc">Bringing musicians, audiences, corporate brands and the wider music ecosystem together.</p>
+          <div class="pillar-meta-tag">ROCK ECOSYSTEM</div>
         </div>
 
-        <div class="stand-card" style="border: 1px solid rgba(255,17,45,0.3); background: rgba(18,15,24,0.9); padding: 24px 20px; border-radius: 8px; transition: all 0.35s ease;">
-          <div class="stand-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div class="stand-icon-wrap" style="color: #ff112d; display: flex; align-items: center;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-              </div>
-              <span class="stand-name" style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; letter-spacing: 0.05em;">GROWTH</span>
-            </div>
-            <div class="card-eq-bars">
-              <span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span>
+        <!-- 05 GROWTH -->
+        <div class="pillar-rack-card" data-pillar="05">
+          <div class="pillar-rack-top">
+            <span class="pillar-badge">PILLAR 05</span>
+            <div class="pillar-vu-mini">
+              <span class="vu-dot active"></span>
+              <span class="vu-dot active"></span>
+              <span class="vu-dot peak"></span>
             </div>
           </div>
-          <p class="stand-desc" style="font-size: 0.9rem; color: #b7b4c7; line-height: 1.5; margin: 0;">Building a platform that can evolve with the bands and the culture around them.</p>
+          <div class="pillar-icon-wrapper">
+            <svg class="pillar-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"></path>
+              <path d="m7 15 4-4 4 3 6-7"></path>
+              <path d="M17 7h4v4"></path>
+            </svg>
+          </div>
+          <h3 class="pillar-title">GROWTH</h3>
+          <p class="pillar-desc">Building a platform that can evolve with the bands and the culture around them.</p>
+          <div class="pillar-meta-tag">LONG-TERM FUTURE</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 03: Technical Partners & Backline Endorsers -->
+  <!-- Chapter 03: The Band Creed -->
   <section class="subpage-section">
     <div class="subpage-container">
       <div class="section-label-row">
-        <span class="section-label">03 // PRODUCTION &amp; BACKLINE EXCELLENCE</span>
+        <span class="section-label">03 // THE BAND CREED</span>
+        <span class="tag-accent-bar red"></span>
+      </div>
+      <h2 class="section-title">THE FOUR NON-NEGOTIABLE<br>STAGE COMMANDMENTS.</h2>
+      <p class="section-desc">When you step onto the RITHMOS stage, you enter a pact with the crowd and the sound engineers.</p>
+
+      <div class="creed-panel">
+        <div class="creed-item">
+          <span class="creed-index">01</span>
+          <div class="creed-content">
+            <h4 class="creed-title">PLAY WHAT YOU WRITE</h4>
+            <p class="creed-desc">Original songwriting is the lifeblood of rock music. Covers are respected, but championship points are heavily awarded to original riffs, distinctive arrangements, and authentic storytelling.</p>
+          </div>
+        </div>
+
+        <div class="creed-item">
+          <span class="creed-index">02</span>
+          <div class="creed-content">
+            <h4 class="creed-title">SWEAT ON THE WOODEN FLOOR</h4>
+            <p class="creed-desc">Rock is a physical, tactile sport. If your knuckles aren't bleeding into the guitar strings and your drummer isn't splintering sticks, you haven't given the room everything you have.</p>
+          </div>
+        </div>
+
+        <div class="creed-item">
+          <span class="creed-index">03</span>
+          <div class="creed-content">
+            <h4 class="creed-title">RESPECT THE SOUND CREW</h4>
+            <p class="creed-desc">The Front-of-House engineer is your sixth band member. Dial your amp stages in harmony during your 15-minute soundcheck, trust the monitor mix, and let the engineers blast your sound to the highest stadium row.</p>
+          </div>
+        </div>
+
+        <div class="creed-item">
+          <span class="creed-index">04</span>
+          <div class="creed-content">
+            <h4 class="creed-title">BACK YOUR FELLOW BANDS</h4>
+            <p class="creed-desc">RITHMOS is a united rock brotherhood. Applaud your competition, share patch cables in emergencies, and remember that when one independent live band rises, the entire live ecosystem rises with them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 04: Institutional Governance & Production Standards -->
+  <section class="subpage-section">
+    <div class="subpage-container">
+      <div class="section-label-row">
+        <span class="section-label">04 // INSTITUTIONAL GOVERNANCE &amp; PRODUCTION INTEGRITY</span>
+        <span class="tag-accent-bar red"></span>
+      </div>
+      <h2 class="section-title">FAIRNESS, SAFETY &amp; SONIC EXCELLENCE.</h2>
+      <p class="section-desc">Operating under strict artistic charters, certified acoustic emission standards, and audited jury protocols.</p>
+
+      <div class="governance-grid">
+        <div class="governance-card">
+          <span class="governance-tag">DOUBLE-BLIND SCORING</span>
+          <h3 class="card-heading">AUDITED JURY PROTOCOL</h3>
+          <p class="card-text">Multi-member touring musician jury scoring normalized against objective rubrics. Scorecards are tabulated independently and shared with advancing bands for technical post-performance feedback.</p>
+        </div>
+
+        <div class="governance-card">
+          <span class="governance-tag">AES STANDARDS</span>
+          <h3 class="card-heading">102 dBA ACOUSTIC CALIBRATION</h3>
+          <p class="card-text">Full arena concert energy with zero hearing fatigue. Calibrated by certified Audio Engineering Society sound acousticians using precision line-arrays, multi-point RTA analyzers, and calibrated stage monitor feeds.</p>
+        </div>
+
+        <div class="governance-card">
+          <span class="governance-tag">100% ARTIST RIGHTS</span>
+          <h3 class="card-heading">EQUITABLE ARTIST CHARTER</h3>
+          <p class="card-text">Zero application fees, zero pay-to-play clauses, 100% intellectual property and master recording retention, and travel honorariums provided to all outstation bands qualifying for the Grand Finale.</p>
+        </div>
+
+        <div class="governance-card">
+          <span class="governance-tag">STADIUM GRADE</span>
+          <h3 class="card-heading">SPECTRUM RF &amp; BACKLINE SAFETY</h3>
+          <p class="card-text">Dedicated wireless RF frequency management to eliminate stage dropout, isolated green room warm-up bays, licensed electrical power distribution, and on-site certified medical first responders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 05: Technical Partners & Backline Endorsers -->
+  <section class="subpage-section">
+    <div class="subpage-container">
+      <div class="section-label-row">
+        <span class="section-label">05 // TECHNICAL PARTNERS &amp; BACKLINE ENDORSERS</span>
         <span class="tag-accent-bar red"></span>
       </div>
       <h2 class="section-title">POWERED BY INDUSTRY LEADERS.</h2>
-      <p class="section-desc">RITHMOS stages are equipped in collaboration with globally recognized pro-audio manufacturers and acoustic standards.</p>
+      <p class="section-desc">RITHMOS stages are equipped in collaboration with globally recognized pro-audio manufacturers and cultural institutions.</p>
 
       <div class="partners-grid">
         <div class="partner-card">
@@ -221,172 +340,91 @@
     </div>
   </section>
 
-  <!-- Section 04: Brought To You By Right Hand Entertainments -->
-  <section class="subpage-section" style="background: rgba(255, 17, 45, 0.03); border-top: 1px solid rgba(255, 17, 45, 0.2); border-bottom: 1px solid rgba(255, 17, 45, 0.2); padding: 70px 0;">
+  <!-- Chapter 06: Curators & Advisory Panel -->
+  <section class="subpage-section">
     <div class="subpage-container">
       <div class="section-label-row">
-        <span class="section-label">04 // THE COMPANY BEHIND RITHMOS</span>
+        <span class="section-label">06 // FESTIVAL ARCHITECTS</span>
         <span class="tag-accent-bar red"></span>
       </div>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;">
-        <div>
-          <span style="font-family: 'Space Grotesk', monospace; font-size: 0.8rem; color: #ff112d; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">THE COMPANY BEHIND RITHMOS</span>
-          <h2 class="section-title" style="margin-top: 8px; margin-bottom: 18px; font-size: 2.4rem;">RIGHT HAND ENTERTAINMENTS</h2>
-          <h3 style="font-size: 1.25rem; color: #fff; font-family: var(--font-heading); margin-bottom: 14px; letter-spacing: 0.03em;">About Right Hand Entertainments</h3>
-          <p style="font-size: 1.05rem; color: #d0cddc; line-height: 1.65; margin-bottom: 16px;">
-            Right Hand Entertainments is a new entertainment and event management company built around an experienced team with a strong track record in creating and managing events and brand-led experiences.
-          </p>
-          <p style="font-size: 1rem; color: #b7b4c7; line-height: 1.65; margin-bottom: 16px;">
-            The team behind Right Hand Entertainments previously created and operated <strong>Bottled Poetry</strong>, delivering a wide range of experiences across fashion, art, lifestyle and luxury, in association with the promotion and marketing of an international wine brand in India.
-          </p>
-          <p style="font-size: 0.98rem; color: #9c99a8; line-height: 1.65; margin-bottom: 24px;">
-            That experience &mdash; in event conceptualisation, production, venue management, brand integration, audience engagement and partner management &mdash; now comes together under Right Hand Entertainments, with a renewed focus on creating original entertainment properties.
-          </p>
-          <div style="border-left: 3px solid #ff112d; padding-left: 16px; margin-bottom: 28px;">
-            <p style="font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0; font-family: var(--font-heading); letter-spacing: 0.05em;">
-              RITHMOS is the first expression of that ambition.
-            </p>
-          </div>
+      <h2 class="section-title">CURATED BY TOURING MUSICIANS<br>&amp; ACOUSTIC VETERANS.</h2>
+      <p class="section-desc">The judges and technical directors safeguarding the fairness and sonic quality of RITHMOS.</p>
 
-          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a href="/contact" class="pill-cta-btn" style="text-decoration: none;">
-              <span>OUR TEAM &amp; PORTFOLIO</span>
-              <span class="btn-arrow">→</span>
-            </a>
-            <a href="/sponsors" class="pill-cta-btn" style="text-decoration: none; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff;">
-              <span>PARTNER WITH US</span>
-              <span class="btn-arrow">↓</span>
-            </a>
-          </div>
+      <div class="grid-3col">
+        <div class="curator-card">
+          <div class="curator-badge">DIRECTOR // FOUNDER</div>
+          <h3 class="curator-name">VIKRAM 'AXE' RAO</h3>
+          <span class="curator-role">20+ YRS TOURING LEAD GUITARIST</span>
+          <p class="curator-bio">Veteran of over 400 nationwide festival gigs. Founded RITHMOS to create the transparent, high-voltage live platform he wished existed when his band started in Hyderabad garages.</p>
         </div>
 
-        <div style="background: #0d0c12; border: 1px solid rgba(255, 17, 45, 0.3); border-radius: 8px; padding: 32px; box-shadow: 0 16px 40px rgba(0,0,0,0.8);">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 16px;">
-            <span style="font-size: 1.8rem;">🏢</span>
-            <div>
-              <h4 style="margin: 0; color: #fff; font-size: 1.15rem; font-family: var(--font-heading);">RIGHT HAND ENTERTAINMENTS</h4>
-              <span style="font-size: 0.75rem; color: #ff112d; font-family: 'Space Grotesk', monospace; font-weight: 700;">THE COMPANY BEHIND RITHMOS</span>
-            </div>
-          </div>
-          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; font-size: 0.9rem; color: #b7b4c7;">
-            <li style="display: flex; align-items: flex-start; gap: 10px;">
-              <span style="color: #ff112d;">✓</span>
-              <span><strong>Event Conceptualisation &amp; Production:</strong> High-voltage concert production, arena tour dynamics, and staging execution.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 10px;">
-              <span style="color: #ff112d;">✓</span>
-              <span><strong>Venue &amp; Partner Management:</strong> Seamless stakeholder alignment, hospitality, and venue operations.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 10px;">
-              <span style="color: #ff112d;">✓</span>
-              <span><strong>Brand Integration &amp; Audience Engagement:</strong> Tailored consumer experiences, live audience touchpoints, and strategic activations.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 10px;">
-              <span style="color: #ff112d;">✓</span>
-              <span><strong>Original IP Creation:</strong> Creating premier proprietary entertainment IPs beginning with RITHMOS.</span>
-            </li>
-          </ul>
+        <div class="curator-card">
+          <div class="curator-badge">CHIEF AUDIO ENGINEER</div>
+          <h3 class="curator-name">SANJAY MENON</h3>
+          <span class="curator-role">FOH ACOUSTIC DIRECTOR</span>
+          <p class="curator-bio">Legendary live sound engineer who has mixed stadium line arrays for international rock acts across South Asia. Calibrates every RITHMOS frequency personally for zero ear fatigue.</p>
+        </div>
+
+        <div class="curator-card">
+          <div class="curator-badge">ARTIST RELATIONS</div>
+          <h3 class="curator-name">PRIYA CHANDRASEKHAR</h3>
+          <span class="curator-role">TOURNAMENT PRODUCER</span>
+          <p class="curator-bio">Tour manager and independent music producer who oversees qualifier stage schedules, backline load-ins, artist hospitality, and grand finale stadium production.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Ready to Rise Section with 3D Isometric Ascending Steps Graphic -->
-  <section class="subpage-section" style="margin-top: 40px;">
+  <!-- Chapter 07: Musician Testimonials -->
+  <section class="subpage-section">
     <div class="subpage-container">
-      <div class="stage-split-layout" style="background: rgba(14, 12, 18, 0.85); border: 1px solid rgba(255, 17, 45, 0.25); border-radius: 8px; padding: 40px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 32px;">
-        <div class="stage-left-text" style="flex: 1; min-width: 300px;">
-          <div class="section-tag-kicker red-accent" style="margin-bottom: 12px;">
-            <span class="tag-num" style="font-family: 'Space Grotesk', monospace; color: #ff112d; font-weight: 700;">CALL FOR FAME</span>
-            <span class="tag-divider" style="color: #666; margin: 0 6px;">/</span>
-            <span class="tag-label" style="font-size: 0.75rem; color: #a4a1b4; letter-spacing: 0.1em;">AUDITIONS OPEN</span>
+      <div class="section-label-row">
+        <span class="section-label">07 // ARTIST TESTIMONIALS &amp; VOICES</span>
+        <span class="tag-accent-bar red"></span>
+      </div>
+      <h2 class="section-title">WHAT BANDS SAY ABOUT THE ARENA.</h2>
+      
+      <div class="grid-2col">
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p class="quote-text">We spent three years playing 40-minute sets in bars where the vocal monitors were blown out. Stepping onto the RITHMOS qualifier stage with calibrated in-ear monitors and Marshall tube stacks was a revelation. It made us sound like the record, but with 10x the raw blood and sweat.</p>
+          <div class="quote-meta">
+            <span class="quote-author">ROHIT VARMA</span>
+            <span class="quote-band">Lead Vocalist, Deccan Redfall (Hyderabad)</span>
           </div>
-          <h2 class="static-headline text-white" style="font-size: 2.4rem; font-family: var(--font-heading); margin-bottom: 14px;">READY TO RISE?</h2>
-          <p class="static-subhead text-muted" style="font-size: 1.05rem; line-height: 1.6; color: #c4c1d0; margin-bottom: 24px;">
-            If your band believes it has something to say, something to play and something worth sharing &mdash; this is your call for fame!
-          </p>
-          <a href="/register" class="pill-cta-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
-            <span>REGISTER YOUR BAND</span>
-            <span class="btn-arrow">→</span>
-          </a>
         </div>
 
-        <div class="isometric-steps-col" id="isometric-steps-col" style="flex: 1; min-width: 320px; display: flex; justify-content: center;">
-          <svg class="isometric-steps-svg" id="iso-steps-svg" viewBox="0 0 540 320" fill="none" style="width: 100%; max-width: 480px; height: auto;">
-            <defs>
-              <linearGradient id="redTopAbout" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ff3b4e"/>
-                <stop offset="100%" stop-color="#ff112d"/>
-              </linearGradient>
-              <linearGradient id="redFrontAbout" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ff112d"/>
-                <stop offset="100%" stop-color="#aa081a"/>
-              </linearGradient>
-              <linearGradient id="redSideAbout" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#800412"/>
-                <stop offset="100%" stop-color="#4d020a"/>
-              </linearGradient>
-              <filter id="redFloorGlowAbout" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="16" result="blur"/>
-              </filter>
-            </defs>
-            <ellipse cx="320" cy="275" rx="190" ry="24" fill="rgba(0,0,0,0.1)"/>
-            <ellipse cx="430" cy="270" rx="65" ry="20" fill="rgba(255,17,45,0.22)" filter="url(#redFloorGlowAbout)"/>
-
-            <g class="iso-step step-1 is-lit" id="about-step-1">
-              <polygon points="120,240 152,224 184,240 152,256" fill="#3d3d45"/>
-              <polygon points="120,240 152,256 152,278 120,262" fill="#202026"/>
-              <polygon points="152,256 184,240 184,262 152,278" fill="#15151a"/>
-            </g>
-            <g class="iso-step step-2 is-lit" id="about-step-2">
-              <polygon points="160,220 192,204 224,220 192,236" fill="#42424b"/>
-              <polygon points="160,220 192,236 192,272 160,256" fill="#24242c"/>
-              <polygon points="192,236 224,220 224,256 192,272" fill="#18181f"/>
-            </g>
-            <g class="iso-step step-3 is-lit" id="about-step-3">
-              <polygon points="200,200 232,184 264,200 232,216" fill="#484852"/>
-              <polygon points="200,200 232,216 232,268 200,252" fill="#282832"/>
-              <polygon points="232,216 264,200 264,252 232,268" fill="#1c1c24"/>
-            </g>
-            <g class="iso-step step-4 is-lit" id="about-step-4">
-              <polygon points="240,180 272,164 304,180 272,196" fill="#4f4f5a"/>
-              <polygon points="240,180 272,196 272,266 240,250" fill="#2d2d38"/>
-              <polygon points="272,196 304,180 304,250 272,266" fill="#20202a"/>
-            </g>
-            <g class="iso-step step-5 is-lit" id="about-step-5">
-              <polygon points="280,160 312,144 344,160 312,176" fill="#565663"/>
-              <polygon points="280,160 312,176 312,268 280,252" fill="#32323f"/>
-              <polygon points="312,176 344,160 344,252 312,268" fill="#252530"/>
-            </g>
-            <g class="iso-step step-6 is-lit" id="about-step-6">
-              <polygon points="320,140 352,124 384,140 352,156" fill="#5e5e6c"/>
-              <polygon points="320,140 352,156 352,274 320,258" fill="#383846"/>
-              <polygon points="352,156 384,140 384,258 352,274" fill="#2a2a37"/>
-            </g>
-            <g class="iso-step step-7 is-peak" id="about-step-7">
-              <polygon points="370,80 415,56 460,80 415,104" fill="url(#redTopAbout)"/>
-              <polygon points="370,80 415,104 415,284 370,260" fill="url(#redFrontAbout)"/>
-              <polygon points="415,104 460,80 460,260 415,284" fill="url(#redSideAbout)"/>
-              <line x1="415" y1="56" x2="415" y2="284" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.8"/>
-              <line x1="370" y1="80" x2="415" y2="104" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.9"/>
-            </g>
-          </svg>
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p class="quote-text">No backing tracks allowed. No pay-to-play fees. No rigged online popularity votes. Just pure musicianship on a vibrating wooden floor judged by people who actually understand time signatures and amplifier gain staging. RITHMOS is the real deal.</p>
+          <div class="quote-meta">
+            <span class="quote-author">SIDDHARTH JOSHI</span>
+            <span class="quote-band">Drummer, Black River Syndicate (Secunderabad)</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- CTA Banner -->
+  <div class="subpage-container">
+    <div class="subpage-cta-banner">
+      <h3>YOUR BAND. YOUR SOUND. YOUR SHOT.</h3>
+      <p>Applications for the 2026 Hyderabad tournament circuit are officially open. Zero entry fee for all genuine live bands.</p>
+      <a href="/register" class="pill-cta-btn center-btn" style="text-decoration: none;">
+        <span>REGISTER YOUR BAND</span>
+        <span class="arrow-sym">→</span>
+      </a>
+    </div>
+  </div>
 
   <!-- Master Footer -->
   <footer class="static-master-footer theme-dark">
     <div class="static-container">
       <div class="footer-layout-row">
         <div class="footer-brand-lockup">
-          <a href="/" class="brand-link" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
-            <img src="/assets/logo.png" alt="RITHMOS" style="height: 38px; width: auto;">
-          </a>
-          <span class="footer-brand-sub" style="margin-top: 6px;">WHERE BANDS RISE</span>
-          <p class="footer-property-note">A property of Right Hand Entertainments</p>
+          <span class="footer-brand-title">RITHMOS</span>
+          <span class="footer-brand-sub">WHERE BANDS RISE</span>
         </div>
 
         <nav class="footer-nav-links" aria-label="Footer Navigation">
@@ -399,34 +437,7 @@
         </nav>
 
         <div class="footer-meta-col">
-          <div class="footer-social-icons">
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Facebook">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="YouTube">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><polygon points="10 15 15 12 10 9 10 15"/></svg>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://x.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="X / Twitter">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
-            </a>
-            <a href="https://threads.net" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Threads">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="footer-legal-bar" style="margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.72rem; color: #6e6c78;">
-        <div>&copy; 2026 RITHMOS. A property of Right Hand Entertainments. All rights reserved.</div>
-        <div style="display: flex; gap: 18px;">
-          <a href="#" class="legal-link-terms" style="color: #8e8d94; text-decoration: none;">Terms &amp; Conditions</a>
-          <a href="#" class="legal-link-privacy" style="color: #8e8d94; text-decoration: none;">Privacy Policy</a>
+          <span class="footer-tagline">MUSIC LIVES ON.</span>
         </div>
       </div>
     </div>
