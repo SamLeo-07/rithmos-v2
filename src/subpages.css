@@ -1962,41 +1962,35 @@
 }
 
 /* ==========================================================================
-   SPONSORS DECK // INTERACTIVE BRAND MOCKUP SIMULATOR (Photorealistic Showcase)
-   ========================================================================== */
-.brand-showcase-section {
-  margin-top: 36px;
-  margin-bottom: 24px;
-}
-
-/* ==========================================================================
-   INTERACTIVE BRAND ENVIRONMENT SIMULATOR (CINEMATIC BACKGROUND STAGE)
-   - Zero Box Cards
-   - Photorealistic AI Images As Dynamic Full-Stage Backgrounds
-   - Floating Glass Dock & Translucent HUD Horizon
+   FULL-WIDTH SECTION: BRAND ENVIRONMENT SIMULATOR
+   - ZERO CARDS
+   - EDGE-TO-EDGE SECTION BACKGROUND (100% Full Viewport Width)
+   - Seamless Background Transitions on the Webpage Section Itself
    ========================================================================== */
 
-.brand-environment-stage {
+.brand-environment-section {
   position: relative;
   width: 100%;
-  min-height: 720px;
-  border-radius: 16px;
+  min-height: 80vh;
+  padding: 100px 0 80px;
   overflow: hidden;
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 17, 45, 0.15);
-  margin-top: 10px;
-  background: #06040a;
+  background: #050308;
+  border-top: 1px solid rgba(255, 17, 45, 0.2);
+  border-bottom: 1px solid rgba(255, 17, 45, 0.2);
+  /* Explicitly ZERO card properties */
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-/* 1. Dynamic Background Viewport (5 Photorealistic AI Environments) */
-.stage-bg-viewport {
+/* 1. Dynamic Edge-to-Edge Section Background (100% Full Bleed, Zero Cards) */
+.section-bg-viewport {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
   overflow: hidden;
-  background: #07050a;
+  pointer-events: none;
 }
 
 .stage-bg-slide {
@@ -2005,8 +1999,8 @@
   width: 100%;
   height: 100%;
   opacity: 0;
-  transform: scale(1.03);
-  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(1.04);
+  transition: opacity 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
   pointer-events: none;
 }
 
@@ -2014,83 +2008,88 @@
   opacity: 1;
   transform: scale(1);
   z-index: 2;
-  pointer-events: auto;
 }
 
 .stage-bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  filter: contrast(1.06) saturate(1.12);
+  object-position: center 38%;
+  filter: contrast(1.08) saturate(1.15);
 }
 
-/* Atmospheric Scrim: Darkens top & bottom for high contrast text while stage lights explode in center */
-.stage-scrim {
+/* Atmospheric Section Scrim & Top/Bottom Seamless Fade */
+.section-bg-scrim {
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: linear-gradient(180deg, 
-    rgba(6, 4, 10, 0.86) 0%, 
-    rgba(6, 4, 10, 0.25) 24%, 
-    rgba(6, 4, 10, 0.28) 55%, 
-    rgba(6, 4, 10, 0.94) 100%
-  );
+  background: 
+    linear-gradient(180deg, 
+      rgba(5, 3, 8, 0.96) 0%, 
+      rgba(5, 3, 8, 0.6) 18%, 
+      rgba(5, 3, 8, 0.35) 45%, 
+      rgba(5, 3, 8, 0.65) 80%, 
+      rgba(5, 3, 8, 0.98) 100%
+    ),
+    radial-gradient(circle at center, transparent 35%, rgba(5, 3, 8, 0.75) 100%);
   pointer-events: none;
 }
 
-/* 2. Foreground Floating Interface */
-.stage-content-wrap {
+/* 2. Section Content Container (Centered on top of full-bleed background) */
+.brand-section-container {
   position: relative;
   z-index: 5;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 720px;
-  padding: 38px 40px 32px;
-  box-sizing: border-box;
+  min-height: calc(80vh - 180px);
 }
 
-/* Top Header */
-.stage-header {
-  max-width: 800px;
+/* Section Header */
+.section-takeover-header {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 36px;
 }
 
-.stage-headline {
+.section-takeover-title {
   font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
   letter-spacing: 0.04em;
   color: #ffffff;
-  margin: 8px 0 6px;
+  margin: 10px 0 8px;
   text-transform: uppercase;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+  line-height: 0.98;
 }
 
-.stage-subhead {
-  font-size: 0.95rem;
-  color: #c4c1d2;
-  line-height: 1.55;
-  margin: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+.section-takeover-subhead {
+  font-size: 1.05rem;
+  color: #cfcce0;
+  line-height: 1.6;
+  margin: 0 auto;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
-/* 3. Floating Glass Pillar Dock (NO chunky box cards!) */
+/* 3. Floating Glass Pillar Dock (Tabs floating directly over background) */
 .stage-pill-dock {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 24px 0 auto;
-  padding: 6px;
-  background: rgba(10, 8, 16, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  margin: 0 auto 40px;
+  padding: 8px 12px;
+  background: rgba(10, 8, 16, 0.68);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 17, 45, 0.15);
   width: fit-content;
   max-width: 100%;
-  align-self: center;
 }
 
 .stage-dock-pill {
@@ -2098,7 +2097,7 @@
   border: 1px solid transparent;
   border-radius: 30px;
   padding: 10px 22px;
-  color: #b3afc2;
+  color: #b5b1c5;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: inline-flex;
@@ -2110,21 +2109,21 @@
 
 .stage-dock-pill:hover {
   color: #ffffff;
-  background: rgba(255, 17, 45, 0.12);
-  border-color: rgba(255, 17, 45, 0.35);
+  background: rgba(255, 17, 45, 0.16);
+  border-color: rgba(255, 17, 45, 0.4);
   transform: translateY(-2px);
 }
 
 .stage-dock-pill.active {
-  background: linear-gradient(135deg, rgba(255, 17, 45, 0.3) 0%, rgba(200, 10, 35, 0.18) 100%);
+  background: linear-gradient(135deg, rgba(255, 17, 45, 0.35) 0%, rgba(190, 8, 30, 0.25) 100%);
   border-color: #ff112d;
   color: #ffffff;
-  box-shadow: 0 0 20px rgba(255, 17, 45, 0.45);
+  box-shadow: 0 0 24px rgba(255, 17, 45, 0.5);
   transform: translateY(-2px);
 }
 
 .dock-num {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: #ff334b;
@@ -2136,23 +2135,23 @@
 }
 
 .dock-label {
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .dock-sub {
-  font-size: 0.65rem;
-  color: #838092;
+  font-size: 0.68rem;
+  color: #8b879c;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding-left: 6px;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  padding-left: 8px;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .stage-dock-pill.active .dock-sub {
-  color: #ffd0d5;
+  color: #ffcdd4;
 }
 
 /* 4. Bottom Cinema HUD Horizon Bar */
@@ -2160,15 +2159,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 28px;
-  background: rgba(9, 7, 14, 0.86);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  gap: 32px;
+  background: rgba(9, 6, 14, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 17, 45, 0.35);
   border-radius: 12px;
-  padding: 24px 30px;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 17, 45, 0.08);
-  margin-top: 36px;
+  padding: 24px 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), inset 0 0 25px rgba(255, 17, 45, 0.08);
 }
 
 .hud-scenarios-container {
@@ -2228,7 +2226,7 @@
 
 .hud-takeover-title {
   font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
   letter-spacing: 0.05em;
   color: #ffffff;
   margin: 4px 0 6px;
@@ -2238,11 +2236,11 @@
 }
 
 .hud-takeover-desc {
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.55;
   color: #d1cde0;
   margin: 0 0 14px;
-  max-width: 820px;
+  max-width: 860px;
 }
 
 .hud-chips-row {
@@ -2285,8 +2283,8 @@
 }
 
 .hud-nav-arrow {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -2349,20 +2347,16 @@
 
 /* Responsive Scaling */
 @media (max-width: 1024px) {
-  .brand-environment-stage {
-    min-height: 660px;
-  }
-
-  .stage-content-wrap {
-    min-height: 660px;
-    padding: 28px 24px 22px;
+  .brand-environment-section {
+    padding: 70px 0 50px;
+    min-height: auto;
   }
 
   .stage-hud-bar {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
-    padding: 20px 22px;
+    padding: 20px 24px;
   }
 
   .hud-controls-col {
@@ -2376,14 +2370,16 @@
 }
 
 @media (max-width: 768px) {
-  .brand-environment-stage {
-    min-height: 580px;
-    border-radius: 12px;
+  .brand-environment-section {
+    padding: 55px 0 40px;
   }
 
-  .stage-content-wrap {
-    min-height: 580px;
-    padding: 20px 16px 18px;
+  .brand-section-container {
+    padding: 0 18px;
+  }
+
+  .section-takeover-title {
+    font-size: clamp(2.1rem, 7vw, 2.8rem);
   }
 
   .stage-pill-dock {
@@ -2415,11 +2411,11 @@
   }
 
   .hud-takeover-title {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
   }
 
   .hud-takeover-desc {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
   }
 }
 
