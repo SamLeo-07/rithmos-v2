@@ -1859,4 +1859,107 @@
   color: #ffffff;
 }
 
+/* ==========================================================================
+   ABOUT RIGHT HAND ENTERTAINMENTS (Section 03)
+   ========================================================================== */
+.rhe-section {
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(255, 28, 54, 0.06) 0%, transparent 60%), #07060b;
+}
+
+.rhe-card {
+  background: rgba(14, 13, 20, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: clamp(32px, 4.5vw, 48px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rhe-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff1c36, transparent 80%);
+}
+
+.rhe-card:hover {
+  border-color: rgba(255, 28, 54, 0.35);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 28px rgba(255, 28, 54, 0.12);
+}
+
+.rhe-text {
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  line-height: 1.8;
+  color: #c4c2d2;
+  margin: 0 0 28px;
+}
+
+.rhe-highlight-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: rgba(255, 28, 54, 0.06);
+  border: 1px solid rgba(255, 28, 54, 0.25);
+  border-radius: 8px;
+  margin-bottom: 28px;
+}
+
+.rhe-quote-bar {
+  width: 4px;
+  height: 28px;
+  background: #ff1c36;
+  border-radius: 2px;
+  box-shadow: 0 0 10px #ff1c36;
+  flex-shrink: 0;
+}
+
+.rhe-highlight-text {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.rhe-capabilities-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.rhe-cap-pill {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ff475b;
+  background: rgba(255, 28, 54, 0.07);
+  border: 1px solid rgba(255, 28, 54, 0.2);
+  border-radius: 4px;
+  padding: 6px 14px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.rhe-cap-pill:hover {
+  background: rgba(255, 28, 54, 0.18);
+  border-color: #ff1c36;
+  color: #ffffff;
+}
+
+
 
