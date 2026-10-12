@@ -2267,49 +2267,36 @@
 }
 
 /* =========================================================================
-   FOOTER CUTOFF STATEMENT BANNER ("MUSIC LIVES ON.")
+   FOOTER BACKGROUND WATERMARK ("MUSIC LIVES ON.")
    ========================================================================= */
-.footer-cutoff-marquee-wrap {
+.footer-bg-watermark {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  overflow: hidden;
-  margin-top: 36px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  height: clamp(65px, 12vw, 150px);
-  position: relative;
-  user-select: none;
+  align-items: center;
   pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.footer-cutoff-headline {
+.footer-bg-watermark-text {
   font-family: 'Anton', 'Bebas Neue', 'Alderwood', sans-serif;
-  font-size: clamp(3.8rem, 13vw, 13.5rem);
+  font-size: clamp(2.8rem, 8.4vw, 8.5rem);
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.06);
-  line-height: 0.72;
-  letter-spacing: 0.06em;
+  color: #ff112d;
+  opacity: 0.07;
+  line-height: 0.8;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   text-transform: uppercase;
-  transform: translateY(35%);
-  display: flex;
-  align-items: baseline;
-  gap: clamp(16px, 2.5vw, 40px);
-  text-shadow: 0 -2px 24px rgba(255, 17, 45, 0.22);
-  transition: color 0.4s ease;
-}
-
-.footer-cutoff-headline:hover {
-  color: rgba(255, 28, 54, 0.15);
-}
-
-.footer-cutoff-emblem {
-  display: inline-flex;
-  align-items: center;
-  opacity: 0.55;
-  transform: translateY(-5%);
+  text-align: center;
+  text-shadow: 0 0 50px rgba(255, 17, 45, 0.4);
+  user-select: none;
+  pointer-events: none;
 }
 
 /* =========================================================================
