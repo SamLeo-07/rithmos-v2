@@ -2301,6 +2301,115 @@
   transform: translateY(-5%);
 }
 
+/* =========================================================================
+   WHAT A PARTNER CAN OWN — 11 DELIVERABLE CARDS & ICONS (IMG 2)
+   ========================================================================= */
+.deliverables-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.deliverable-feature-card {
+  background: rgba(18, 15, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+}
+
+.deliverable-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 28, 54, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.deliverable-feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 28, 54, 0.45);
+  background: rgba(24, 18, 30, 0.95);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 28, 54, 0.15);
+}
+
+.deliverable-feature-card:hover::before {
+  opacity: 1;
+}
+
+.deliverable-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.deliverable-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(255, 28, 54, 0.08);
+  border: 1px solid rgba(255, 28, 54, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff1c36;
+  transition: all 0.35s ease;
+  flex-shrink: 0;
+}
+
+.deliverable-feature-card:hover .deliverable-icon-box {
+  background: rgba(255, 28, 54, 0.22);
+  border-color: #ff1c36;
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 14px rgba(255, 28, 54, 0.4);
+}
+
+.deliverable-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.deliverable-card-tag {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ff475b;
+  background: rgba(255, 28, 54, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 28, 54, 0.2);
+  text-transform: uppercase;
+}
+
+.deliverable-card-title {
+  font-family: 'Space Grotesk', var(--font-heading), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.deliverable-card-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #a4a1b4;
+  margin: 0;
+  flex-grow: 1;
+}
+
+
 
 
 
