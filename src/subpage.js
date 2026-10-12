@@ -411,5 +411,139 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 6000);
   }
+
+  // ==========================================================================
+  // CONTACT PAGE // TAB SWITCHER (BAND, BRAND, MESSAGE)
+  // ==========================================================================
+  const contactTabs = document.querySelectorAll('.contact-tab-btn');
+  const contactPanels = document.querySelectorAll('.contact-tab-panel');
+
+  if (contactTabs.length > 0) {
+    function switchContactTab(tabName) {
+      contactTabs.forEach((btn) => {
+        const isActive = btn.dataset.tab === tabName;
+        btn.classList.toggle('active', isActive);
+        btn.style.background = isActive
+          ? 'linear-gradient(90deg, rgba(255, 17, 45, 0.25) 0%, rgba(22, 16, 32, 0.95) 100%)'
+          : 'rgba(18, 14, 25, 0.75)';
+        btn.style.borderColor = isActive ? '#ff112d' : 'rgba(255, 255, 255, 0.1)';
+        btn.style.color = isActive ? '#fff' : '#9e9ea8';
+      });
+
+      contactPanels.forEach((panel) => {
+        const isTarget = panel.id === `tab-${tabName}-panel`;
+        panel.style.display = isTarget ? 'block' : 'none';
+      });
+    }
+
+    contactTabs.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        switchContactTab(btn.dataset.tab);
+      });
+    });
+
+    // Department route buttons in channels
+    const channelRouteBtns = document.querySelectorAll('.channel-route-btn');
+    channelRouteBtns.forEach((rBtn) => {
+      rBtn.addEventListener('click', () => {
+        const deptVal = rBtn.dataset.deptVal;
+        if (deptVal === 'Sponsorship') {
+          switchContactTab('brand');
+        } else {
+          switchContactTab('message');
+          const deptSelect = document.getElementById('c-dept');
+          if (deptSelect) deptSelect.value = deptVal;
+        }
+        const targetContainer = document.getElementById('contact-forms-container');
+        if (targetContainer) {
+          targetContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    const navRegBtn = document.getElementById('nav-reg-btn');
+    if (navRegBtn) {
+      navRegBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchContactTab('band');
+        const targetContainer = document.getElementById('contact-forms-container');
+        if (targetContainer) {
+          targetContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Form handlers
+    const contactBandForm = document.getElementById('contact-band-form');
+    if (contactBandForm) {
+      contactBandForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const success = document.getElementById('contact-band-success');
+        if (success) success.style.display = 'block';
+        contactBandForm.reset();
+      });
+    }
+
+    const contactBrandForm = document.getElementById('contact-brand-form');
+    if (contactBrandForm) {
+      contactBrandForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const success = document.getElementById('contact-brand-success');
+        if (success) success.style.display = 'block';
+        contactBrandForm.reset();
+      });
+    }
+  }
+
+  // ==========================================================================
+  // THE COMPETITION PAGE // EMBEDDED BAND REGISTRATION & CIRCUIT CABLE
+  // ==========================================================================
+  const compBandForm = document.getElementById('comp-band-registration-form');
+  if (compBandForm) {
+    compBandForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const successEl = document.getElementById('comp-band-form-success');
+      const refCodeEl = document.getElementById('comp-band-ref-code');
+      if (refCodeEl) {
+        const randomNum = Math.floor(1000 + Math.random() * 9000);
+        refCodeEl.textContent = `RTH-2026-BND-${randomNum}`;
+      }
+      if (successEl) {
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      compBandForm.reset();
+    });
+  }
+
+  // Cable progress track scroll update on /competition
+  const compCableGlowSub = document.getElementById('comp-cable-glow');
+  const compStepCards = document.querySelectorAll('.steps-flow-grid .step-card');
+  const compIndicators = document.querySelectorAll('.cable-nodes-indicator-row .timeline-indicator-node');
+  if (compCableGlowSub && compStepCards.length > 0) {
+    const onScrollCompTrack = () => {
+      const trackEl = document.getElementById('comp-journey-track') || document.querySelector('.steps-flow-grid');
+      if (!trackEl) return;
+      const rect = trackEl.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const start = winH * 0.90;
+      const end = -rect.height * 0.25;
+      const total = start - end;
+      if (total <= 0) return;
+      const p = Math.max(0, Math.min(1.0, (start - rect.top) / total));
+      const offset = 1000 * (1.0 - p);
+      compCableGlowSub.style.strokeDashoffset = `${offset}`;
+
+      compStepCards.forEach((card, idx) => {
+        if (p >= 0.08 + idx * 0.15) {
+          card.classList.add('is-energized');
+          if (compIndicators[idx]) compIndicators[idx].classList.add('is-energized');
+        }
+      });
+    };
+    window.addEventListener('scroll', onScrollCompTrack, { passive: true });
+    onScrollCompTrack();
+  }
 });
+
 

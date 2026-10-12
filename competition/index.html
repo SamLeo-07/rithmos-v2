@@ -31,9 +31,9 @@
     </nav>
     
     <div class="nav-actions">
-      <a href="/register" class="nav-cta-pill-btn">
+      <a href="#register-desk" class="nav-cta-pill-btn">
         <span>REGISTER YOUR BAND</span>
-        <span class="btn-arrow">→</span>
+        <span class="btn-arrow">↓</span>
       </a>
     </div>
   </header>
@@ -65,55 +65,140 @@
       <h2 class="section-title">THE SIX-STAGE JOURNEY</h2>
       <p class="section-desc">From initial submission to the defining championship moment.</p>
 
-      <div class="steps-flow-grid six-steps" style="margin-top: 30px;">
+      <!-- SVG Tournament Circuit Cable Progress Track -->
+      <div class="competition-cable-track-wrapper" id="comp-journey-track">
+        <div class="competition-cable-track" style="position: absolute; top: 0; bottom: 0; left: calc(100% / 12); right: calc(100% / 12); height: 14px; margin: auto 0; z-index: 1; pointer-events: none;">
+          <svg class="competition-cable-svg" id="comp-cable-svg" viewBox="0 0 1000 20" preserveAspectRatio="none" style="width: 100%; height: 100%; overflow: visible;">
+            <path class="comp-cable-bg" d="M 0,10 L 1000,10" />
+            <path class="comp-cable-glow" id="comp-cable-glow" d="M 0,10 L 1000,10" />
+          </svg>
+        </div>
+        <div class="cable-nodes-indicator-row" style="position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center;">
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+          <div class="timeline-indicator-node is-energized" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <div class="node-dot" style="margin-bottom: 0;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps-flow-grid six-steps" style="margin-top: 24px;">
+        <!-- Stage 01: Register -->
         <div class="step-card is-energized">
           <div class="step-card-header">
             <span class="step-giant-num">01</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <circle cx="20" cy="20" r="15" stroke="#ff1a2b" stroke-width="2"/>
+                <circle cx="20" cy="20" r="9" stroke="#ff1a2b" stroke-width="2"/>
+                <circle cx="20" cy="20" r="3.5" fill="#ff1a2b"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag">STAGE 01</span>
           <h3 class="step-title">REGISTER</h3>
           <p class="step-desc">Submit your band's details and required performance material.</p>
         </div>
 
+        <!-- Stage 02: Selection -->
         <div class="step-card is-energized">
           <div class="step-card-header">
             <span class="step-giant-num">02</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <circle cx="12" cy="14" r="2" fill="#ff1a2b"/>
+                <circle cx="12" cy="20" r="2" fill="#ff1a2b"/>
+                <circle cx="12" cy="26" r="2" fill="#ff1a2b"/>
+                <line x1="18" y1="14" x2="28" y2="14" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="18" y1="20" x2="28" y2="20" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="18" y1="26" x2="28" y2="26" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag">STAGE 02</span>
           <h3 class="step-title">SELECTION</h3>
           <p class="step-desc">Submissions are reviewed and participating bands are selected by the RITHMOS Event Management team.</p>
         </div>
 
+        <!-- Stage 03: Prelims -->
         <div class="step-card is-energized">
           <div class="step-card-header">
             <span class="step-giant-num">03</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <circle cx="20" cy="14" r="3.5" fill="#ff1a2b"/>
+                <circle cx="12" cy="17" r="3" fill="#ff1a2b"/>
+                <circle cx="28" cy="17" r="3" fill="#ff1a2b"/>
+                <path d="M15 28C15 24 17 22 20 22C23 22 25 24 25 28" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M8 29C8 26 10 24.5 12 24.5" stroke="#ff1a2b" stroke-width="2" stroke-linecap="round"/>
+                <path d="M32 29C32 26 30 24.5 28 24.5" stroke="#ff1a2b" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag">STAGE 03</span>
           <h3 class="step-title">PRELIMS</h3>
           <p class="step-desc">Selected bands take the RITHMOS stage and perform before the audience and judging panel.</p>
         </div>
 
+        <!-- Stage 04: Semifinals -->
         <div class="step-card is-energized">
           <div class="step-card-header">
             <span class="step-giant-num">04</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <path d="M20 7L23.8 15.5L33 16.5L26 23L28 32L20 27.2L12 32L14 23L7 16.5L16.2 15.5L20 7Z" stroke="#ff1a2b" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag">STAGE 04</span>
           <h3 class="step-title">SEMIFINALS</h3>
           <p class="step-desc">The strongest performers progress to the next stage of the competition.</p>
         </div>
 
+        <!-- Stage 05: Grand Finale -->
         <div class="step-card is-energized">
           <div class="step-card-header">
             <span class="step-giant-num">05</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <path d="M9 28L11 16L16 21L20 12L24 21L29 16L31 28H9Z" stroke="#ff1a2b" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+                <circle cx="11" cy="14" r="1.5" fill="#ff1a2b"/>
+                <circle cx="20" cy="10" r="1.5" fill="#ff1a2b"/>
+                <circle cx="29" cy="14" r="1.5" fill="#ff1a2b"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag">STAGE 05</span>
           <h3 class="step-title">GRAND FINALE</h3>
           <p class="step-desc">Finalist bands compete for the RITHMOS title in front of an arena audience.</p>
         </div>
 
+        <!-- Stage 06: The Moment -->
         <div class="step-card is-energized" style="border-color: #ff112d;">
           <div class="step-card-header">
             <span class="step-giant-num" style="color: #ff112d;">06</span>
+            <div class="node-icon-wrap" style="margin-bottom: 0;">
+              <svg viewBox="0 0 40 40" width="34" height="34" fill="none">
+                <path d="M14 10H26V18C26 21.31 23.31 24 20 24C16.69 24 14 21.31 14 18V10Z" stroke="#ff1a2b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 13H10C8.9 13 8 13.9 8 15C8 17.5 9.8 19.5 12.2 19.9L14 20.2" stroke="#ff1a2b" stroke-width="2" stroke-linecap="round"/>
+                <path d="M26 13H30C31.1 13 32 13.9 32 15C32 17.5 30.2 19.5 27.8 19.9L26 20.2" stroke="#ff1a2b" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 24V29" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M13 29H27" stroke="#ff1a2b" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
           </div>
           <span class="step-stage-tag" style="color: #ff112d;">THE MOMENT</span>
           <h3 class="step-title">THE MOMENT</h3>
@@ -162,6 +247,122 @@
     </div>
   </section>
 
+  <!-- Section 03: Band Registration Intake Desk -->
+  <section class="subpage-section" id="register-desk" style="background: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+    <div class="subpage-container">
+      <div class="section-label-row">
+        <span class="section-label">03 // OFFICIAL INTAKE DESK</span>
+        <span class="tag-accent-bar red"></span>
+      </div>
+      <h2 class="section-title">BAND REGISTRATION FORM</h2>
+      <p class="section-desc">
+        Submit your band details and audition video link below. Complete all fields accurately. Once received, our screening panel will review your material and issue qualification status within 48 hours.
+      </p>
+
+      <div class="contact-form-card" style="max-width: 860px; margin: 0 auto;">
+        <form id="comp-band-registration-form" class="contact-form" autocomplete="off">
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Band Name -->
+            <div class="form-group">
+              <label for="comp-b-name">Band Name *</label>
+              <input type="text" id="comp-b-name" name="bandName" placeholder="e.g. Asura Syndicate" required>
+            </div>
+
+            <!-- Band Performing Language -->
+            <div class="form-group">
+              <label for="comp-b-lang">Band Performing Language *</label>
+              <select id="comp-b-lang" name="language" required>
+                <option value="" disabled>Select Performing Language</option>
+                <option value="Telugu (Mandatory)" selected>Telugu (Mandatory)</option>
+                <option value="Telugu + Multilingual">Telugu + Multilingual</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Lead Contact Name -->
+            <div class="form-group">
+              <label for="comp-b-leader">Lead Contact Person (Full Name) *</label>
+              <input type="text" id="comp-b-leader" name="leaderName" placeholder="e.g. Vikramaditya Rao" required>
+            </div>
+
+            <!-- Base City -->
+            <div class="form-group">
+              <label for="comp-b-city">Base City *</label>
+              <input type="text" id="comp-b-city" name="city" placeholder="e.g. Hyderabad / Secunderabad" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Mobile Number -->
+            <div class="form-group">
+              <label for="comp-b-phone">Mobile Number *</label>
+              <input type="tel" id="comp-b-phone" name="phone" placeholder="+91 98765 43210" required>
+            </div>
+
+            <!-- Official Email -->
+            <div class="form-group">
+              <label for="comp-b-email">Official Email *</label>
+              <input type="email" id="comp-b-email" name="email" placeholder="official@banddomain.com" required>
+            </div>
+          </div>
+
+          <!-- Audition Link -->
+          <div class="form-group">
+            <label for="comp-b-link">Audition Link (YouTube / Google Drive) *</label>
+            <input type="url" id="comp-b-link" name="demoUrl" placeholder="https://youtube.com/watch?v=... or Google Drive link" required>
+            <span style="font-size: 0.74rem; color: #848197; margin-top: 4px; display: block;">
+              Provide a clear live gig or rehearsal video showcasing your original musicianship.
+            </span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Instagram / Linktree -->
+            <div class="form-group">
+              <label for="comp-b-social">Instagram / Web Profile</label>
+              <input type="text" id="comp-b-social" name="socialUrl" placeholder="@yourbandhandle or linktr.ee">
+            </div>
+
+            <!-- Stage Lineup Summary -->
+            <div class="form-group">
+              <label for="comp-b-tech">Stage Lineup / Channel Brief</label>
+              <input type="text" id="comp-b-tech" name="techBrief" placeholder="e.g. 2 Guitars, 1 Bass, 5-pc Kit, 2 Vocals">
+            </div>
+          </div>
+
+          <!-- Live Rule Confirmation Checkbox -->
+          <div class="form-group" style="margin-top: 12px;">
+            <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; text-transform: none; font-size: 0.85rem; color: #d6d3e6; line-height: 1.4;">
+              <input type="checkbox" id="comp-b-rule-ack" name="ruleAck" required style="width: auto; margin-top: 3px; accent-color: #ff1c36;">
+              <span>I confirm that all performance instruments and vocals will be rendered 100% live on stage without pre-recorded stems, sequenced playback, or lip-sync tracks.</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div style="margin-top: 24px;">
+            <button type="submit" id="comp-band-submit-btn" class="pill-cta-btn" style="width: 100%; justify-content: center; font-size: 1rem; padding: 16px;">
+              <span>SUBMIT BAND FOR AUDITION</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- Success Alert Message Box -->
+          <div id="comp-band-form-success" style="display: none; margin-top: 24px; padding: 20px; background: rgba(30, 200, 110, 0.1); border: 1px solid rgba(30, 200, 110, 0.3); border-radius: 8px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #1ec86e;"></span>
+              <strong style="color: #1ec86e; font-family: 'Space Grotesk', monospace; letter-spacing: 0.1em; font-size: 0.85rem;">APPLICATION TRANSMITTED TO JURY DESK</strong>
+            </div>
+            <p style="color: #d6d3e6; font-size: 0.9rem; margin: 0;">
+              Your band registration has been securely logged (Ref ID: <span id="comp-band-ref-code" style="color: #fff; font-family: monospace; font-weight: 700;">RTH-2026-BND</span>). Our curator committee will review your audition material and contact your band lead within 48 hours.
+            </p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- Ready to Rise Section -->
   <section class="subpage-section">
     <div class="subpage-container">
@@ -170,9 +371,9 @@
         <p style="font-size: 1.1rem; color: #d0cddc; margin-bottom: 24px; max-width: 700px; margin-left: auto; margin-right: auto;">
           If your band believes it has something to say, something to play and something worth sharing — this is your call for fame!
         </p>
-        <a href="/register" class="nav-cta-pill-btn" style="display: inline-flex; margin-bottom: 16px;">
+        <a href="#register-desk" class="nav-cta-pill-btn" style="display: inline-flex; margin-bottom: 16px;">
           <span>REGISTER YOUR BAND</span>
-          <span class="btn-arrow">→</span>
+          <span class="btn-arrow">↓</span>
         </a>
         <p style="font-size: 0.85rem; color: #8e8d94;">
           Eligibility, registration requirements, submission format, dates and terms will be provided through the official registration process.

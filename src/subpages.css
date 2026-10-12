@@ -2185,5 +2185,30 @@
   }
 }
 
+/* The Competition Cable Track & Indicator Nodes */
+.competition-cable-track-wrapper {
+  position: relative;
+  margin: 36px 0 20px;
+  width: 100%;
+}
+
+.cable-nodes-indicator-row {
+  width: 100%;
+}
+
+.timeline-indicator-node {
+  transition: transform 0.3s ease;
+}
+
+.timeline-indicator-node:hover {
+  transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+  .competition-cable-track-wrapper {
+    display: none;
+  }
+}
+
 
 

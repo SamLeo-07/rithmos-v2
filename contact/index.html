@@ -29,9 +29,9 @@
     </nav>
     
     <div class="nav-actions">
-      <a href="/register" class="nav-cta-pill-btn">
+      <a href="#contact-forms-container" class="nav-cta-pill-btn" id="nav-reg-btn">
         <span>REGISTER YOUR BAND</span>
-        <span class="btn-arrow">→</span>
+        <span class="btn-arrow">↓</span>
       </a>
     </div>
   </header>
@@ -52,7 +52,7 @@
 
       <div class="clean-hero-badge">
         <span class="pulse-dot"></span>
-        <span>Operations Desk Active &bull; Inquiries answered within 24 business hours</span>
+        <span>Operations Desk Active &bull; Inquiries will be answered shortly</span>
       </div>
     </div>
   </section>
@@ -78,8 +78,8 @@
           <h3 class="clean-card-title">General Inquiries</h3>
           <p class="clean-card-desc">Administrative scheduling and general communications.</p>
           <div class="clean-card-contact">
-            <a href="mailto:contact@rithmos.live" class="clean-contact-link">contact@rithmos.live</a>
-            <span class="clean-contact-phone">+91 90001 84200</span>
+            <a href="mailto:info@rithmos.in" class="clean-contact-link">info@rithmos.in</a>
+            <span class="clean-contact-phone">+91 78939 55551</span>
           </div>
           <button class="channel-route-btn" data-dept-val="General">Inquire Here &darr;</button>
         </div>
@@ -94,8 +94,8 @@
           <h3 class="clean-card-title">Brand Partnerships</h3>
           <p class="clean-card-desc">Sponsorship tiers, headline stage naming rights, brand lounges, and co-marketing activations.</p>
           <div class="clean-card-contact">
-            <a href="mailto:partnerships@rithmos.live" class="clean-contact-link">partnerships@rithmos.live</a>
-            <span class="clean-contact-phone">+91 90001 84202</span>
+            <a href="mailto:info@rithmos.in" class="clean-contact-link">info@rithmos.in</a>
+            <span class="clean-contact-phone">+91 78939 55551</span>
           </div>
           <button class="channel-route-btn" data-dept-val="Sponsorship">Inquire Here &darr;</button>
         </div>
@@ -110,8 +110,8 @@
           <h3 class="clean-card-title">Press &amp; Media</h3>
           <p class="clean-card-desc">Accreditation passes, photo pit credentials, interview requests, and official festival press releases.</p>
           <div class="clean-card-contact">
-            <a href="mailto:press@rithmos.live" class="clean-contact-link">press@rithmos.live</a>
-            <span class="clean-contact-phone">+91 90001 84203</span>
+            <a href="mailto:info@rithmos.in" class="clean-contact-link">info@rithmos.in</a>
+            <span class="clean-contact-phone">+91 78939 55551</span>
           </div>
           <button class="channel-route-btn" data-dept-val="Press">Inquire Here &darr;</button>
         </div>
@@ -126,8 +126,8 @@
           <h3 class="clean-card-title">Guest Services</h3>
           <p class="clean-card-desc">Ticketing inquiries, VIP hospitality suite access, venue seating, and special accessibility accommodations.</p>
           <div class="clean-card-contact">
-            <a href="mailto:tickets@rithmos.live" class="clean-contact-link">tickets@rithmos.live</a>
-            <span class="clean-contact-phone">+91 90001 84204</span>
+            <a href="mailto:info@rithmos.in" class="clean-contact-link">info@rithmos.in</a>
+            <span class="clean-contact-phone">+91 78939 55551</span>
           </div>
           <button class="channel-route-btn" data-dept-val="Ticketing">Inquire Here &darr;</button>
         </div>
@@ -143,117 +143,291 @@
         <span class="tag-accent-bar red"></span>
       </div>
 
-      <div class="inquiry-split-grid">
-        <!-- Direct Inquiry Form -->
+      <div class="inquiry-split-grid" id="contact-forms-container">
+        <!-- Multi-Purpose Intake & Message Card -->
         <div class="contact-form-card">
-          <div class="form-header-bar">
-            <h3 class="card-heading">SEND A MESSAGE</h3>
-            <span class="live-indicator"><span class="pulse-dot"></span>DIRECT ROUTING</span>
+          <!-- Form Mode Switcher Tabs -->
+          <div class="contact-tabs-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;">
+            <button type="button" class="contact-tab-btn active" data-tab="band" style="background: linear-gradient(90deg, rgba(255, 17, 45, 0.25) 0%, rgba(22, 16, 32, 0.95) 100%); border: 1px solid #ff112d; color: #fff; padding: 8px 14px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 0.76rem; font-weight: 700; cursor: pointer;">
+              ⚡ REGISTER YOUR BAND
+            </button>
+            <button type="button" class="contact-tab-btn" data-tab="brand" style="background: rgba(18, 14, 25, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); color: #9e9ea8; padding: 8px 14px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 0.76rem; font-weight: 700; cursor: pointer;">
+              🏢 REGISTER YOUR BRAND
+            </button>
+            <button type="button" class="contact-tab-btn" data-tab="message" style="background: rgba(18, 14, 25, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); color: #9e9ea8; padding: 8px 14px; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 0.76rem; font-weight: 700; cursor: pointer;">
+              ✉️ SEND A MESSAGE
+            </button>
           </div>
-          <p class="card-text" style="margin-bottom: 24px;">Fill out the form below and our team will get back to you promptly.</p>
 
-          <form id="subpage-contact-form" class="contact-form">
-            <div class="form-row">
+          <!-- TAB 1: BAND REGISTRATION FORM -->
+          <div id="tab-band-panel" class="contact-tab-panel active">
+            <div class="form-header-bar">
+              <h3 class="card-heading">BAND REGISTRATION FORM</h3>
+              <span class="live-indicator"><span class="pulse-dot"></span>INTAKE ACTIVE</span>
+            </div>
+            <p class="card-text" style="margin-bottom: 24px;">Submit your band details and audition video link below. Complete all fields accurately.</p>
+
+            <form id="contact-band-form" class="contact-form" autocomplete="off">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cb-name">Band Name *</label>
+                  <input type="text" id="cb-name" name="bandName" placeholder="e.g. Asura Syndicate" required>
+                </div>
+                <div class="form-group">
+                  <label for="cb-lang">Band Performing Language *</label>
+                  <select id="cb-lang" name="language" required>
+                    <option value="Telugu (Mandatory)" selected>Telugu (Mandatory)</option>
+                    <option value="Telugu + Multilingual">Telugu + Multilingual</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cb-leader">Lead Contact Person (Full Name) *</label>
+                  <input type="text" id="cb-leader" name="leaderName" placeholder="e.g. Vikramaditya Rao" required>
+                </div>
+                <div class="form-group">
+                  <label for="cb-city">Base City *</label>
+                  <input type="text" id="cb-city" name="city" placeholder="e.g. Hyderabad / Secunderabad" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cb-phone">Mobile Number *</label>
+                  <input type="tel" id="cb-phone" name="phone" placeholder="+91 98765 43210" required>
+                </div>
+                <div class="form-group">
+                  <label for="cb-email">Official Email *</label>
+                  <input type="email" id="cb-email" name="email" placeholder="official@banddomain.com" required>
+                </div>
+              </div>
+
               <div class="form-group">
-                <label for="c-name">Full Name *</label>
-                <input type="text" id="c-name" required placeholder="e.g. Rahul Sharma">
+                <label for="cb-link">Audition Link (YouTube / Google Drive) *</label>
+                <input type="url" id="cb-link" name="demoUrl" placeholder="https://youtube.com/watch?v=... or Google Drive link" required>
+                <span style="font-size: 0.74rem; color: #848197; margin-top: 4px; display: block;">Provide a clear live gig or rehearsal video showcasing your original musicianship.</span>
               </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cb-social">Instagram / Web Profile</label>
+                  <input type="text" id="cb-social" name="socialUrl" placeholder="@yourbandhandle or linktr.ee">
+                </div>
+                <div class="form-group">
+                  <label for="cb-lineup">Stage Lineup / Channel Brief</label>
+                  <input type="text" id="cb-lineup" name="lineup" placeholder="e.g. 2 Guitars, 1 Bass, 5-pc Kit, 2 Vocals">
+                </div>
+              </div>
+
+              <div style="margin: 16px 0;">
+                <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: #b0adc2; cursor: pointer; line-height: 1.4;">
+                  <input type="checkbox" name="liveIntegrity" required style="margin-top: 3px; accent-color: #ff1c36;">
+                  <span>I confirm that all performance instruments and vocals will be rendered 100% live on stage without pre-recorded stems, sequenced playback, or lip-sync tracks.</span>
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn submit-btn" style="width: 100%; justify-content: center;">
+                  <span>SUBMIT BAND FOR AUDITION</span>
+                  <span class="btn-arrow">&rarr;</span>
+                </button>
+              </div>
+
+              <div id="contact-band-success" class="success-alert" style="display: none; margin-top: 16px;">
+                <span>✓ APPLICATION RECEIVED! WELCOME TO RITHMOS.</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 2: BRAND PARTNERSHIP REGISTRATION FORM -->
+          <div id="tab-brand-panel" class="contact-tab-panel" style="display: none;">
+            <div class="form-header-bar">
+              <h3 class="card-heading">REGISTER YOUR BRAND</h3>
+              <span class="live-indicator"><span class="pulse-dot"></span>COMMERCIAL DESK</span>
+            </div>
+            <p class="card-text" style="margin-bottom: 24px;">Connect with our partnership team to explore sponsorship tiers and experiential brand takeovers.</p>
+
+            <form id="contact-brand-form" class="contact-form" autocomplete="off">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cbr-company">Company / Brand Name *</label>
+                  <input type="text" id="cbr-company" name="company" placeholder="e.g. Red Bull India / Sennheiser" required>
+                </div>
+                <div class="form-group">
+                  <label for="cbr-industry">Industry / Sector *</label>
+                  <select id="cbr-industry" name="industry" required>
+                    <option value="" disabled selected>Select Industry</option>
+                    <option value="Beverage / F&B">Beverage / F&amp;B</option>
+                    <option value="Consumer Electronics & Audio">Consumer Electronics &amp; Audio</option>
+                    <option value="Tech / SaaS / Gaming">Tech / SaaS / Gaming</option>
+                    <option value="Apparel & Lifestyle">Apparel &amp; Lifestyle</option>
+                    <option value="Automotive & Mobility">Automotive &amp; Mobility</option>
+                    <option value="Fintech & Banking">Fintech &amp; Banking</option>
+                    <option value="Media & Streaming">Media &amp; Streaming</option>
+                    <option value="Other Commercial Sector">Other Commercial Sector</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cbr-name">Executive Contact Name *</label>
+                  <input type="text" id="cbr-name" name="name" placeholder="e.g. Siddharth Mehta" required>
+                </div>
+                <div class="form-group">
+                  <label for="cbr-title">Designation / Role *</label>
+                  <input type="text" id="cbr-title" name="title" placeholder="e.g. Head of Brand Marketing" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cbr-email">Work Corporate Email *</label>
+                  <input type="email" id="cbr-email" name="email" placeholder="name@brandcorp.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="cbr-phone">Phone / WhatsApp *</label>
+                  <input type="tel" id="cbr-phone" name="phone" placeholder="+91 98000 12345" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="form-group">
+                  <label for="cbr-tier">Sponsorship Tier of Interest *</label>
+                  <select id="cbr-tier" name="tier" required>
+                    <option value="" disabled selected>Select Target Tier</option>
+                    <option value="Title Partner (Presented By)">Title Partner (Presented By)</option>
+                    <option value="Powered By Partner">Powered By Partner</option>
+                    <option value="Category Exclusive Partner">Category Exclusive Partner</option>
+                    <option value="Digital & Broadcast Partner">Digital &amp; Broadcast Partner</option>
+                    <option value="Custom Experiential Activation">Custom Experiential Activation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="cbr-budget">Estimated Budget Bracket</label>
+                  <select id="cbr-budget" name="budget">
+                    <option value="" disabled selected>Select Allocation Bracket</option>
+                    <option value="₹5,00,000 – ₹15,00,000">₹5,00,000 – ₹15,00,000</option>
+                    <option value="₹15,00,000 – ₹30,00,000">₹15,00,000 – ₹30,00,000</option>
+                    <option value="₹30,00,000 – ₹60,00,000">₹30,00,000 – ₹60,00,000</option>
+                    <option value="₹60,00,000+ (Title Package)">₹60,00,000+ (Title Package)</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="form-group">
-                <label for="c-phone">Phone / WhatsApp *</label>
-                <input type="tel" id="c-phone" required placeholder="+91 98765 43210">
+                <label for="cbr-notes">Primary Brand Objectives</label>
+                <textarea id="cbr-notes" name="notes" rows="3" placeholder="Tell us about your brand goals, experiential ideas, or sampling requirements..."></textarea>
               </div>
-            </div>
 
-            <div class="form-row">
+              <div class="form-actions">
+                <button type="submit" class="primary-btn submit-btn" style="width: 100%; justify-content: center;">
+                  <span>TRANSMIT BRAND PROSPECTUS REQUEST</span>
+                  <span class="btn-arrow">&rarr;</span>
+                </button>
+              </div>
+
+              <div id="contact-brand-success" class="success-alert" style="display: none; margin-top: 16px;">
+                <span>✓ PROSPECTUS REQUEST RECEIVED! OUR COMMERCIAL DESK WILL RESPOND SHORTLY.</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 3: GENERAL MESSAGE FORM -->
+          <div id="tab-message-panel" class="contact-tab-panel" style="display: none;">
+            <div class="form-header-bar">
+              <h3 class="card-heading">SEND A MESSAGE</h3>
+              <span class="live-indicator"><span class="pulse-dot"></span>DIRECT ROUTING</span>
+            </div>
+            <p class="card-text" style="margin-bottom: 24px;">Fill out the form below and our team will get back to you promptly.</p>
+
+            <form id="subpage-contact-form" class="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-name">Full Name *</label>
+                  <input type="text" id="c-name" required placeholder="e.g. Rahul Sharma">
+                </div>
+                <div class="form-group">
+                  <label for="c-phone">Phone / WhatsApp *</label>
+                  <input type="tel" id="c-phone" required placeholder="+91 98765 43210">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-email">Official Email *</label>
+                  <input type="email" id="c-email" required placeholder="name@domain.com">
+                </div>
+                <div class="form-group">
+                  <label for="c-dept">Department *</label>
+                  <select id="c-dept" required>
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="General">General &amp; Operations Inquiries</option>
+                    <option value="Sponsorship">Brand Partnerships &amp; Sponsorships</option>
+                    <option value="Press">Press &amp; Media Accreditation</option>
+                    <option value="Ticketing">Guest Services &amp; Ticketing Support</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="c-band">Organization / Company</label>
+                  <input type="text" id="c-band" placeholder="e.g. Red Bull India / Rolling Stone / Independent">
+                </div>
+                <div class="form-group">
+                  <label for="c-role">Designation / Role</label>
+                  <input type="text" id="c-role" placeholder="e.g. Marketing Director / Journalist / Visitor">
+                </div>
+              </div>
+
               <div class="form-group">
-                <label for="c-email">Official Email *</label>
-                <input type="email" id="c-email" required placeholder="name@domain.com">
+                <div class="label-with-counter">
+                  <label for="c-msg">Message *</label>
+                  <span class="char-count" id="char-counter">0 / 500</span>
+                </div>
+                <textarea id="c-msg" rows="4" maxlength="500" required placeholder="Tell us about your inquiry, proposal, or requirements..."></textarea>
               </div>
-              <div class="form-group">
-                <label for="c-dept">Department *</label>
-                <select id="c-dept" required>
-                  <option value="" disabled selected>Select Department</option>
-                  <option value="General">General &amp; Operations Inquiries</option>
-                  <option value="Sponsorship">Brand Partnerships &amp; Sponsorships</option>
-                  <option value="Press">Press &amp; Media Accreditation</option>
-                  <option value="Ticketing">Guest Services &amp; Ticketing Support</option>
-                </select>
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn submit-btn" id="contact-submit-btn">
+                  <span>Send Message</span>
+                  <span class="btn-arrow">&rarr;</span>
+                </button>
               </div>
-            </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="c-band">Organization / Company</label>
-                <input type="text" id="c-band" placeholder="e.g. Red Bull India / Rolling Stone / Independent">
+              <div class="form-privacy-note">
+                🔒 Inquiries are processed securely. Your contact details are never shared with third parties.
               </div>
-              <div class="form-group">
-                <label for="c-role">Designation / Role</label>
-                <input type="text" id="c-role" placeholder="e.g. Marketing Director / Journalist / Visitor">
+
+              <div id="contact-form-success" class="success-alert" style="display: none;">
+                <span>✓ Message sent successfully! A coordinator will respond shortly.</span>
               </div>
-            </div>
-
-            <div class="form-group">
-              <div class="label-with-counter">
-                <label for="c-msg">Message *</label>
-                <span class="char-count" id="char-counter">0 / 500</span>
-              </div>
-              <textarea id="c-msg" rows="4" maxlength="500" required placeholder="Tell us about your inquiry, proposal, or requirements..."></textarea>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="primary-btn submit-btn" id="contact-submit-btn">
-                <span>Send Message</span>
-                <span class="btn-arrow">&rarr;</span>
-              </button>
-            </div>
-
-            <div class="form-privacy-note">
-              🔒 Inquiries are processed securely. Your contact details are never shared with third parties.
-            </div>
-
-            <div id="contact-form-success" class="success-alert" style="display: none;">
-              <span>✓ Message sent successfully! A coordinator will respond within our published turnaround time.</span>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
 
-        <!-- Festival Headquarters -->
-        <div class="hq-location-card">
-          <span class="hq-badge-label">FESTIVAL HEADQUARTERS</span>
-          <h3 class="hq-clean-title">RITHMOS EDITION 1</h3>
+        <!-- Festival Headquarters: Simplified Coming Soon -->
+        <div class="hq-location-card" style="display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 40px 28px;">
+          <span class="hq-badge-label" style="align-self: center;">FESTIVAL HEADQUARTERS</span>
+          <h3 class="hq-clean-title" style="margin-bottom: 16px;">RITHMOS EDITION 1</h3>
 
-          <div class="hq-address-clean" style="margin-bottom: 20px;">
-            <strong style="color: #ff1c36; font-size: 1.05rem; display: block; margin-bottom: 6px;">VENUES COMING SOON</strong>
-            Host arenas, audition venues, and showcase locations for RITHMOS Edition 1 across Hyderabad are being finalized and will be revealed soon.
+          <div style="font-family: 'Space Grotesk', monospace; font-size: 2.2rem; font-weight: 800; color: #ff1c36; letter-spacing: 0.1em; text-transform: uppercase; margin: 16px 0 14px;">
+            COMING SOON
           </div>
 
-          <div class="hq-zones-clean">
-            <div class="hq-zone-row">
-              <span class="hq-zone-name">Audition &amp; Qualifier Venues</span>
-              <span class="hq-zone-badge" style="background: rgba(255, 28, 54, 0.15); color: #ff475b; border-color: rgba(255, 28, 54, 0.3);">COMING SOON</span>
-            </div>
-            <div class="hq-zone-row">
-              <span class="hq-zone-name">Grand Finale Arena</span>
-              <span class="hq-zone-badge" style="background: rgba(255, 28, 54, 0.15); color: #ff475b; border-color: rgba(255, 28, 54, 0.3);">HYDERABAD</span>
-            </div>
-            <div class="hq-zone-row">
-              <span class="hq-zone-name">Secretariat &amp; Executive Desk</span>
-              <span class="hq-zone-badge" style="background: rgba(255, 28, 54, 0.15); color: #ff475b; border-color: rgba(255, 28, 54, 0.3);">HYDERABAD</span>
-            </div>
-          </div>
+          <p style="color: #a4a1b4; font-size: 0.95rem; line-height: 1.6; max-width: 460px; margin: 0 auto 24px;">
+            Host arenas, audition venues, and stadium showcase locations for RITHMOS Edition 1 across Hyderabad are being finalized and will be revealed soon.
+          </p>
 
-          <div class="hq-hours-clean">
-            <span class="hours-header">DESK HOURS:</span>
-            <span class="hours-text">Monday – Friday: 9:00 AM – 6:00 PM IST</span>
-            <span class="hours-text">Saturday: 10:00 AM – 2:00 PM IST (By Appointment)</span>
-          </div>
-
-          <a href="https://wa.me/919000184200" target="_blank" rel="noopener" class="whatsapp-direct-btn">
+          <a href="https://wa.me/917893955551" target="_blank" rel="noopener" class="whatsapp-direct-btn" style="align-self: center;">
             <span>💬</span>
-            <span>WhatsApp Quick Desk (+91 90001 84200)</span>
+            <span>WhatsApp Quick Desk (+91 78939 55551)</span>
           </a>
 
-          <div class="hq-meta-legal">
+          <div class="hq-meta-legal" style="margin-top: 24px;">
             RITHMOS LIVE ENTERTAINMENT &bull; A PROPERTY OF RIGHT HAND ENTERTAINMENTS &bull; HYDERABAD, TELANGANA
           </div>
         </div>
