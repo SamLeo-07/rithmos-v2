@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger simulated PDF download prompt
         const link = document.createElement('a');
         link.href = '/assets/logo.png';
-        link.download = 'RITHMOS-2026-Festival-Sponsorship-Prospectus.png';
+        link.download = 'RITHMOS-2026-Sponsorship-Prospectus.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
