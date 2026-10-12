@@ -1680,6 +1680,10 @@ body::after {
   max-width: 240px;
 }
 
+.step-connector-stem {
+  display: none;
+}
+
 /* Inter-Section Narrative Cable Plunging into Sections 03 & 04 */
 .narrative-inter-section-cable {
   display: flex;
@@ -2513,27 +2517,143 @@ body::after {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .static-section {
     padding: 70px 24px;
   }
+
+  /* SECTION 02: Vertical Progress Flow on Mobile */
+  .red-cable-track {
+    width: 100%;
+    height: 32px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .red-cable-svg {
+    display: none !important;
+  }
+  .red-cable-track::after {
+    content: '';
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 28, 54, 0.4), #ff1a2b);
+    box-shadow: 0 0 10px #ff1a2b, 0 0 18px rgba(255, 28, 54, 0.7);
+  }
   .steps-flow-grid {
     flex-direction: column;
-    gap: 32px;
+    gap: 36px;
+    margin-top: 0;
   }
   .step-arrow-connector {
     display: none;
   }
+  .step-card {
+    overflow: visible;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .step-card:not(:last-child) .step-connector-stem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    z-index: 5;
+  }
+  .step-card.is-energized:not(:last-child) .step-connector-stem {
+    background: #ff1a2b;
+    box-shadow: 0 0 10px #ff1a2b, 0 0 18px rgba(255, 28, 54, 0.7);
+  }
+  .step-card:not(:last-child) .step-connector-stem::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #ff1a2b;
+    opacity: 0.6;
+    transition: opacity 0.4s ease;
+  }
+  .step-card.is-energized:not(:last-child) .step-connector-stem::after {
+    opacity: 1;
+  }
+  .step-card:last-child .step-connector-stem {
+    display: none !important;
+  }
+
   .benefit-cards-grid {
     grid-template-columns: 1fr;
   }
+
+  /* SECTION 04: Vertical Timeline Progress Flow on Mobile */
+  .competition-cable-track {
+    display: none !important;
+  }
+  .competition-cable-svg {
+    display: none !important;
+  }
   .timeline-horizontal-track {
     flex-direction: column;
-    gap: 32px;
-    padding-top: 0;
+    align-items: center;
+    gap: 40px;
+    padding-top: 10px;
+    position: relative;
   }
   .timeline-line {
     display: none;
+  }
+  .timeline-node {
+    max-width: 280px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 0;
+  }
+  .timeline-node:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    z-index: 1;
+  }
+  .timeline-node.is-energized:not(:last-child)::after {
+    background: #ff1a2b;
+    box-shadow: 0 0 10px #ff1a2b, 0 0 18px rgba(255, 28, 54, 0.8);
+  }
+  .timeline-node:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    bottom: -23px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+    z-index: 2;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  .timeline-node.is-energized:not(:last-child)::before {
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #ff1a2b;
   }
   .static-master-footer {
     padding: 44px 20px 28px;
