@@ -259,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
         phone: document.getElementById('sp-phone')?.value || '',
         email: document.getElementById('sp-email')?.value || '',
         tier: document.getElementById('sp-tier')?.value || '',
-        budget: document.getElementById('sp-budget')?.value || '',
         notes: document.getElementById('sp-notes')?.value || ''
       });
 

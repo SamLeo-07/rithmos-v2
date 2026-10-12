@@ -293,28 +293,17 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <div class="form-group">
-                  <label for="cbr-tier">Sponsorship Tier of Interest *</label>
-                  <select id="cbr-tier" name="tier" required>
-                    <option value="" disabled selected>Select Target Tier</option>
-                    <option value="Title Partner (Presented By)">Title Partner (Presented By)</option>
-                    <option value="Powered By Partner">Powered By Partner</option>
-                    <option value="Category Exclusive Partner">Category Exclusive Partner</option>
-                    <option value="Digital & Broadcast Partner">Digital &amp; Broadcast Partner</option>
-                    <option value="Custom Experiential Activation">Custom Experiential Activation</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="cbr-budget">Estimated Budget Bracket</label>
-                  <select id="cbr-budget" name="budget">
-                    <option value="" disabled selected>Select Allocation Bracket</option>
-                    <option value="₹5,00,000 – ₹15,00,000">₹5,00,000 – ₹15,00,000</option>
-                    <option value="₹15,00,000 – ₹30,00,000">₹15,00,000 – ₹30,00,000</option>
-                    <option value="₹30,00,000 – ₹60,00,000">₹30,00,000 – ₹60,00,000</option>
-                    <option value="₹60,00,000+ (Title Package)">₹60,00,000+ (Title Package)</option>
-                  </select>
-                </div>
+              <!-- Tier of Interest -->
+              <div class="form-group">
+                <label for="cbr-tier">Sponsorship Tier of Interest *</label>
+                <select id="cbr-tier" name="tier" required>
+                  <option value="" disabled selected>Select Target Tier</option>
+                  <option value="Title Partner (Presented By)">Title Partner (Presented By)</option>
+                  <option value="Powered By Partner">Powered By Partner</option>
+                  <option value="Category Exclusive Partner">Category Exclusive Partner</option>
+                  <option value="Digital & Broadcast Partner">Digital &amp; Broadcast Partner</option>
+                  <option value="Custom Experiential Activation">Custom Experiential Activation</option>
+                </select>
               </div>
 
               <div class="form-group">
@@ -551,40 +540,36 @@
             <input type="text" required placeholder="e.g. Hyderabad Blues Syndicate">
           </div>
           <div class="form-group">
-            <label>Genre *</label>
-            <select required>
-              <option value="" disabled selected>Select Primary Genre</option>
-              <option value="Rock">Rock / Hard Rock</option>
-              <option value="Metal">Progressive / Metal</option>
-              <option value="Indie">Indie / Alternative</option>
-              <option value="Fusion">Fusion / Carnatic Rock</option>
-              <option value="Blues">Blues / Funk</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
             <label>Members Count *</label>
             <input type="number" min="2" max="10" value="4" required>
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
             <label>Region in Hyderabad *</label>
             <input type="text" required placeholder="e.g. Banjara Hills / Secunderabad">
           </div>
-        </div>
-        <div class="form-row">
           <div class="form-group">
             <label>Contact Name *</label>
             <input type="text" required placeholder="Full Name">
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group">
-            <label>WhatsApp Phone *</label>
+            <label>Mobile Number *</label>
             <input type="tel" required placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label>Official Email *</label>
+            <input type="email" required placeholder="official@banddomain.com">
           </div>
         </div>
         <div class="form-group">
-          <label>Demo Link (YouTube / Spotify / Drive)</label>
-          <input type="url" placeholder="https://youtube.com/watch?v=...">
+          <label>Audition Link (YouTube / Google Drive) *</label>
+          <input type="url" placeholder="https://youtube.com/watch?v=... or Google Drive link" required>
+          <span style="font-size: 0.74rem; color: #848197; margin-top: 4px; display: block;">
+            Provide a clear live gig or rehearsal video showcasing your original musicianship.
+          </span>
         </div>
         <div class="form-actions">
           <button type="submit" class="primary-btn submit-btn">

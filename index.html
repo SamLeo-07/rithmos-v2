@@ -770,44 +770,39 @@
             <input type="text" id="band-name" name="bandName" required placeholder="e.g. Hyderabad Blues Syndicate">
           </div>
           <div class="form-group">
-            <label for="band-genre">Genre *</label>
-            <select id="band-genre" name="genre" required>
-              <option value="" disabled selected>Select Primary Genre</option>
-              <option value="Rock / Hard Rock">Rock / Hard Rock</option>
-              <option value="Progressive / Metal">Progressive / Metal</option>
-              <option value="Indie / Alternative">Indie / Alternative</option>
-              <option value="Fusion / Carnatic Rock">Fusion / Carnatic Rock</option>
-              <option value="Blues / Funk">Blues / Funk</option>
-              <option value="Other">Other Live Format</option>
-            </select>
+            <label for="member-count">Band Members Count *</label>
+            <input type="number" id="member-count" name="memberCount" min="2" max="10" value="4" required>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="member-count">Band Members Count *</label>
-            <input type="number" id="member-count" name="memberCount" min="2" max="10" value="4" required>
-          </div>
           <div class="form-group">
             <label for="city-region">Region in Hyderabad *</label>
             <input type="text" id="city-region" name="region" required placeholder="e.g. Banjara Hills / Secunderabad">
           </div>
+          <div class="form-group">
+            <label for="contact-name">Lead Contact Person *</label>
+            <input type="text" id="contact-name" name="contactName" required placeholder="Full Name">
+          </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="contact-name">Lead Contact / Band Rep *</label>
-            <input type="text" id="contact-name" name="contactName" required placeholder="Full Name">
+            <label for="contact-phone">Mobile Number *</label>
+            <input type="tel" id="contact-phone" name="phone" required placeholder="+91 98765 43210">
           </div>
           <div class="form-group">
-            <label for="contact-phone">Phone / WhatsApp *</label>
-            <input type="tel" id="contact-phone" name="phone" required placeholder="+91 98765 43210">
+            <label for="contact-email">Official Email *</label>
+            <input type="email" id="contact-email" name="email" required placeholder="official@banddomain.com">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="demo-link">Demo Link (YouTube / Spotify / Drive / Instagram)</label>
-          <input type="url" id="demo-link" name="demoLink" placeholder="https://youtube.com/watch?v=...">
+          <label for="demo-link">Audition Link (YouTube / Google Drive) *</label>
+          <input type="url" id="demo-link" name="demoLink" placeholder="https://youtube.com/watch?v=... or Google Drive link" required>
+          <span style="font-size: 0.74rem; color: #848197; margin-top: 4px; display: block;">
+            Provide a clear live gig or rehearsal video showcasing your original musicianship.
+          </span>
         </div>
 
         <div class="form-group">
