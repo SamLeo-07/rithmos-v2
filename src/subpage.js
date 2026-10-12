@@ -362,232 +362,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
+  // SPONSORS DECK // 5 FESTIVAL BRAND ENVIRONMENTS SWITCHER
   // ==========================================================================
-  // SPONSORS DECK // SCROLLYTELLING BRAND SIMULATOR (SCROLL-DRIVEN SCENES)
-  // ==========================================================================
-  const scrollyTrack = document.getElementById('brand-pillars-showcase');
-  const backdropSlides = document.querySelectorAll('.right-backdrop-slide');
-  const spotlightPanels = document.querySelectorAll('.scrolly-pillar-panel');
-  const stepRailBtns = document.querySelectorAll('.step-rail-btn');
-  const telemetryDots = document.querySelectorAll('.t-dot-btn');
-  const progressFill = document.getElementById('scrolly-progress-fill');
-  const stepCounter = document.getElementById('scrolly-step-counter');
+  const envSlides = document.querySelectorAll('.right-backdrop-slide');
+  const envPills = document.querySelectorAll('.env-pill-btn');
+  const envDescItems = document.querySelectorAll('.env-desc-item');
 
-  const hudTag = document.getElementById('hud-scenario-tag');
-  const hudHeadline = document.getElementById('hud-scenario-headline');
-  const hudSub = document.getElementById('hud-scenario-sub');
-  const hudChip1 = document.getElementById('hud-chip-1');
-  const hudChip2 = document.getElementById('hud-chip-2');
-  const hudChip3 = document.getElementById('hud-chip-3');
+  if (envSlides.length > 0 && envPills.length > 0) {
+    let currentEnv = 1;
+    const totalEnvs = 5;
+    let autoRotateTimer = null;
+    let isUserInteracting = false;
 
-  const scenarioMeta = {
-    '1': {
-      tag: 'SCENARIO 01 // MAIN STAGE TAKEOVER',
-      headline: '[ YOUR BRAND ] MAIN STAGE TAKEOVER',
-      sub: 'Main proscenium LED screen, dual stadium side towers & overhead steel rigging across all headline sets.',
-      chip1: '10,000+ ARENA ATTENDEES',
-      chip2: 'CATEGORY EXCLUSIVE',
-      chip3: '100% SIGHTLINE TAKEOVER'
-    },
-    '2': {
-      tag: 'SCENARIO 02 // ARTIST & BAND ECOSYSTEM',
-      headline: '[ YOUR BRAND ] BACKSTAGE & GEAR INTEGRATION',
-      sub: 'VIP artist credentials, official kick drumhead decals, amplifier badges & backstage media wall presence.',
-      chip1: 'IN EVERY BAND PHOTO & REEL',
-      chip2: 'GEAR LOCKUP',
-      chip3: 'DIRECT TALENT AFFILIATION'
-    },
-    '3': {
-      tag: 'SCENARIO 03 // LIVE STADIUM FAN ZONE',
-      headline: '[ YOUR BRAND ] FAN ZONE & RFID WRISTBANDS',
-      sub: 'Smart glowing RFID wristbands on every attendee plus dedicated neon brand activation lounge in the stadium concourse.',
-      chip1: '10,000+ FANS EQUIPPED',
-      chip2: '7.2 HRS AVG DWELL TIME',
-      chip3: 'HIGH ENGAGEMENT'
-    },
-    '4': {
-      tag: 'SCENARIO 04 // 4K LIVESTREAM BROADCAST',
-      headline: '[ YOUR BRAND ] 4K LIVESTREAM TAKEOVER',
-      sub: 'Broadcast TV lower-third graphics, digital scorecard branding, YouTube stream watermarks & live chat sponsor banners.',
-      chip1: '150K+ PEAK CONCURRENT',
-      chip2: '1.8M+ IMPRESSIONS',
-      chip3: 'GLOBAL LIVESTREAM BUG'
-    },
-    '5': {
-      tag: 'SCENARIO 05 // GLOBAL TELUGU DIASPORA',
-      headline: '[ YOUR BRAND ] WORLDWIDE TELUGU NETWORK',
-      sub: 'Satellite OTT watermarks reaching USA, UK, UAE, Australia & Singapore diaspora, plus the Global Fan Choice Award sponsorship.',
-      chip1: '5 CONTINENTS REACH',
-      chip2: '1.8M+ TELUGU AUDIENCE',
-      chip3: 'PREMIUM DEMOGRAPHIC'
-    }
-  };
+    function setEnvironment(num) {
+      let n = parseInt(num, 10);
+      if (isNaN(n) || n < 1) n = 1;
+      if (n > totalEnvs) n = totalEnvs;
+      currentEnv = n;
+      const nStr = String(n);
 
-  let currentScenario = 1;
-  const totalScenarios = 5;
-
-  function activateEnvironment(scenarioNum) {
-    let num = parseInt(scenarioNum, 10);
-    if (isNaN(num) || num < 1) num = 1;
-    if (num > totalScenarios) num = totalScenarios;
-    currentScenario = num;
-    const numStr = String(num);
-
-    // 1. Crossfade Right-Side Background Slides
-    backdropSlides.forEach((slide) => {
-      if (slide.dataset.scenario === numStr) {
-        slide.classList.add('active');
-      } else {
-        slide.classList.remove('active');
-      }
-    });
-
-    // 2. Crossfade Left-Side Spotlight Panels (Single Active Card)
-    spotlightPanels.forEach((panel) => {
-      if (panel.dataset.scenario === numStr) {
-        panel.classList.add('active');
-      } else {
-        panel.classList.remove('active');
-      }
-    });
-
-    // 3. Update Step Rail Quick-Selector Buttons
-    stepRailBtns.forEach((btn) => {
-      if (btn.dataset.step === numStr) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    // 4. Update Telemetry Dots
-    telemetryDots.forEach((dot) => {
-      if (dot.dataset.target === numStr) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
-    });
-
-    // 5. Update Step Counter Text
-    if (stepCounter) {
-      stepCounter.textContent = `DIMENSION 0${numStr} / 05`;
-    }
-
-    // 6. Update Telemetry Floating Badge Details
-    const data = scenarioMeta[numStr];
-    if (data) {
-      if (hudTag) hudTag.textContent = data.tag;
-      if (hudHeadline) hudHeadline.textContent = data.headline;
-      if (hudSub) hudSub.textContent = data.sub;
-      if (hudChip1) hudChip1.textContent = data.chip1;
-      if (hudChip2) hudChip2.textContent = data.chip2;
-      if (hudChip3) hudChip3.textContent = data.chip3;
-    }
-  }
-
-  // Scroll Position Controller (requestAnimationFrame throttled)
-  let isTicking = false;
-
-  function handleScrollyProgress() {
-    if (!scrollyTrack) return;
-    const rect = scrollyTrack.getBoundingClientRect();
-    const trackHeight = scrollyTrack.offsetHeight;
-    const viewportHeight = window.innerHeight;
-    const scrollDistance = trackHeight - viewportHeight;
-
-    if (scrollDistance <= 0) return;
-
-    // Progress from 0 (track top hits top of viewport) to 1 (track bottom hits bottom of viewport)
-    const scrolled = -rect.top;
-    const progress = Math.max(0, Math.min(1, scrolled / scrollDistance));
-
-    // Update progress fill bar
-    if (progressFill) {
-      progressFill.style.width = `${Math.min(100, Math.max(5, Math.round(progress * 100)))}%`;
-    }
-
-    // Map progress to 5 discrete scenarios (1..5)
-    let scenario = 1;
-    if (progress < 0.20) {
-      scenario = 1;
-    } else if (progress < 0.40) {
-      scenario = 2;
-    } else if (progress < 0.60) {
-      scenario = 3;
-    } else if (progress < 0.80) {
-      scenario = 4;
-    } else {
-      scenario = 5;
-    }
-
-    if (scenario !== currentScenario) {
-      activateEnvironment(scenario);
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!isTicking) {
-      window.requestAnimationFrame(() => {
-        handleScrollyProgress();
-        isTicking = false;
+      envSlides.forEach((slide) => {
+        slide.classList.toggle('active', slide.dataset.scenario === nStr);
       });
-      isTicking = true;
+      envPills.forEach((pill) => {
+        pill.classList.toggle('active', pill.dataset.scenario === nStr);
+      });
+      envDescItems.forEach((desc) => {
+        desc.classList.toggle('active', desc.dataset.scenario === nStr);
+      });
     }
-  }, { passive: true });
 
-  // Smooth click-to-scroll navigation
-  function scrollToScenario(num) {
-    if (!scrollyTrack) return;
-    const rect = scrollyTrack.getBoundingClientRect();
-    const trackTop = window.scrollY + rect.top;
-    const scrollDistance = scrollyTrack.offsetHeight - window.innerHeight;
-    if (scrollDistance <= 0) return;
+    envPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        isUserInteracting = true;
+        setEnvironment(pill.dataset.scenario);
+      });
 
-    const targetProgress = ((num - 1) * 0.20) + 0.08;
-    const targetY = trackTop + (targetProgress * scrollDistance);
-
-    window.scrollTo({
-      top: targetY,
-      behavior: 'smooth'
+      pill.addEventListener('mouseenter', () => {
+        setEnvironment(pill.dataset.scenario);
+      });
     });
+
+    // Auto-advance every 6 seconds unless user interacted
+    autoRotateTimer = setInterval(() => {
+      if (!isUserInteracting) {
+        const next = currentEnv === totalEnvs ? 1 : currentEnv + 1;
+        setEnvironment(next);
+      }
+    }, 6000);
   }
-
-  stepRailBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const step = parseInt(btn.dataset.step, 10);
-      scrollToScenario(step);
-    });
-  });
-
-  telemetryDots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const step = parseInt(dot.dataset.target, 10);
-      scrollToScenario(step);
-    });
-  });
-
-  // Keyboard navigation when near or inside section
-  document.addEventListener('keydown', (e) => {
-    if (!scrollyTrack) return;
-    const rect = scrollyTrack.getBoundingClientRect();
-    const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
-    if (!isVisible) return;
-
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      if (currentScenario < totalScenarios) {
-        e.preventDefault();
-        scrollToScenario(currentScenario + 1);
-      }
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      if (currentScenario > 1) {
-        e.preventDefault();
-        scrollToScenario(currentScenario - 1);
-      }
-    }
-  });
-
-  // Initial check on load
-  handleScrollyProgress();
 });
 

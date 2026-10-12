@@ -1962,48 +1962,33 @@
 }
 
 /* ==========================================================================
-   SPONSORS DECK // SCROLLYTELLING BRAND ENVIRONMENT SIMULATOR
-   - Pinned 100vh Sticky Viewport with Scroll-Driven Scene Progression
+   SPONSORS DECK // UNIFIED HERO & BRAND ENVIRONMENTS
+   - Single Combined Hero Section (Zero Gaps, Zero Redundant Headers)
    - 8K Photorealistic AI Scenes as Right-Side Atmospheric Background
-   - Single Spotlight Scenario Card (NO Long List!) with Smooth Morph Transitions
-   - Compact Step Rail Quick-Selector + Interactive HUD Telemetry
+   - Completely Unobstructed Imagery (Zero Overlay Cards on Photos)
+   - Sleek Minimal 5-Pill Environment Switcher with Live Dynamic Description
    ========================================================================== */
 
-.subpage-hero.sponsors-hero-header {
-  padding-top: 135px;
-  padding-bottom: 50px;
-  background: #07050a;
-  position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* 1. Scrollytelling Pinned Stage Track */
-.scrolly-showcase-track {
+.subpage-hero.sponsors-hero-unified {
   position: relative;
   width: 100%;
-  height: 350vh;
-  background: #07050a;
-}
-
-.scrolly-sticky-stage {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
+  padding-top: 130px;
+  padding-bottom: 70px;
   background: #07050a;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* 2. Right-Side Background Image Layers (Zero Cards, True Background Atmosphere) */
-.scrolly-sticky-stage .showcase-right-backdrop {
+.sponsors-hero-unified .showcase-right-backdrop {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 60%;
+  width: 58%;
   height: 100%;
   z-index: 1;
   pointer-events: none;
@@ -2061,8 +2046,8 @@
     );
 }
 
-/* 3. Foreground Content Container & Stage Grid */
-.scrolly-stage-container {
+/* Foreground Content */
+.sponsors-hero-container {
   position: relative;
   z-index: 5;
   width: 100%;
@@ -2071,258 +2056,30 @@
   padding: 0 clamp(20px, 4vw, 48px);
 }
 
-.scrolly-stage-grid {
-  display: grid;
-  grid-template-columns: minmax(460px, 560px) 1fr;
-  gap: 48px;
-  align-items: flex-end;
-  min-height: 580px;
-}
-
-/* Left Column: Spotlight Stage & Step Rail */
-.scrolly-spotlight-col {
+.sponsors-hero-col {
+  max-width: 620px;
   display: flex;
   flex-direction: column;
 }
 
-.scrolly-kicker-row {
+/* Environment Pills Row */
+.hero-environments-nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 8px;
-}
-
-.scrolly-scroll-hint {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #ff475b;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 17, 45, 0.1);
-  border: 1px solid rgba(255, 17, 45, 0.25);
-  padding: 3px 9px;
-  border-radius: 4px;
-}
-
-.scroll-pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ff112d;
-  box-shadow: 0 0 8px #ff112d;
-  animation: beaconPulse 1.6s infinite ease-in-out;
-}
-
-.scrolly-scene-title {
-  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  line-height: 1.05;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
-}
-
-.scrolly-scene-desc {
-  font-size: 0.92rem;
-  color: #aba8ba;
-  line-height: 1.5;
-  margin: 0 0 16px 0;
-  max-width: 500px;
-}
-
-/* Scroll Progress Tracker */
-.scrolly-progress-wrap {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 14px;
-  margin-bottom: 18px;
+  margin-top: 10px;
 }
 
-.scrolly-progress-track {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.scrolly-progress-fill {
-  height: 100%;
-  width: 20%;
-  background: linear-gradient(90deg, #ff112d, #ff475b);
-  box-shadow: 0 0 10px #ff112d;
-  transition: width 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.scrolly-progress-counter {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #ff475b;
-}
-
-/* 4. Spotlight Scenario Card (Single Card, Morphs on Scroll, Zero Long Lists) */
-.scrolly-spotlight-card {
-  position: relative;
-  background: rgba(14, 11, 22, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 17, 45, 0.06);
-  border-radius: 12px;
-  padding: 26px 28px;
-  min-height: 250px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.scrolly-spotlight-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #ff112d, transparent);
-  box-shadow: 0 0 12px #ff112d;
-}
-
-.scrolly-pillar-panel {
-  display: none;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  flex-direction: column;
-}
-
-.scrolly-pillar-panel.active {
-  display: flex;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.panel-header-badge {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.panel-step-tag {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: #ff475b;
-}
-
-.panel-status-pill {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #ffffff;
-  background: rgba(255, 17, 45, 0.2);
-  border: 1px solid rgba(255, 17, 45, 0.45);
-  padding: 3px 8px;
-  border-radius: 3px;
-}
-
-.panel-title {
-  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: 2.1rem;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  margin: 0 0 6px 0;
-  line-height: 1.05;
-  text-shadow: 0 0 14px rgba(255, 17, 45, 0.35);
-}
-
-.panel-desc {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #c0bdd0;
-  margin: 0 0 14px 0;
-}
-
-.panel-tags-row {
+.environments-pills-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.panel-tag-item {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #a4a1b4;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
-  padding: 3px 8px;
-}
-
-.panel-footer-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.panel-metric-chip {
-  display: flex;
-  align-items: baseline;
   gap: 8px;
 }
 
-.metric-val {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #ffffff;
-}
-
-.metric-label {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.65rem;
-  color: #ff475b;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-}
-
-.panel-scroll-cta {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #8c899c;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* 5. Compact Step Rail Quick-Selector */
-.scrolly-step-rail {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.step-rail-btn {
-  background: rgba(20, 16, 28, 0.7);
+.env-pill-btn {
+  background: rgba(18, 14, 25, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   padding: 8px 14px;
@@ -2331,235 +2088,100 @@
   align-items: center;
   gap: 6px;
   outline: none;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.step-rail-btn:hover {
-  background: rgba(28, 20, 38, 0.9);
-  border-color: rgba(255, 17, 45, 0.4);
+.env-pill-btn:hover {
+  background: rgba(28, 20, 38, 0.95);
+  border-color: rgba(255, 17, 45, 0.45);
+  transform: translateY(-2px);
 }
 
-.step-rail-btn.active {
-  background: linear-gradient(90deg, rgba(255, 17, 45, 0.25) 0%, rgba(20, 15, 28, 0.95) 100%);
+.env-pill-btn.active {
+  background: linear-gradient(90deg, rgba(255, 17, 45, 0.25) 0%, rgba(22, 16, 32, 0.95) 100%);
   border-color: #ff112d;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 17, 45, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 17, 45, 0.3);
+  transform: translateY(-2px);
 }
 
-.rail-num {
+.pill-index {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ff475b;
+}
+
+.pill-title {
   font-family: 'Space Grotesk', monospace;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #ff475b;
-}
-
-.rail-label {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
   color: #8c899c;
   letter-spacing: 0.08em;
+  transition: color 0.2s ease;
 }
 
-.step-rail-btn.active .rail-label {
+.env-pill-btn.active .pill-title,
+.env-pill-btn:hover .pill-title {
   color: #ffffff;
 }
 
-/* 6. Right Column: Translucent HUD Telemetry Bug */
-.scrolly-hud-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  height: 100%;
-  pointer-events: none;
+/* Environment Description Display */
+.environment-desc-display {
+  position: relative;
+  min-height: 48px;
 }
 
-.hud-telemetry-badge {
-  background: rgba(10, 8, 16, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 17, 45, 0.35);
-  border-radius: 12px;
-  padding: 22px 26px;
-  max-width: 440px;
-  width: 100%;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 0 16px rgba(255, 17, 45, 0.08);
-  pointer-events: auto;
-  transition: all 0.35s ease;
+.env-desc-item {
+  display: none;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #c0bdd0;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.hud-scenario-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+.env-desc-item.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.hud-pulse-led {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ff112d;
-  box-shadow: 0 0 10px #ff112d;
-  animation: beaconPulse 1.8s infinite;
-}
-
-@keyframes beaconPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.hud-scenario-tag {
+.env-desc-highlight {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   color: #ff475b;
-  text-transform: uppercase;
+  display: inline-block;
+  margin-right: 6px;
 }
 
-.hud-scenario-headline {
-  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: 1.45rem;
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  text-shadow: 0 0 12px rgba(255, 17, 45, 0.4);
-  line-height: 1.1;
-}
-
-.hud-scenario-sub {
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: #c9c6d8;
-  margin: 0 0 12px 0;
-}
-
-.hud-chips-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-.hud-chip-item {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #a4a1b4;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
-  padding: 3px 8px;
-}
-
-.hud-chip-item.highlight {
-  color: #ffffff;
-  background: rgba(255, 17, 45, 0.18);
-  border-color: rgba(255, 17, 45, 0.5);
-}
-
-.hud-bottom-telemetry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.telemetry-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.t-dot-btn {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #332d40;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  padding: 0;
-}
-
-.t-dot-btn.active {
-  background: #ff112d;
-  box-shadow: 0 0 8px #ff112d;
-  transform: scale(1.2);
-}
-
-.telemetry-live-text {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: #8c899c;
-}
-
-/* 7. Responsive Scaling */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
-  .scrolly-stage-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .scrolly-sticky-stage .showcase-right-backdrop {
+  .subpage-hero.sponsors-hero-unified .showcase-right-backdrop {
     width: 100%;
-    opacity: 0.28;
+    opacity: 0.25;
   }
-
-  .right-backdrop-gradient {
-    background: linear-gradient(180deg, #07050a 0%, rgba(7, 5, 10, 0.72) 40%, #07050a 100%);
-  }
-
-  .scrolly-hud-col {
-    align-items: flex-start;
-  }
-
-  .hud-telemetry-badge {
+  .sponsors-hero-col {
     max-width: 100%;
   }
 }
 
 @media (max-width: 640px) {
-  .scrolly-showcase-track {
-    height: 280vh;
-  }
-
-  .subpage-hero.sponsors-hero-header {
+  .subpage-hero.sponsors-hero-unified {
     padding-top: 110px;
-    padding-bottom: 35px;
+    padding-bottom: 50px;
+    min-height: auto;
   }
-
-  .scrolly-stage-container {
-    padding: 0 16px;
-  }
-
-  .scrolly-scene-title {
-    font-size: 2.0rem;
-  }
-
-  .scrolly-spotlight-card {
-    padding: 20px 18px;
-    min-height: 220px;
-  }
-
-  .panel-title {
-    font-size: 1.7rem;
-  }
-
-  .panel-desc {
-    font-size: 0.82rem;
-  }
-
-  .step-rail-btn {
+  .env-pill-btn {
     padding: 6px 10px;
   }
-
-  .rail-label {
-    display: none;
+  .pill-title {
+    font-size: 0.62rem;
+  }
+  .env-desc-item {
+    font-size: 0.85rem;
   }
 }
 
