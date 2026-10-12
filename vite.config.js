@@ -29,7 +29,7 @@ function multiPageMiddleware() {
 export default defineConfig({
   plugins: [multiPageMiddleware()],
   server: {
-    port: 8008,
+    port: 5045,
     open: false,
     host: true
   },
