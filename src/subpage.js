@@ -362,12 +362,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // SPONSORS DECK // BRAND ENVIRONMENT SIMULATOR (RIGHT-SIDE BACKGROUND)
   // ==========================================================================
+  // SPONSORS DECK // SCROLLYTELLING BRAND SIMULATOR (SCROLL-DRIVEN SCENES)
+  // ==========================================================================
+  const scrollyTrack = document.getElementById('brand-pillars-showcase');
   const backdropSlides = document.querySelectorAll('.right-backdrop-slide');
-  const pillarRows = document.querySelectorAll('.pillar-interactive-row');
+  const spotlightPanels = document.querySelectorAll('.scrolly-pillar-panel');
+  const stepRailBtns = document.querySelectorAll('.step-rail-btn');
   const telemetryDots = document.querySelectorAll('.t-dot-btn');
-  const stageSection = document.getElementById('brand-pillars-showcase');
+  const progressFill = document.getElementById('scrolly-progress-fill');
+  const stepCounter = document.getElementById('scrolly-step-counter');
 
   const hudTag = document.getElementById('hud-scenario-tag');
   const hudHeadline = document.getElementById('hud-scenario-headline');
@@ -421,7 +425,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentScenario = 1;
   const totalScenarios = 5;
-  let isHovered = false;
 
   function activateEnvironment(scenarioNum) {
     let num = parseInt(scenarioNum, 10);
@@ -439,16 +442,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 2. Update Left-Side Interactive Pillar Rows
-    pillarRows.forEach((row) => {
-      if (row.dataset.pillar === numStr) {
-        row.classList.add('active');
+    // 2. Crossfade Left-Side Spotlight Panels (Single Active Card)
+    spotlightPanels.forEach((panel) => {
+      if (panel.dataset.scenario === numStr) {
+        panel.classList.add('active');
       } else {
-        row.classList.remove('active');
+        panel.classList.remove('active');
       }
     });
 
-    // 3. Update Telemetry Dots
+    // 3. Update Step Rail Quick-Selector Buttons
+    stepRailBtns.forEach((btn) => {
+      if (btn.dataset.step === numStr) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // 4. Update Telemetry Dots
     telemetryDots.forEach((dot) => {
       if (dot.dataset.target === numStr) {
         dot.classList.add('active');
@@ -457,7 +469,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 4. Update Telemetry Floating Badge Details
+    // 5. Update Step Counter Text
+    if (stepCounter) {
+      stepCounter.textContent = `DIMENSION 0${numStr} / 05`;
+    }
+
+    // 6. Update Telemetry Floating Badge Details
     const data = scenarioMeta[numStr];
     if (data) {
       if (hudTag) hudTag.textContent = data.tag;
@@ -469,60 +486,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Interactivity: Hover & Click on Pillar Rows
-  pillarRows.forEach((row) => {
-    const pId = row.dataset.pillar;
-    row.addEventListener('mouseenter', () => {
-      activateEnvironment(pId);
+  // Scroll Position Controller (requestAnimationFrame throttled)
+  let isTicking = false;
+
+  function handleScrollyProgress() {
+    if (!scrollyTrack) return;
+    const rect = scrollyTrack.getBoundingClientRect();
+    const trackHeight = scrollyTrack.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    const scrollDistance = trackHeight - viewportHeight;
+
+    if (scrollDistance <= 0) return;
+
+    // Progress from 0 (track top hits top of viewport) to 1 (track bottom hits bottom of viewport)
+    const scrolled = -rect.top;
+    const progress = Math.max(0, Math.min(1, scrolled / scrollDistance));
+
+    // Update progress fill bar
+    if (progressFill) {
+      progressFill.style.width = `${Math.min(100, Math.max(5, Math.round(progress * 100)))}%`;
+    }
+
+    // Map progress to 5 discrete scenarios (1..5)
+    let scenario = 1;
+    if (progress < 0.20) {
+      scenario = 1;
+    } else if (progress < 0.40) {
+      scenario = 2;
+    } else if (progress < 0.60) {
+      scenario = 3;
+    } else if (progress < 0.80) {
+      scenario = 4;
+    } else {
+      scenario = 5;
+    }
+
+    if (scenario !== currentScenario) {
+      activateEnvironment(scenario);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        handleScrollyProgress();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
+
+  // Smooth click-to-scroll navigation
+  function scrollToScenario(num) {
+    if (!scrollyTrack) return;
+    const rect = scrollyTrack.getBoundingClientRect();
+    const trackTop = window.scrollY + rect.top;
+    const scrollDistance = scrollyTrack.offsetHeight - window.innerHeight;
+    if (scrollDistance <= 0) return;
+
+    const targetProgress = ((num - 1) * 0.20) + 0.08;
+    const targetY = trackTop + (targetProgress * scrollDistance);
+
+    window.scrollTo({
+      top: targetY,
+      behavior: 'smooth'
     });
-    row.addEventListener('click', () => {
-      activateEnvironment(pId);
-    });
-    row.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        activateEnvironment(pId);
-      }
+  }
+
+  stepRailBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = parseInt(btn.dataset.step, 10);
+      scrollToScenario(step);
     });
   });
 
-  // Telemetry dot buttons
   telemetryDots.forEach((dot) => {
     dot.addEventListener('click', () => {
-      activateEnvironment(dot.dataset.target);
+      const step = parseInt(dot.dataset.target, 10);
+      scrollToScenario(step);
     });
   });
 
-  // Keyboard navigation when section is in focus or viewport
-  if (stageSection) {
-    stageSection.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-        const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
-        activateEnvironment(next);
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        const prev = currentScenario === 1 ? totalScenarios : currentScenario - 1;
-        activateEnvironment(prev);
+  // Keyboard navigation when near or inside section
+  document.addEventListener('keydown', (e) => {
+    if (!scrollyTrack) return;
+    const rect = scrollyTrack.getBoundingClientRect();
+    const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
+    if (!isVisible) return;
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      if (currentScenario < totalScenarios) {
+        e.preventDefault();
+        scrollToScenario(currentScenario + 1);
       }
-    });
-
-    // Pause auto-rotation on mouseenter
-    stageSection.addEventListener('mouseenter', () => {
-      isHovered = true;
-    });
-
-    stageSection.addEventListener('mouseleave', () => {
-      isHovered = false;
-    });
-  }
-
-  // Subtle auto-advance every 8 seconds when not hovered
-  if (backdropSlides.length > 0) {
-    setInterval(() => {
-      if (!isHovered) {
-        const next = currentScenario === totalScenarios ? 1 : currentScenario + 1;
-        activateEnvironment(next);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      if (currentScenario > 1) {
+        e.preventDefault();
+        scrollToScenario(currentScenario - 1);
       }
-    }, 8000);
-  }
+    }
+  });
+
+  // Initial check on load
+  handleScrollyProgress();
 });
 
