@@ -420,54 +420,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // SPONSORS DECK // 5 FESTIVAL BRAND ENVIRONMENTS SWITCHER
+  // SPONSORS DECK // 5 FESTIVAL BRAND ENVIRONMENTS PILLS (STATIC BG, NO SLIDESHOW)
   // ==========================================================================
-  const envSlides = document.querySelectorAll('.right-backdrop-slide');
   const envPills = document.querySelectorAll('.env-pill-btn');
-  const envDescItems = document.querySelectorAll('.env-desc-item');
 
-  if (envSlides.length > 0 && envPills.length > 0) {
-    let currentEnv = 1;
-    const totalEnvs = 5;
-    let autoRotateTimer = null;
-    let isUserInteracting = false;
-
-    function setEnvironment(num) {
-      let n = parseInt(num, 10);
-      if (isNaN(n) || n < 1) n = 1;
-      if (n > totalEnvs) n = totalEnvs;
-      currentEnv = n;
-      const nStr = String(n);
-
-      envSlides.forEach((slide) => {
-        slide.classList.toggle('active', slide.dataset.scenario === nStr);
-      });
-      envPills.forEach((pill) => {
-        pill.classList.toggle('active', pill.dataset.scenario === nStr);
-      });
-      envDescItems.forEach((desc) => {
-        desc.classList.toggle('active', desc.dataset.scenario === nStr);
-      });
-    }
-
+  if (envPills.length > 0) {
     envPills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        isUserInteracting = true;
-        setEnvironment(pill.dataset.scenario);
-      });
-
-      pill.addEventListener('mouseenter', () => {
-        setEnvironment(pill.dataset.scenario);
+        envPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
       });
     });
-
-    // Auto-advance every 6 seconds unless user interacted
-    autoRotateTimer = setInterval(() => {
-      if (!isUserInteracting) {
-        const next = currentEnv === totalEnvs ? 1 : currentEnv + 1;
-        setEnvironment(next);
-      }
-    }, 6000);
   }
 
   // ==========================================================================

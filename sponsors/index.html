@@ -38,99 +38,64 @@
 
   <!-- UNIFIED HERO & BRAND ENVIRONMENTS SECTION -->
   <section class="subpage-hero sponsors-hero-unified" id="brand-pillars-showcase">
-    <!-- Background Image Layers (Full-Width Arena Scene matching Img 2) -->
-    <div class="showcase-right-backdrop" id="stage-bg-viewport">
-      <div class="right-backdrop-slide active" data-scenario="1">
-        <img src="/assets/sponsors-hero-arena.jpg" alt="[ YOUR BRAND ] Presents RITHMOS Live Arena" class="right-backdrop-img" loading="eager">
-      </div>
-      <div class="right-backdrop-slide" data-scenario="2">
-        <img src="/assets/mockup-bands-gear.jpg" alt="[ YOUR BRAND ] Backstage &amp; Artist Gear" class="right-backdrop-img" loading="lazy">
-      </div>
-      <div class="right-backdrop-slide" data-scenario="3">
-        <img src="/assets/mockup-audience-fan.jpg" alt="[ YOUR BRAND ] Fan Zone &amp; RFID Wristbands" class="right-backdrop-img" loading="lazy">
-      </div>
-      <div class="right-backdrop-slide" data-scenario="4">
-        <img src="/assets/mockup-digital-stream.jpg" alt="[ YOUR BRAND ] 4K Livestream Broadcast" class="right-backdrop-img" loading="lazy">
-      </div>
-      <div class="right-backdrop-slide" data-scenario="5">
-        <img src="/assets/mockup-global-broadcast.jpg" alt="[ YOUR BRAND ] Worldwide Telugu Network" class="right-backdrop-img" loading="lazy">
-      </div>
-      <!-- Multi-Stop Gradient Overlays: Deep shadow on left for razor-sharp text legibility -->
-      <div class="right-backdrop-gradient"></div>
+    <!-- Static Full-Bleed Arena Background (No Slideshow) -->
+    <div class="sponsors-hero-bg-layer" aria-hidden="true">
+      <img src="/assets/sponsors-hero-arena.jpg" alt="RITHMOS Arena Stage" class="sponsors-hero-bg-img" loading="eager">
+      <div class="sponsors-hero-bg-gradient"></div>
     </div>
 
-    <!-- Foreground Content (Matching Img 2) -->
+    <!-- Foreground Content (Matching Reference Img 1:1) -->
     <div class="subpage-container sponsors-hero-container">
       <div class="sponsors-hero-col">
-        <!-- Logo Lockup (Matching Img 2 top-left) -->
+        <!-- Logo Lockup (Top Left) -->
         <div class="sponsors-hero-logo-lockup">
-          <img src="/assets/logo.png" alt="RITHMOS" class="sponsors-hero-logo">
-          <span class="sponsors-hero-tagline">WHERE BRANDS RISE</span>
+          <img src="/assets/logo.png" alt="RITHMOS — WHERE BRANDS RISE" class="sponsors-hero-logo">
         </div>
 
-        <!-- Headline (Matching Img 2 exact text and red split) -->
+        <!-- Headline (Matches exact text and red split) -->
         <h1 class="sponsors-hero-headline">
           PUT YOUR BRAND<br>
           AT THE<br>
           <span class="headline-red">HEART OF<br>LIVE MUSIC.</span>
         </h1>
 
-        <!-- Lead Paragraph (Matching Img 2 copy) -->
+        <!-- Lead Paragraph -->
         <p class="sponsors-hero-lead">
           RITHMOS brings together live bands, audiences, digital content and a professionally produced competition &mdash; a powerful platform for brands to engage, showcase and create real connections.
         </p>
 
-        <!-- CTA Button (Matching Img 2 red pill) -->
-        <div class="hero-action-row" style="margin-bottom: 20px;">
+        <!-- CTA Button -->
+        <div class="hero-action-row">
           <a href="#sponsor-desk" class="sponsors-hero-cta-btn">
             <span>EXPLORE SPONSORSHIP OPPORTUNITIES</span>
             <span class="btn-arrow">&rarr;</span>
           </a>
         </div>
+      </div>
 
-        <!-- 5 Festival Environments Switcher (Matching Img 2 bottom pills) -->
-        <div class="hero-environments-nav" aria-label="Festival Brand Environments">
-          <div class="environments-pills-row">
-            <button type="button" class="env-pill-btn active" data-scenario="1">
-              <span class="pill-index">01</span>
-              <span class="pill-title">MAIN STAGE</span>
-            </button>
-            <button type="button" class="env-pill-btn" data-scenario="2">
-              <span class="pill-index">02</span>
-              <span class="pill-title">BANDS &amp; GEAR</span>
-            </button>
-            <button type="button" class="env-pill-btn" data-scenario="3">
-              <span class="pill-index">03</span>
-              <span class="pill-title">FAN ZONE &amp; RFID</span>
-            </button>
-            <button type="button" class="env-pill-btn" data-scenario="4">
-              <span class="pill-index">04</span>
-              <span class="pill-title">4K STREAM</span>
-            </button>
-            <button type="button" class="env-pill-btn" data-scenario="5">
-              <span class="pill-index">05</span>
-              <span class="pill-title">GLOBAL TELUGU</span>
-            </button>
-          </div>
-
-          <!-- Dynamic 1-line description of the active environment -->
-          <div class="environment-desc-display">
-            <div class="env-desc-item active" data-scenario="1">
-              <span class="env-desc-highlight">LIVE EVENT:</span> Arena main stage 120ft LED proscenium screen, steel rigging &amp; dual stadium towers across all headline sets.
-            </div>
-            <div class="env-desc-item" data-scenario="2">
-              <span class="env-desc-highlight">ARTIST INTEGRATION:</span> VIP artist lanyard passes, official kick drumhead decals &amp; amplifier badges in every photo and reel.
-            </div>
-            <div class="env-desc-item" data-scenario="3">
-              <span class="env-desc-highlight">LIVE AUDIENCE:</span> Smart glowing RFID wristbands on 10,000+ fans &amp; experiential brand activation lounge in the stadium concourse.
-            </div>
-            <div class="env-desc-item" data-scenario="4">
-              <span class="env-desc-highlight">DIGITAL REACH:</span> 4K YouTube livestream lower-third television graphics &amp; real-time digital scorecard integrations.
-            </div>
-            <div class="env-desc-item" data-scenario="5">
-              <span class="env-desc-highlight">GLOBAL TELUGU:</span> Global satellite diaspora network reaching USA, UK, UAE, Australia &amp; Singapore, plus Global Fan Choice Award.
-            </div>
-          </div>
+      <!-- 5 Festival Environment Pills (Clean Single Row Spanning Across Bottom) -->
+      <div class="sponsors-hero-pills-bar" aria-label="Festival Brand Environments">
+        <div class="environments-pills-row">
+          <button type="button" class="env-pill-btn active" data-scenario="1">
+            <span class="pill-index">01</span>
+            <span class="pill-title">MAIN STAGE</span>
+          </button>
+          <button type="button" class="env-pill-btn" data-scenario="2">
+            <span class="pill-index">02</span>
+            <span class="pill-title">BANDS &amp; GEAR</span>
+          </button>
+          <button type="button" class="env-pill-btn" data-scenario="3">
+            <span class="pill-index">03</span>
+            <span class="pill-title">FAN ZONE &amp; RFID</span>
+          </button>
+          <button type="button" class="env-pill-btn" data-scenario="4">
+            <span class="pill-index">04</span>
+            <span class="pill-title">4K STREAM</span>
+          </button>
+          <button type="button" class="env-pill-btn" data-scenario="5">
+            <span class="pill-index">05</span>
+            <span class="pill-title">GLOBAL TELUGU</span>
+          </button>
         </div>
       </div>
     </div>
@@ -791,8 +756,7 @@
     <div class="static-container">
       <div class="footer-layout-row">
         <div class="footer-brand-lockup">
-          <span class="footer-brand-title">RITHMOS</span>
-          <span class="footer-brand-sub">WHERE BANDS RISE</span>
+          <img src="/assets/logo.png" alt="RITHMOS — WHERE BRANDS RISE" class="footer-brand-logo">
           <p class="footer-property-note">A property of Right Hand Entertainments</p>
         </div>
 
