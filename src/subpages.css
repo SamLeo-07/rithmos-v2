@@ -2210,5 +2210,97 @@
   }
 }
 
+/* =========================================================================
+   FOUNDER SHOWCASE & GALLERY SLIDER (SPONSORS DECK)
+   ========================================================================= */
+.founder-showcase-section {
+  position: relative;
+}
+
+.founder-portrait-card:hover .founder-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.founder-slide-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 17, 45, 0.6) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 17, 45, 0.2);
+}
+
+.founder-slide-card:hover img {
+  transform: scale(1.06);
+}
+
+.founder-marquee-track.is-animating {
+  animation: founderMarquee 32s linear infinite;
+}
+
+.founder-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes founderMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .founder-profile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .founder-portrait-card {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}
+
+/* =========================================================================
+   FOOTER CUTOFF STATEMENT BANNER ("MUSIC LIVES ON.")
+   ========================================================================= */
+.footer-cutoff-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 36px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: clamp(65px, 12vw, 150px);
+  position: relative;
+  user-select: none;
+  pointer-events: none;
+}
+
+.footer-cutoff-headline {
+  font-family: 'Anton', 'Bebas Neue', 'Alderwood', sans-serif;
+  font-size: clamp(3.8rem, 13vw, 13.5rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.06);
+  line-height: 0.72;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transform: translateY(35%);
+  display: flex;
+  align-items: baseline;
+  gap: clamp(16px, 2.5vw, 40px);
+  text-shadow: 0 -2px 24px rgba(255, 17, 45, 0.22);
+  transition: color 0.4s ease;
+}
+
+.footer-cutoff-headline:hover {
+  color: rgba(255, 28, 54, 0.15);
+}
+
+.footer-cutoff-emblem {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.55;
+  transform: translateY(-5%);
+}
+
+
 
 

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RITHMOS Central Admin Portal | Intake & Secretariat Desk</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,2 30,10 26,28 6,28 2,10' fill='%23ff112d'/%3E%3Cpath d='M8 16 L12 11 L16 21 L20 13 L24 16' stroke='%23ffffff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/subpages.css">
+  <style>
+    /* Admin Specific Styling */
+    body.admin-body {
+      background: #08070c;
+      color: #e2e0ed;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-login-screen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .admin-login-card {
+      width: 100%;
+      max-width: 440px;
+      background: linear-gradient(180deg, #16121f 0%, #0c0a12 100%);
+      border: 1px solid rgba(255, 17, 45, 0.4);
+      border-radius: 12px;
+      padding: 40px 32px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 36px rgba(255, 17, 45, 0.15);
+      position: relative;
+    }
+
+    .admin-top-header {
+      background: rgba(12, 10, 16, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .admin-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .admin-dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1;
+    }
+
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .admin-kpi-card {
+      background: #110e17;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .admin-kpi-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 17, 45, 0.4);
+    }
+
+    .admin-kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ff112d, transparent);
+    }
+
+    .admin-kpi-val {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 8px 0 4px;
+    }
+
+    .admin-kpi-label {
+      font-size: 0.76rem;
+      color: #9e9ea8;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .admin-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .admin-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a4a1b4;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .admin-tab-btn.active {
+      background: linear-gradient(90deg, rgba(255, 17, 45, 0.25) 0%, rgba(22, 16, 32, 0.95) 100%);
+      border-color: #ff112d;
+      color: #fff;
+    }
+
+    .admin-search-input {
+      background: #0d0b12;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.88rem;
+      min-width: 260px;
+    }
+
+    .admin-search-input:focus {
+      outline: none;
+      border-color: #ff112d;
+      box-shadow: 0 0 10px rgba(255, 17, 45, 0.25);
+    }
+
+    .admin-table-wrap {
+      background: #0e0c14;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow-x: auto;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+      min-width: 900px;
+    }
+
+    .admin-table th {
+      background: #14111c;
+      padding: 14px 16px;
+      color: #a4a1b4;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #c4c1d0;
+      vertical-align: middle;
+    }
+
+    .admin-table tr:hover td {
+      background: rgba(255, 17, 45, 0.03);
+    }
+
+    .type-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .type-badge.band {
+      background: rgba(255, 17, 45, 0.15);
+      color: #ff3b4e;
+      border: 1px solid rgba(255, 17, 45, 0.4);
+    }
+
+    .type-badge.brand {
+      background: rgba(255, 180, 0, 0.15);
+      color: #ffc83b;
+      border: 1px solid rgba(255, 180, 0, 0.4);
+    }
+
+    .type-badge.message {
+      background: rgba(30, 200, 110, 0.15);
+      color: #1ec86e;
+      border: 1px solid rgba(30, 200, 110, 0.4);
+    }
+
+    .status-select {
+      background: #181422;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #ff112d;
+      border-color: #ff112d;
+    }
+
+    /* Modal Backdrop */
+    .admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .admin-modal-backdrop.open {
+      display: flex;
+    }
+
+    .admin-modal-box {
+      background: #100e17;
+      border: 1px solid rgba(255, 17, 45, 0.4);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+      position: relative;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- =========================================================================
+       VIEW 1: ADMIN LOGIN SCREEN (Unauthenticated)
+       ========================================================================= -->
+  <div id="login-view" class="admin-login-screen">
+    <div class="admin-login-card">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <a href="/" style="display: inline-block; margin-bottom: 12px;">
+          <img src="/assets/logo.png" alt="RITHMOS" style="height: 44px; width: auto;">
+        </a>
+        <div style="display: inline-block; background: rgba(255, 17, 45, 0.15); border: 1px solid rgba(255, 17, 45, 0.4); color: #ff3b4e; padding: 4px 12px; border-radius: 20px; font-family: 'Space Grotesk', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; margin-bottom: 10px;">
+          OPERATIONS DESK // RESTRICTED ACCESS
+        </div>
+        <h2 style="font-family: var(--font-heading); color: #fff; font-size: 1.6rem; margin: 0 0 6px;">PORTAL AUTHENTICATION</h2>
+        <p style="color: #9e9ea8; font-size: 0.85rem; margin: 0;">Enter security credentials to access the central intake management system.</p>
+      </div>
+
+      <form id="admin-login-form" autocomplete="off">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: block; font-family: 'Space Grotesk', monospace; font-size: 0.75rem; color: #a4a1b4; margin-bottom: 6px; letter-spacing: 0.08em;">USERNAME</label>
+          <input type="text" id="admin-username" required placeholder="admin" style="width: 100%; background: #08070c; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; padding: 12px 14px; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-family: 'Space Grotesk', monospace; font-size: 0.75rem; color: #a4a1b4; margin-bottom: 6px; letter-spacing: 0.08em;">PASSWORD</label>
+          <input type="password" id="admin-password" required placeholder="admin123" style="width: 100%; background: #08070c; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; padding: 12px 14px; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+
+        <div id="login-error-msg" style="display: none; background: rgba(255, 17, 45, 0.15); border: 1px solid #ff112d; color: #ff8a98; padding: 10px 14px; border-radius: 6px; font-size: 0.82rem; margin-bottom: 16px;">
+          ⚠️ Authentication failed. Invalid username or password.
+        </div>
+
+        <button type="submit" class="pill-cta-btn" style="width: 100%; justify-content: center; padding: 14px; font-size: 0.95rem; cursor: pointer;">
+          <span>AUTHENTICATE &amp; ENTER DESK</span>
+          <span class="btn-arrow">&rarr;</span>
+        </button>
+      </form>
+
+      <div style="margin-top: 20px; text-align: center; font-size: 0.78rem; color: #6e6c78; font-family: 'Space Grotesk', monospace;">
+        Credentials: <code style="color: #fff; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">admin</code> / <code style="color: #fff; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px;">admin123</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 2: AUTHENTICATED DASHBOARD PORTAL
+       ========================================================================= -->
+  <div id="dashboard-view" style="display: none; flex-direction: column; flex: 1;">
+    
+    <!-- Top Nav Header -->
+    <header class="admin-top-header">
+      <div class="admin-header-row">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <a href="/" style="display: flex; align-items: center;">
+            <img src="/assets/logo.png" alt="RITHMOS" style="height: 32px; width: auto;">
+          </a>
+          <span style="height: 20px; width: 1px; background: rgba(255,255,255,0.15);"></span>
+          <span style="font-family: 'Space Grotesk', monospace; font-size: 0.8rem; font-weight: 700; color: #ff112d; letter-spacing: 0.1em;">
+            SECRETARIAT INTAKE DESK
+          </span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #1ec86e; font-family: 'Space Grotesk', monospace;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #1ec86e;"></span>
+            <span>PORTAL ONLINE</span>
+          </div>
+          <button id="export-csv-btn" class="action-btn" style="padding: 8px 14px; font-family: 'Space Grotesk', monospace; font-weight: 700;">
+            📥 EXPORT CSV
+          </button>
+          <button id="admin-logout-btn" class="action-btn" style="background: rgba(255, 17, 45, 0.2); border-color: rgba(255, 17, 45, 0.5); color: #ff8a98; padding: 8px 14px; font-family: 'Space Grotesk', monospace; font-weight: 700;">
+            LOGOUT &times;
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Body -->
+    <main class="admin-dashboard-container">
+      
+      <!-- KPI Stats Grid -->
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label">TOTAL SUBMISSIONS</div>
+          <div class="admin-kpi-val" id="kpi-total">0</div>
+          <div style="font-size: 0.75rem; color: #8e8d94;">Across all festival desks</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label" style="color: #ff3b4e;">BAND AUDITIONS</div>
+          <div class="admin-kpi-val" id="kpi-bands" style="color: #ff3b4e;">0</div>
+          <div style="font-size: 0.75rem; color: #8e8d94;">Telugu &amp; Live format entries</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label" style="color: #ffc83b;">BRAND SPONSORSHIPS</div>
+          <div class="admin-kpi-val" id="kpi-brands" style="color: #ffc83b;">0</div>
+          <div style="font-size: 0.75rem; color: #8e8d94;">Category &amp; partner requests</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="admin-kpi-label" style="color: #1ec86e;">GENERAL COMMUNICATIONS</div>
+          <div class="admin-kpi-val" id="kpi-messages" style="color: #1ec86e;">0</div>
+          <div style="font-size: 0.75rem; color: #8e8d94;">Press, Guest &amp; Media queries</div>
+        </div>
+      </div>
+
+      <!-- Controls & Filter Tabs -->
+      <div class="admin-filter-bar">
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" data-filter="all">ALL SUBMISSIONS (<span id="count-all">0</span>)</button>
+          <button class="admin-tab-btn" data-filter="band">BANDS (<span id="count-band">0</span>)</button>
+          <button class="admin-tab-btn" data-filter="brand">BRANDS (<span id="count-brand">0</span>)</button>
+          <button class="admin-tab-btn" data-filter="message">MESSAGES (<span id="count-message">0</span>)</button>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="admin-search-input" class="admin-search-input" placeholder="🔍 Search by name, city, email, ref...">
+          <button id="add-test-btn" class="action-btn" title="Add a demo submission">+ TEST ENTRY</button>
+        </div>
+      </div>
+
+      <!-- Submissions Table -->
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="submissions-table">
+          <thead>
+            <tr>
+              <th>REF ID</th>
+              <th>TIMESTAMP</th>
+              <th>CATEGORY</th>
+              <th>APPLICANT / NAME</th>
+              <th>CONTACT DETAILS</th>
+              <th>KEY DETAILS / LINKS</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="submissions-tbody">
+            <!-- Dynamic Rows Injected by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       SUBMISSION DOSSIER MODAL
+       ========================================================================= -->
+  <div id="dossier-modal" class="admin-modal-backdrop" aria-hidden="true">
+    <div class="admin-modal-box">
+      <button id="dossier-close-btn" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      
+      <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; margin-bottom: 20px;">
+        <span id="modal-type-badge" class="type-badge band" style="margin-bottom: 8px;">BAND AUDITION</span>
+        <h3 id="modal-title" style="font-family: var(--font-heading); color: #fff; font-size: 1.6rem; margin: 4px 0 2px;">Applicant Name</h3>
+        <span id="modal-ref-code" style="font-family: monospace; color: #ff112d; font-size: 0.85rem; font-weight: 700;">REF-000</span>
+      </div>
+
+      <div id="modal-content-body" style="font-size: 0.9rem; line-height: 1.6; color: #d0cddc;">
+        <!-- Detailed JSON / Key-Value Breakdown -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // RITHMOS ADMIN CLIENT CONTROLLER
+    // =========================================================================
+    (function() {
+      const AUTH_KEY = 'rithmos_admin_session';
+      const STORAGE_KEY = 'rithmos_submissions';
+
+      const loginView = document.getElementById('login-view');
+      const dashboardView = document.getElementById('dashboard-view');
+      const loginForm = document.getElementById('admin-login-form');
+      const loginError = document.getElementById('login-error-msg');
+      const logoutBtn = document.getElementById('admin-logout-btn');
+      const tbody = document.getElementById('submissions-tbody');
+      const searchInput = document.getElementById('admin-search-input');
+      const tabBtns = document.querySelectorAll('.admin-tab-btn');
+      const exportBtn = document.getElementById('export-csv-btn');
+      const addTestBtn = document.getElementById('add-test-btn');
+
+      const dossierModal = document.getElementById('dossier-modal');
+      const dossierCloseBtn = document.getElementById('dossier-close-btn');
+      const modalTitle = document.getElementById('modal-title');
+      const modalTypeBadge = document.getElementById('modal-type-badge');
+      const modalRefCode = document.getElementById('modal-ref-code');
+      const modalContent = document.getElementById('modal-content-body');
+
+      let currentFilter = 'all';
+      let searchQuery = '';
+
+      // Realistic Seed Data if submissions storage is empty
+      function initializeSeedData() {
+        const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if (existing.length === 0) {
+          const seeds = [
+            {
+              id: 'RTH-2026-BND-4819',
+              timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
+              type: 'band',
+              bandName: 'Asura Syndicate',
+              language: 'Telugu (Mandatory)',
+              leader: 'Vikramaditya Rao',
+              city: 'Hyderabad',
+              phone: '+91 98765 43210',
+              email: 'asura.syndicate@gmail.com',
+              demoUrl: 'https://youtube.com/watch?v=sample-asura-live',
+              social: '@asurasyndicate',
+              techBrief: '2 Guitars, 1 Bass, 5-pc Kit, 2 Vocals',
+              status: 'QUALIFIED'
+            },
+            {
+              id: 'RTH-2026-SPN-7921',
+              timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
+              type: 'brand',
+              brandName: 'Red Bull India',
+              contact: 'Siddharth Kapoor',
+              designation: 'National Marketing Lead',
+              phone: '+91 98200 11223',
+              email: 'siddharth.kapoor@redbull.com',
+              tier: 'Title Package',
+              budget: '₹60,00,000+',
+              notes: 'Looking for main stage experiential energy zone and exclusive beverage sponsorship.',
+              status: 'NEW'
+            },
+            {
+              id: 'RTH-2026-BND-3158',
+              timestamp: new Date(Date.now() - 3600000 * 12).toISOString(),
+              type: 'band',
+              bandName: 'Deccan Groove Collective',
+              language: 'Telugu + Multilingual',
+              leader: 'Ananya Reddy',
+              city: 'Secunderabad',
+              phone: '+91 94401 55667',
+              email: 'deccangroove@outlook.com',
+              demoUrl: 'https://drive.google.com/file/d/sample-deccan-audition',
+              social: '@deccangroove',
+              techBrief: 'Drums, Bass, Electric Violin, Synth, Vocals',
+              status: 'UNDER REVIEW'
+            },
+            {
+              id: 'RTH-2026-SPN-6604',
+              timestamp: new Date(Date.now() - 3600000 * 24).toISOString(),
+              type: 'brand',
+              brandName: 'Shure Pro Audio Systems',
+              contact: 'Priya Menon',
+              designation: 'Artist Relations Manager',
+              phone: '+91 99800 33445',
+              email: 'menon.p@shure-india.com',
+              tier: 'Category Partner',
+              budget: '₹20,00,000',
+              notes: 'Interested in official backline and microphone partner integration for all stages.',
+              status: 'CONTACTED'
+            },
+            {
+              id: 'RTH-2026-MSG-1082',
+              timestamp: new Date(Date.now() - 3600000 * 36).toISOString(),
+              type: 'message',
+              name: 'Kabir Verma',
+              email: 'kabir.verma@rollingstoneindia.com',
+              phone: '+91 98111 22334',
+              dept: 'Press & Media Accreditation',
+              org: 'Rolling Stone India',
+              message: 'Requesting accreditation passes for 2 photojournalists and festival preview interview.',
+              status: 'QUALIFIED'
+            }
+          ];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(seeds));
+        }
+      }
+
+      function getSubmissions() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        } catch(e) {
+          return [];
+        }
+      }
+
+      function saveSubmissions(list) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      }
+
+      function checkAuth() {
+        const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true';
+        if (isAuth) {
+          loginView.style.display = 'none';
+          dashboardView.style.display = 'flex';
+          renderDashboard();
+        } else {
+          loginView.style.display = 'flex';
+          dashboardView.style.display = 'none';
+        }
+      }
+
+      // Login Form Handling
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const u = document.getElementById('admin-username').value.trim();
+        const p = document.getElementById('admin-password').value.trim();
+
+        if (u === 'admin' && p === 'admin123') {
+          sessionStorage.setItem(AUTH_KEY, 'true');
+          loginError.style.display = 'none';
+          checkAuth();
+        } else {
+          loginError.style.display = 'block';
+        }
+      });
+
+      // Logout
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem(AUTH_KEY);
+        checkAuth();
+      });
+
+      // Tab Filtering
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          renderDashboard();
+        });
+      });
+
+      // Search Filtering
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        renderDashboard();
+      });
+
+      // Add Test Record
+      if (addTestBtn) {
+        addTestBtn.addEventListener('click', () => {
+          const rand = Math.floor(1000 + Math.random() * 9000);
+          const list = getSubmissions();
+          list.unshift({
+            id: `RTH-2026-BND-${rand}`,
+            timestamp: new Date().toISOString(),
+            type: 'band',
+            bandName: `Test Live Act #${rand}`,
+            language: 'Telugu (Mandatory)',
+            leader: 'Karthik Varma',
+            city: 'Hyderabad',
+            phone: '+91 98888 77777',
+            email: `liveact${rand}@band.in`,
+            demoUrl: 'https://youtube.com/watch?v=sample-video',
+            social: `@liveact${rand}`,
+            techBrief: 'Full 5-Piece Band Live Set',
+            status: 'NEW'
+          });
+          saveSubmissions(list);
+          renderDashboard();
+        });
+      }
+
+      // Render Dashboard
+      function renderDashboard() {
+        const list = getSubmissions();
+
+        // Update KPIs
+        const totalCount = list.length;
+        const bandCount = list.filter(i => i.type === 'band').length;
+        const brandCount = list.filter(i => i.type === 'brand').length;
+        const msgCount = list.filter(i => i.type === 'message').length;
+
+        document.getElementById('kpi-total').textContent = totalCount;
+        document.getElementById('kpi-bands').textContent = bandCount;
+        document.getElementById('kpi-brands').textContent = brandCount;
+        document.getElementById('kpi-messages').textContent = msgCount;
+
+        document.getElementById('count-all').textContent = totalCount;
+        document.getElementById('count-band').textContent = bandCount;
+        document.getElementById('count-brand').textContent = brandCount;
+        document.getElementById('count-message').textContent = msgCount;
+
+        // Filter items
+        let filtered = list;
+        if (currentFilter !== 'all') {
+          filtered = filtered.filter(i => i.type === currentFilter);
+        }
+
+        if (searchQuery) {
+          filtered = filtered.filter(i => {
+            const str = JSON.stringify(i).toLowerCase();
+            return str.includes(searchQuery);
+          });
+        }
+
+        // Render rows
+        tbody.innerHTML = '';
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 36px; color: #8e8d94;">No matching records found.</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(item => {
+          const tr = document.createElement('tr');
+          const dateStr = new Date(item.timestamp).toLocaleString('en-IN', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+
+          const typeClass = item.type === 'band' ? 'band' : item.type === 'brand' ? 'brand' : 'message';
+          const typeLabel = item.type === 'band' ? 'BAND' : item.type === 'brand' ? 'BRAND' : 'MESSAGE';
+
+          const primaryName = item.bandName || item.brandName || item.name || 'Anonymous';
+          const contactPerson = item.leader || item.contact || item.name || '—';
+          const phone = item.phone || '—';
+          const email = item.email || '—';
+
+          let detailHtml = '';
+          if (item.type === 'band') {
+            detailHtml = `<div><strong>${item.city || 'Hyderabad'}</strong> &bull; <span style="color:#ff475b">${item.language || 'Telugu'}</span></div>`;
+            if (item.demoUrl) {
+              detailHtml += `<a href="${item.demoUrl}" target="_blank" rel="noopener" style="color: #ff3b4e; text-decoration: underline; font-size: 0.78rem;">▶ Audition Video</a>`;
+            }
+          } else if (item.type === 'brand') {
+            detailHtml = `<div><strong>${item.tier || 'Sponsorship'}</strong> &bull; ${item.budget || 'Budget TBD'}</div>`;
+          } else {
+            detailHtml = `<div>${item.dept || 'General Inquiry'}</div>`;
+          }
+
+          tr.innerHTML = `
+            <td style="font-family: monospace; font-weight: 700; color: #fff;">${item.id}</td>
+            <td style="font-size: 0.8rem; color: #9e9ea8;">${dateStr}</td>
+            <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
+            <td>
+              <strong style="color: #fff; font-size: 0.95rem;">${primaryName}</strong>
+              <div style="font-size: 0.78rem; color: #8e8d94;">Lead: ${contactPerson}</div>
+            </td>
+            <td>
+              <a href="mailto:${email}" style="color: #c4c1d0; text-decoration: none; display: block; font-size: 0.82rem;">${email}</a>
+              <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" target="_blank" style="color: #1ec86e; text-decoration: none; font-size: 0.8rem;">📱 ${phone}</a>
+            </td>
+            <td>${detailHtml}</td>
+            <td>
+              <select class="status-select" data-id="${item.id}">
+                <option value="NEW" ${item.status === 'NEW' ? 'selected' : ''}>NEW</option>
+                <option value="UNDER REVIEW" ${item.status === 'UNDER REVIEW' ? 'selected' : ''}>UNDER REVIEW</option>
+                <option value="QUALIFIED" ${item.status === 'QUALIFIED' ? 'selected' : ''}>QUALIFIED</option>
+                <option value="CONTACTED" ${item.status === 'CONTACTED' ? 'selected' : ''}>CONTACTED</option>
+                <option value="REJECTED" ${item.status === 'REJECTED' ? 'selected' : ''}>REJECTED</option>
+              </select>
+            </td>
+            <td>
+              <div style="display: flex; gap: 6px;">
+                <button class="action-btn view-btn" data-id="${item.id}" title="View Details">👁️</button>
+                <button class="action-btn del-btn" data-id="${item.id}" style="color: #ff3b4e;" title="Delete">&times;</button>
+              </div>
+            </td>
+          `;
+
+          tbody.appendChild(tr);
+        });
+
+        // Attach Row Event Listeners
+        tbody.querySelectorAll('.status-select').forEach(sel => {
+          sel.addEventListener('change', (e) => {
+            const id = e.target.dataset.id;
+            const newStatus = e.target.value;
+            const all = getSubmissions();
+            const target = all.find(i => i.id === id);
+            if (target) {
+              target.status = newStatus;
+              saveSubmissions(all);
+            }
+          });
+        });
+
+        tbody.querySelectorAll('.del-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = btn.dataset.id;
+            if (confirm(`Delete submission ${id}?`)) {
+              let all = getSubmissions();
+              all = all.filter(i => i.id !== id);
+              saveSubmissions(all);
+              renderDashboard();
+            }
+          });
+        });
+
+        tbody.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = btn.dataset.id;
+            const all = getSubmissions();
+            const target = all.find(i => i.id === id);
+            if (target) {
+              openDossierModal(target);
+            }
+          });
+        });
+      }
+
+      function openDossierModal(item) {
+        modalRefCode.textContent = item.id;
+        modalTitle.textContent = item.bandName || item.brandName || item.name || 'Submission';
+        modalTypeBadge.className = `type-badge ${item.type}`;
+        modalTypeBadge.textContent = item.type.toUpperCase();
+
+        let detailsHtml = `
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+            <strong style="color:#a4a1b4;">Date Received:</strong>
+            <div>${new Date(item.timestamp).toLocaleString('en-IN')}</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+            <strong style="color:#a4a1b4;">Status:</strong>
+            <div><span style="color:#ff112d; font-weight:700;">${item.status || 'NEW'}</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+            <strong style="color:#a4a1b4;">Contact Lead:</strong>
+            <div>${item.leader || item.contact || item.name || '—'}</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+            <strong style="color:#a4a1b4;">Phone / WhatsApp:</strong>
+            <div><a href="https://wa.me/${(item.phone || '').replace(/[^0-9]/g, '')}" target="_blank" style="color:#1ec86e;">${item.phone || '—'}</a></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+            <strong style="color:#a4a1b4;">Official Email:</strong>
+            <div><a href="mailto:${item.email}" style="color:#ff475b;">${item.email || '—'}</a></div>
+          </div>
+        `;
+
+        if (item.type === 'band') {
+          detailsHtml += `
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Language:</strong>
+              <div>${item.language || 'Telugu (Mandatory)'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Base City:</strong>
+              <div>${item.city || 'Hyderabad'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Audition Link:</strong>
+              <div><a href="${item.demoUrl}" target="_blank" rel="noopener" style="color:#ff112d; text-decoration:underline;">${item.demoUrl || 'No Link Provided'}</a></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Social Profile:</strong>
+              <div>${item.social || '—'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Lineup / Tech:</strong>
+              <div>${item.techBrief || '—'}</div>
+            </div>
+          `;
+        } else if (item.type === 'brand') {
+          detailsHtml += `
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Target Tier:</strong>
+              <div>${item.tier || '—'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Budget Range:</strong>
+              <div>${item.budget || '—'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Brand Notes:</strong>
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px;">${item.notes || '—'}</div>
+            </div>
+          `;
+        } else {
+          detailsHtml += `
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Department:</strong>
+              <div>${item.dept || '—'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Organization:</strong>
+              <div>${item.org || '—'}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
+              <strong style="color:#a4a1b4;">Message:</strong>
+              <div style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px;">${item.message || '—'}</div>
+            </div>
+          `;
+        }
+
+        modalContent.innerHTML = detailsHtml;
+        dossierModal.classList.add('open');
+      }
+
+      dossierCloseBtn.addEventListener('click', () => {
+        dossierModal.classList.remove('open');
+      });
+
+      dossierModal.addEventListener('click', (e) => {
+        if (e.target === dossierModal) {
+          dossierModal.classList.remove('open');
+        }
+      });
+
+      // Export CSV
+      exportBtn.addEventListener('click', () => {
+        const list = getSubmissions();
+        if (list.length === 0) {
+          alert('No records to export.');
+          return;
+        }
+
+        let csv = 'Ref ID,Timestamp,Category,Name/Brand,Lead,Phone,Email,Details,Status\n';
+        list.forEach(item => {
+          const row = [
+            `"${item.id}"`,
+            `"${item.timestamp}"`,
+            `"${item.type}"`,
+            `"${(item.bandName || item.brandName || item.name || '').replace(/"/g, '""')}"`,
+            `"${(item.leader || item.contact || item.name || '').replace(/"/g, '""')}"`,
+            `"${(item.phone || '').replace(/"/g, '""')}"`,
+            `"${(item.email || '').replace(/"/g, '""')}"`,
+            `"${(item.demoUrl || item.notes || item.message || '').replace(/"/g, '""')}"`,
+            `"${item.status || 'NEW'}"`
+          ];
+          csv += row.join(',') + '\n';
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `rithmos-submissions-${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Initialize
+      initializeSeedData();
+      checkAuth();
+    })();
+  </script>
+</body>
+</html>

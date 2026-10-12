@@ -15,8 +15,10 @@ function multiPageMiddleware() {
           req.url = '/contact/index.html';
         } else if (url === '/register' || url === '/register/') {
           req.url = '/register/index.html';
-        } else if (url === '/sponsors' || url === '/sponsors/' || url === '/partners' || url === '/partners/') {
+        } else if (url === '/sponsors' || url === '/sponsors/') {
           req.url = '/sponsors/index.html';
+        } else if (url === '/admin' || url === '/admin/') {
+          req.url = '/admin/index.html';
         }
         next();
       });
@@ -27,7 +29,7 @@ function multiPageMiddleware() {
 export default defineConfig({
   plugins: [multiPageMiddleware()],
   server: {
-    port: 5045,
+    port: 8008,
     open: false,
     host: true
   },
@@ -41,7 +43,8 @@ export default defineConfig({
         competition: resolve(__dirname, 'competition/index.html'),
         contact: resolve(__dirname, 'contact/index.html'),
         register: resolve(__dirname, 'register/index.html'),
-        sponsors: resolve(__dirname, 'sponsors/index.html')
+        sponsors: resolve(__dirname, 'sponsors/index.html'),
+        admin: resolve(__dirname, 'admin/index.html')
       }
     }
   }

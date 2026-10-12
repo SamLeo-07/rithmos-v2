@@ -15,6 +15,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Centralized submission recorder for /admin
+  function recordSubmission(submission) {
+    try {
+      const list = JSON.parse(localStorage.getItem('rithmos_submissions') || '[]');
+      const typeCode = submission.type === 'brand' ? 'SPN' : submission.type === 'message' ? 'MSG' : 'BND';
+      const record = {
+        id: submission.id || `RTH-2026-${typeCode}-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toISOString(),
+        type: submission.type || 'band',
+        status: 'NEW',
+        ...submission
+      };
+      list.unshift(record);
+      localStorage.setItem('rithmos_submissions', JSON.stringify(list));
+      return record;
+    } catch (e) {
+      console.error('Storage recording error:', e);
+    }
+  }
+
+
   // Modal Setup
   const registerModal = document.getElementById('register-modal');
   const modalCloseBtn = document.getElementById('modal-close');
@@ -137,6 +158,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      recordSubmission({
+        type: 'message',
+        name: document.getElementById('c-name')?.value || 'Guest',
+        email: document.getElementById('c-email')?.value || '',
+        phone: document.getElementById('c-phone')?.value || '',
+        dept: document.getElementById('c-dept')?.value || 'General',
+        org: document.getElementById('c-band')?.value || '',
+        message: document.getElementById('c-msg')?.value || ''
+      });
+
       if (contactSubmitBtn) {
         contactSubmitBtn.disabled = true;
         contactSubmitBtn.innerHTML = '<span>Sending Message...</span>';
@@ -172,13 +203,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bandForm) {
     bandForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const randCode = 'RTH-2026-BND-' + Math.floor(1000 + Math.random() * 9000);
+      recordSubmission({
+        id: randCode,
+        type: 'band',
+        bandName: document.getElementById('b-name')?.value || '',
+        language: document.getElementById('b-lang')?.value || 'Telugu (Mandatory)',
+        leader: document.getElementById('b-leader')?.value || '',
+        city: document.getElementById('b-city')?.value || '',
+        phone: document.getElementById('b-phone')?.value || '',
+        email: document.getElementById('b-email')?.value || '',
+        demoUrl: document.getElementById('b-link')?.value || '',
+        social: document.getElementById('b-social')?.value || '',
+        techBrief: document.getElementById('b-tech')?.value || ''
+      });
+
       if (bandSubmitBtn) {
         bandSubmitBtn.disabled = true;
         bandSubmitBtn.innerHTML = '<span>Transmitting Band Dossier...</span>';
       }
 
       setTimeout(() => {
-        const randCode = 'RTH-2026-BND-' + Math.floor(1000 + Math.random() * 9000);
         if (bandRefCode) {
           bandRefCode.textContent = randCode;
         }
@@ -204,13 +249,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sponsorForm) {
     sponsorForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const randCode = 'RTH-2026-SPN-' + Math.floor(1000 + Math.random() * 9000);
+      recordSubmission({
+        id: randCode,
+        type: 'brand',
+        brandName: document.getElementById('sp-brand')?.value || '',
+        contact: document.getElementById('sp-lead')?.value || '',
+        designation: document.getElementById('sp-role')?.value || '',
+        phone: document.getElementById('sp-phone')?.value || '',
+        email: document.getElementById('sp-email')?.value || '',
+        tier: document.getElementById('sp-tier')?.value || '',
+        budget: document.getElementById('sp-budget')?.value || '',
+        notes: document.getElementById('sp-notes')?.value || ''
+      });
+
       if (sponsorSubmitBtn) {
         sponsorSubmitBtn.disabled = true;
         sponsorSubmitBtn.innerHTML = '<span>Transmitting Prospectus Request...</span>';
       }
 
       setTimeout(() => {
-        const randCode = 'RTH-2026-SPN-' + Math.floor(1000 + Math.random() * 9000);
         if (sponsorRefCode) {
           sponsorRefCode.textContent = randCode;
         }
@@ -478,6 +536,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactBandForm) {
       contactBandForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        recordSubmission({
+          type: 'band',
+          bandName: document.getElementById('cb-name')?.value || 'Band',
+          leader: document.getElementById('cb-leader')?.value || '',
+          city: document.getElementById('cb-city')?.value || '',
+          phone: document.getElementById('cb-phone')?.value || '',
+          email: document.getElementById('cb-email')?.value || '',
+          demoUrl: document.getElementById('cb-link')?.value || ''
+        });
         const success = document.getElementById('contact-band-success');
         if (success) success.style.display = 'block';
         contactBandForm.reset();
@@ -488,6 +555,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactBrandForm) {
       contactBrandForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        recordSubmission({
+          type: 'brand',
+          brandName: document.getElementById('cbr-brand')?.value || 'Brand',
+          contact: document.getElementById('cbr-lead')?.value || '',
+          phone: document.getElementById('cbr-phone')?.value || '',
+          email: document.getElementById('cbr-email')?.value || '',
+          tier: document.getElementById('cbr-tier')?.value || '',
+          notes: document.getElementById('cbr-notes')?.value || ''
+        });
         const success = document.getElementById('contact-brand-success');
         if (success) success.style.display = 'block';
         contactBrandForm.reset();
@@ -502,11 +578,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (compBandForm) {
     compBandForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const randId = `RTH-2026-BND-${randomNum}`;
+      recordSubmission({
+        id: randId,
+        type: 'band',
+        bandName: document.getElementById('comp-b-name')?.value || 'Band',
+        language: document.getElementById('comp-b-lang')?.value || 'Telugu (Mandatory)',
+        leader: document.getElementById('comp-b-leader')?.value || '',
+        city: document.getElementById('comp-b-city')?.value || '',
+        phone: document.getElementById('comp-b-phone')?.value || '',
+        email: document.getElementById('comp-b-email')?.value || '',
+        demoUrl: document.getElementById('comp-b-link')?.value || '',
+        social: document.getElementById('comp-b-social')?.value || '',
+        techBrief: document.getElementById('comp-b-tech')?.value || ''
+      });
+
       const successEl = document.getElementById('comp-band-form-success');
       const refCodeEl = document.getElementById('comp-band-ref-code');
       if (refCodeEl) {
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        refCodeEl.textContent = `RTH-2026-BND-${randomNum}`;
+        refCodeEl.textContent = randId;
       }
       if (successEl) {
         successEl.style.display = 'block';
@@ -543,6 +634,43 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('scroll', onScrollCompTrack, { passive: true });
     onScrollCompTrack();
+  }
+
+  // ==========================================================================
+  // SPONSORS DECK // FOUNDER GALLERY MARQUEE SLIDER
+  // ==========================================================================
+  const founderMarquee = document.getElementById('founder-marquee-track');
+  const sliderPrevBtn = document.getElementById('slider-prev-btn');
+  const sliderNextBtn = document.getElementById('slider-next-btn');
+
+  if (founderMarquee) {
+    // Clone cards once for continuous infinite scroll
+    const items = Array.from(founderMarquee.children);
+    items.forEach((item) => {
+      const clone = item.cloneNode(true);
+      founderMarquee.appendChild(clone);
+    });
+
+    founderMarquee.classList.add('is-animating');
+
+    let currentOffset = 0;
+    const cardStep = 354; // 330px width + 24px gap
+
+    if (sliderPrevBtn) {
+      sliderPrevBtn.addEventListener('click', () => {
+        founderMarquee.classList.remove('is-animating');
+        currentOffset = Math.max(0, currentOffset - cardStep);
+        founderMarquee.style.transform = `translateX(-${currentOffset}px)`;
+      });
+    }
+
+    if (sliderNextBtn) {
+      sliderNextBtn.addEventListener('click', () => {
+        founderMarquee.classList.remove('is-animating');
+        currentOffset += cardStep;
+        founderMarquee.style.transform = `translateX(-${currentOffset}px)`;
+      });
+    }
   }
 });
 
