@@ -1975,10 +1975,9 @@
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 104px;
-  padding-bottom: 34px;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
   background: #07050a;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -1998,8 +1997,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
-  filter: contrast(1.06) brightness(0.96);
+  object-position: center 30%;
+  filter: contrast(1.08) brightness(0.98);
 }
 
 .sponsors-hero-bg-gradient {
@@ -2009,17 +2008,17 @@
   pointer-events: none;
   background: 
     linear-gradient(to right, 
-      rgba(5, 4, 8, 0.98) 0%, 
-      rgba(5, 4, 8, 0.92) 28%, 
-      rgba(5, 4, 8, 0.68) 50%, 
-      rgba(5, 4, 8, 0.22) 74%, 
-      rgba(5, 4, 8, 0.15) 100%
+      rgba(5, 4, 8, 0.96) 0%, 
+      rgba(5, 4, 8, 0.88) 28%, 
+      rgba(5, 4, 8, 0.55) 52%, 
+      rgba(5, 4, 8, 0.18) 75%, 
+      rgba(5, 4, 8, 0.08) 100%
     ),
     linear-gradient(180deg, 
-      rgba(5, 4, 8, 0.70) 0%, 
+      rgba(5, 4, 8, 0.65) 0%, 
       transparent 18%, 
-      transparent 70%, 
-      rgba(5, 4, 8, 0.85) 90%, 
+      transparent 72%, 
+      rgba(5, 4, 8, 0.70) 92%, 
       #08080c 100%
     );
 }
@@ -2031,17 +2030,12 @@
   max-width: 1380px;
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 56px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
 }
 
 .sponsors-hero-col {
-  max-width: 640px;
+  max-width: 920px;
   display: flex;
   flex-direction: column;
-  padding-top: 16px;
 }
 
 .sponsors-hero-logo-lockup {
@@ -2109,18 +2103,17 @@
   box-shadow: 0 0 34px rgba(255, 17, 45, 0.8), 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
-/* Horizontal Bottom Bar of 5 Environment Pills */
+/* Horizontal Bottom Bar of 5 Environment Pills Directly Over the Arena Background */
 .sponsors-hero-pills-bar {
   width: 100%;
-  margin-top: 36px;
-  padding-top: 12px;
+  margin-top: 24px;
 }
 
 .environments-pills-row {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   overflow-x: auto;
   scrollbar-width: none;
@@ -2132,12 +2125,12 @@
 }
 
 .env-pill-btn {
-  background: rgba(14, 11, 20, 0.75);
+  background: rgba(14, 11, 20, 0.70);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 6px;
-  padding: 10px 18px;
+  padding: 9px 16px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -2155,7 +2148,7 @@
 }
 
 .env-pill-btn.active {
-  background: rgba(255, 17, 45, 0.12);
+  background: rgba(255, 17, 45, 0.14);
   border-color: #ff112d;
   box-shadow: 0 0 20px rgba(255, 17, 45, 0.35);
   transform: translateY(-2px);
