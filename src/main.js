@@ -7,12 +7,10 @@ import { ParticleSystem } from './scene/Particles.js';
 import { CameraJourney } from './scene/CameraJourney.js';
 import { ConcertAudio } from './audio/ConcertAudio.js';
 import { ModalManager } from './ui/ModalManager.js';
-import { MobileNav } from './ui/MobileNav.js';
 
 class RithmosApp {
   constructor() {
     this.canvas = document.getElementById('webgl-canvas');
-    this.mobileNav = new MobileNav();
     this.initSmoothScroll();
     this.initStageStepping();
     this.init3D();
@@ -196,16 +194,40 @@ class RithmosApp {
   initAudio() {
     this.audio = new ConcertAudio();
     const toggleBtn = document.getElementById('audio-toggle');
+
     if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const isPlaying = this.audio.toggle();
+      this.audio.onStateChange = (isPlaying) => {
         if (isPlaying) {
           toggleBtn.classList.add('playing');
         } else {
           toggleBtn.classList.remove('playing');
         }
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.audio.toggle();
       });
     }
+
+    // Smooth autoplay on page entry or first user interaction gesture
+    const startAudioOnFirstInteraction = () => {
+      if (!this.audio.isPlaying) {
+        this.audio.fadeIn(2.5);
+      }
+      window.removeEventListener('pointerdown', startAudioOnFirstInteraction);
+      window.removeEventListener('keydown', startAudioOnFirstInteraction);
+      window.removeEventListener('wheel', startAudioOnFirstInteraction);
+      window.removeEventListener('touchstart', startAudioOnFirstInteraction);
+    };
+
+    window.addEventListener('pointerdown', startAudioOnFirstInteraction, { once: true });
+    window.addEventListener('keydown', startAudioOnFirstInteraction, { once: true });
+    window.addEventListener('wheel', startAudioOnFirstInteraction, { once: true, passive: true });
+    window.addEventListener('touchstart', startAudioOnFirstInteraction, { once: true, passive: true });
+
+    // Try starting immediately on load
+    this.audio.fadeIn(2.5);
   }
 
   initModals() {
@@ -299,30 +321,40 @@ class RithmosApp {
     const heroStage = document.getElementById('hero-stage');
 
     const sections = [
-      { id: 'about', step: '02' },
-      { id: 'how-it-works', step: '03' },
-      { id: 'why-participate', step: '04' },
-      { id: 'partners', step: '05' },
-      { id: 'whats-next', step: '06' }
+      { id: 'how-it-works', step: '02' },
+      { id: 'why-enter', step: '03' },
+      { id: 'the-competition', step: '04' },
+      { id: 'for-bands', step: '05' },
+      { id: 'the-big-stage', step: '06' },
+      { id: 'whats-next', step: '07' }
     ];
 
-    // Terminals
+    // Section 03 Elements
+    const sec03 = document.getElementById('why-enter');
     const term03 = document.getElementById('terminal-03');
-    const term04 = document.getElementById('terminal-04');
-    const term05 = document.getElementById('terminal-05');
-    const term06 = document.getElementById('terminal-06');
+    const benefitBoxes = sec03 ? sec03.querySelectorAll('.benefit-box') : [];
+    const acousticRadar = document.getElementById('acoustic-radar-col');
 
-    // Section Elements
-    const secHowItWorks = document.getElementById('how-it-works');
-    const secBands = document.getElementById('why-participate');
-    const benefitBoxes = secBands ? secBands.querySelectorAll('.benefit-box') : [];
+    // Section 04 Elements
+    const sec04 = document.getElementById('the-competition');
+    const term04 = document.getElementById('terminal-04');
+    const compCableGlow = document.getElementById('comp-cable-glow');
+    const compNodes = sec04 ? sec04.querySelectorAll('.timeline-node') : [];
+
+    // Section 05 Elements
+    const sec05 = document.getElementById('for-bands');
+    const term05 = document.getElementById('terminal-05');
+    const panelRedGlowing = document.getElementById('panel-red-glowing');
+    const etchedWords = sec05 ? sec05.querySelectorAll('.etched-word') : [];
+
+    // Section 06 Elements
+    const sec06 = document.getElementById('the-big-stage');
+    const term06 = document.getElementById('terminal-06');
     const isoSteps = [1, 2, 3, 4, 5, 6, 7].map(n => document.getElementById(`step-${n}`));
 
-    const secPartners = document.getElementById('partners');
-    const acousticRadar = document.getElementById('acoustic-radar-col');
-    const partnerBadges = secPartners ? secPartners.querySelectorAll('.partner-badge-card') : [];
-
-    const secWhatsNext = document.getElementById('whats-next');
+    // Section 07 Elements
+    const sec07 = document.getElementById('whats-next');
+    const term07 = document.getElementById('terminal-07');
     const haloFrame = document.getElementById('amphitheater-halo-frame');
 
     const getProgress = (el, winH) => {
@@ -340,7 +372,7 @@ class RithmosApp {
       const scrollY = window.scrollY;
       const heroHeight = heroStage ? Math.max(heroStage.offsetHeight - winH, 1) : 5500;
 
-      // Toggle HUD visibility
+      // Toggle HUD visibility: show when user scrolls past 3D hero stage into landing sections
       if (storyHud) {
         if (scrollY > heroHeight + 120) {
           storyHud.classList.add('is-visible');
@@ -359,6 +391,7 @@ class RithmosApp {
           if (rect.top <= readLine && rect.bottom >= readLine) {
             currentActiveStep = step;
           }
+          // Ensure reveal-on-scroll elements are cleanly visible once section is reached
           if (rect.top < winH * 0.95 && rect.bottom > 0) {
             el.querySelectorAll('.reveal-on-scroll').forEach(rev => rev.classList.add('is-revealed'));
           }
@@ -388,39 +421,61 @@ class RithmosApp {
       checkTerminal(term04);
       checkTerminal(term05);
       checkTerminal(term06);
+      checkTerminal(term07);
 
-      // SECTION 03: Live SVG Red Cable + Step Cards
-      if (secHowItWorks) {
-        const pWorks = getProgress(secHowItWorks, winH);
-        const cablePathGlow = document.getElementById('cable-path-glow');
-        if (cablePathGlow) {
-          const clamped = Math.min(1.0, Math.max(0, pWorks * 1.35));
-          const offset = 1200 * (1.0 - clamped);
-          cablePathGlow.style.strokeDashoffset = `${offset}`;
+      // SECTION 03: Benefit Cards + Equalizers + Acoustic Radar
+      if (sec03) {
+        const p3 = getProgress(sec03, winH);
+        if (acousticRadar) {
+          acousticRadar.classList.toggle('is-pulsing', p3 > 0.05 && p3 < 1.05);
         }
-        const stepCards = secHowItWorks.querySelectorAll('.step-card');
-        stepCards.forEach((card, idx) => {
-          if (pWorks >= 0.08 + idx * 0.12) {
-            card.classList.add('is-energized');
-          } else {
-            card.classList.remove('is-energized');
-          }
-        });
-      }
-
-      // SECTION 04: Benefit Cards & Isometric Ascending Steps
-      if (secBands) {
-        const pBands = getProgress(secBands, winH);
         benefitBoxes.forEach((box, idx) => {
-          if (pBands >= 0.05 + idx * 0.08) {
+          if (p3 >= 0.06 + idx * 0.10) {
             box.classList.add('is-energized');
           } else {
             box.classList.remove('is-energized');
           }
         });
+      }
+
+      // SECTION 04: Live SVG Tournament Circuit Cable + Nodes
+      if (sec04) {
+        const p4 = getProgress(sec04, winH);
+        if (compCableGlow) {
+          const clamped = Math.min(1.0, Math.max(0, p4 * 1.35));
+          const offset = 1000 * (1.0 - clamped);
+          compCableGlow.style.strokeDashoffset = `${offset}`;
+        }
+        compNodes.forEach((node, idx) => {
+          if (p4 >= 0.08 + idx * 0.16) {
+            node.classList.add('is-energized');
+          } else {
+            node.classList.remove('is-energized');
+          }
+        });
+      }
+
+      // SECTION 05: Rehearsal Studio Radiant Glass Panel + Etched Typography
+      if (sec05) {
+        const p5 = getProgress(sec05, winH);
+        if (panelRedGlowing) {
+          panelRedGlowing.classList.toggle('is-energized', p5 > 0.05 && p5 < 1.05);
+        }
+        etchedWords.forEach((word, idx) => {
+          if (p5 >= 0.10 + idx * 0.12) {
+            word.classList.add('is-lit');
+          } else {
+            word.classList.remove('is-lit');
+          }
+        });
+      }
+
+      // SECTION 06: Isometric Ascending Steps Climbing
+      if (sec06) {
+        const p6 = getProgress(sec06, winH);
         isoSteps.forEach((step, idx) => {
           if (step) {
-            if (pBands >= 0.25 + idx * 0.07) {
+            if (p6 >= 0.08 + idx * 0.11) {
               step.classList.add('is-lit');
             } else {
               step.classList.remove('is-lit');
@@ -429,24 +484,11 @@ class RithmosApp {
         });
       }
 
-      // SECTION 05: Partners Acoustic Radar & Badges
-      if (secPartners) {
-        const pPartners = getProgress(secPartners, winH);
-        if (acousticRadar) {
-          acousticRadar.classList.toggle('is-pulsing', pPartners > 0.05 && pPartners < 1.05);
-        }
-        partnerBadges.forEach((badge, idx) => {
-          if (pPartners >= 0.15 + (idx % 6) * 0.05) {
-            badge.style.borderColor = '#ff112d';
-          }
-        });
-      }
-
-      // SECTION 06: Stadium Halo Shockwave
-      if (secWhatsNext) {
-        const pWhatsNext = getProgress(secWhatsNext, winH);
+      // SECTION 07: Curved Stadium Halo Shockwave Resonance
+      if (sec07) {
+        const p7 = getProgress(sec07, winH);
         if (haloFrame) {
-          haloFrame.classList.toggle('is-energized', pWhatsNext > 0.05 && pWhatsNext < 1.05);
+          haloFrame.classList.toggle('is-energized', p7 > 0.05 && p7 < 1.05);
         }
       }
     };

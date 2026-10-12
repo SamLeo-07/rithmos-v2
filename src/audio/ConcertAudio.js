@@ -1,143 +1,214 @@
 export class ConcertAudio {
   constructor() {
+    this.audio = null;
     this.ctx = null;
-    this.isPlaying = false;
-    this.masterGain = null;
+    this.source = null;
+    this.gainNode = null;
     this.filter = null;
-    this.guitarGain = null;
-    this.subGain = null;
-    this.crowdGain = null;
-    this.oscillators = [];
+    this.isPlaying = false;
+    this.targetVolume = 0.70;
+    this.fadeDuration = 2.0;
+    this.fadeOutDuration = 1.2;
+    this.loopFadeDuration = 2.5;
+    this.onStateChange = null;
+    this.isTransitioning = false;
   }
 
   init() {
-    if (this.ctx) return;
+    if (this.audio) return;
+
+    this.audio = new Audio('/assets/rithmos-theme.mp3');
+    this.audio.loop = true;
+    this.audio.preload = 'auto';
+
+    // Set up Web Audio API routing for smooth master gain ramps & acoustic filter sweep
     const AudioContext = window.AudioContext || window.webkitAudioContext;
-    this.ctx = new AudioContext();
+    if (AudioContext) {
+      try {
+        this.ctx = new AudioContext();
+        this.gainNode = this.ctx.createGain();
+        this.gainNode.gain.setValueAtTime(0.0001, this.ctx.currentTime);
 
-    // Master bus
-    this.masterGain = this.ctx.createGain();
-    this.masterGain.gain.setValueAtTime(0.0, this.ctx.currentTime);
-    this.masterGain.connect(this.ctx.destination);
+        this.filter = this.ctx.createBiquadFilter();
+        this.filter.type = 'lowpass';
+        this.filter.frequency.setValueAtTime(3200, this.ctx.currentTime);
+        this.filter.Q.setValueAtTime(1.5, this.ctx.currentTime);
 
-    // Dynamic Filter (simulates acoustic transition from intimate jam room to massive arena)
-    this.filter = this.ctx.createBiquadFilter();
-    this.filter.type = 'lowpass';
-    this.filter.frequency.setValueAtTime(1200, this.ctx.currentTime);
-    this.filter.Q.setValueAtTime(2.0, this.ctx.currentTime);
-    this.filter.connect(this.masterGain);
-
-    // 1. Sub Bass Drone (48Hz rock kick/bass body)
-    this.subOsc = this.ctx.createOscillator();
-    this.subOsc.type = 'sawtooth';
-    this.subOsc.frequency.setValueAtTime(48, this.ctx.currentTime);
-    
-    this.subFilter = this.ctx.createBiquadFilter();
-    this.subFilter.type = 'lowpass';
-    this.subFilter.frequency.setValueAtTime(90, this.ctx.currentTime);
-
-    this.subGain = this.ctx.createGain();
-    this.subGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
-
-    this.subOsc.connect(this.subFilter);
-    this.subFilter.connect(this.subGain);
-    this.subGain.connect(this.filter);
-    this.subOsc.start();
-
-    // 2. Electric Guitar Feedback Harmonics
-    const harmonics = [110, 220, 330, 440, 554.37];
-    this.guitarGain = this.ctx.createGain();
-    this.guitarGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-
-    harmonics.forEach((freq, idx) => {
-      const osc = this.ctx.createOscillator();
-      osc.type = idx % 2 === 0 ? 'sawtooth' : 'triangle';
-      osc.frequency.setValueAtTime(freq + (Math.random() - 0.5) * 2, this.ctx.currentTime);
-
-      // Subtle vibrato LFO
-      const lfo = this.ctx.createOscillator();
-      const lfoGain = this.ctx.createGain();
-      lfo.frequency.setValueAtTime(4.5 + idx * 0.5, this.ctx.currentTime);
-      lfoGain.gain.setValueAtTime(1.5, this.ctx.currentTime);
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
-      lfo.start();
-
-      osc.connect(this.guitarGain);
-      osc.start();
-      this.oscillators.push(osc);
-    });
-    this.guitarGain.connect(this.filter);
-
-    // 3. Crowd Ambience Noise Generator
-    const bufferSize = this.ctx.sampleRate * 2;
-    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = Math.random() * 2 - 1;
+        this.source = this.ctx.createMediaElementSource(this.audio);
+        this.source.connect(this.filter);
+        this.filter.connect(this.gainNode);
+        this.gainNode.connect(this.ctx.destination);
+      } catch (err) {
+        console.warn('Web Audio routing fallback to element volume:', err);
+        this.ctx = null;
+      }
     }
 
-    const whiteNoise = this.ctx.createBufferSource();
-    whiteNoise.buffer = noiseBuffer;
-    whiteNoise.loop = true;
+    this.setupLoopFade();
+  }
 
-    const noiseFilter = this.ctx.createBiquadFilter();
-    noiseFilter.type = 'bandpass';
-    noiseFilter.frequency.setValueAtTime(380, this.ctx.currentTime);
-    noiseFilter.Q.setValueAtTime(1.2, this.ctx.currentTime);
+  setupLoopFade() {
+    if (!this.audio) return;
 
-    this.crowdGain = this.ctx.createGain();
-    this.crowdGain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+    // Smooth loop boundary fade-out and fade-in
+    this.audio.addEventListener('timeupdate', () => {
+      if (!this.isPlaying || !this.audio || !this.audio.duration || this.isTransitioning) return;
 
-    whiteNoise.connect(noiseFilter);
-    noiseFilter.connect(this.crowdGain);
-    this.crowdGain.connect(this.filter);
-    whiteNoise.start();
+      const duration = this.audio.duration;
+      const current = this.audio.currentTime;
+      const fadeOutWindow = this.loopFadeDuration; // 2.5s before end
+      const fadeInWindow = 2.0;                   // 2.0s after loop start
+
+      // Approaching end of track -> smooth fade out before loop point
+      if (current >= duration - fadeOutWindow) {
+        const remaining = duration - current;
+        const p = Math.max(0, remaining / fadeOutWindow); // 1.0 -> 0.0
+        const vol = Math.max(0.0001, this.targetVolume * p);
+        this.setVolumeDirect(vol, 0.1);
+      }
+      // Just looped back to start -> smooth fade in
+      else if (current <= fadeInWindow) {
+        const p = Math.min(1, current / fadeInWindow); // 0.0 -> 1.0
+        const vol = Math.max(0.0001, this.targetVolume * Math.max(0.08, p));
+        this.setVolumeDirect(vol, 0.15);
+      }
+    });
+
+    this.audio.addEventListener('ended', () => {
+      if (this.isPlaying) {
+        this.fadeIn(1.8);
+      }
+    });
+  }
+
+  setVolumeDirect(vol, timeConstant = 0.1) {
+    if (this.ctx && this.gainNode) {
+      this.gainNode.gain.setTargetAtTime(vol, this.ctx.currentTime, timeConstant);
+    } else if (this.audio) {
+      this.audio.volume = Math.max(0, Math.min(1, vol));
+    }
+  }
+
+  fadeIn(duration = 2.0) {
+    if (!this.audio) this.init();
+
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => {});
+    }
+
+    this.isTransitioning = true;
+    const playPromise = this.audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          this.isPlaying = true;
+          if (this.onStateChange) this.onStateChange(true);
+
+          if (this.ctx && this.gainNode) {
+            const now = this.ctx.currentTime;
+            this.gainNode.gain.cancelScheduledValues(now);
+            this.gainNode.gain.setValueAtTime(Math.max(0.0001, this.gainNode.gain.value), now);
+            this.gainNode.gain.linearRampToValueAtTime(this.targetVolume, now + duration);
+          } else if (this.audio) {
+            this.fadeVolume(0, this.targetVolume, duration);
+          }
+
+          setTimeout(() => {
+            this.isTransitioning = false;
+          }, duration * 1000);
+        })
+        .catch((err) => {
+          this.isTransitioning = false;
+          // Autoplay deferred pending user interaction
+        });
+    }
+  }
+
+  fadeOut(duration = 1.2, pauseAfter = true) {
+    if (!this.isPlaying || !this.audio) return;
+
+    this.isTransitioning = true;
+
+    if (this.ctx && this.gainNode) {
+      const now = this.ctx.currentTime;
+      this.gainNode.gain.cancelScheduledValues(now);
+      this.gainNode.gain.setValueAtTime(Math.max(0.0001, this.gainNode.gain.value), now);
+      this.gainNode.gain.linearRampToValueAtTime(0.0001, now + duration);
+
+      if (pauseAfter) {
+        setTimeout(() => {
+          if (!this.isPlaying && this.audio) {
+            this.audio.pause();
+          }
+          this.isTransitioning = false;
+        }, duration * 1000);
+      } else {
+        this.isTransitioning = false;
+      }
+    } else if (this.audio) {
+      this.fadeVolume(this.audio.volume, 0, duration, () => {
+        if (pauseAfter && this.audio) this.audio.pause();
+        this.isTransitioning = false;
+      });
+    }
+
+    if (pauseAfter) {
+      this.isPlaying = false;
+      if (this.onStateChange) this.onStateChange(false);
+    }
+  }
+
+  fadeVolume(from, to, duration, onComplete = null) {
+    if (!this.audio) return;
+    const start = performance.now();
+    const durationMs = duration * 1000;
+
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / durationMs, 1);
+      const val = from + (to - from) * progress;
+      if (this.audio) {
+        this.audio.volume = Math.max(0, Math.min(1, val));
+      }
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else if (onComplete) {
+        onComplete();
+      }
+    };
+    requestAnimationFrame(step);
   }
 
   toggle() {
-    if (!this.ctx) {
-      this.init();
-    }
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
+    if (!this.audio) this.init();
 
-    this.isPlaying = !this.isPlaying;
-    const targetGain = this.isPlaying ? 0.65 : 0.0;
-    this.masterGain.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.3);
-    return this.isPlaying;
+    if (this.isPlaying) {
+      this.fadeOut(this.fadeOutDuration, true);
+      return false;
+    } else {
+      this.fadeIn(this.fadeDuration);
+      return true;
+    }
   }
 
   updateScroll(scrollProgress) {
-    if (!this.ctx || !this.isPlaying) return;
+    if (!this.ctx || !this.filter || !this.isPlaying || this.isTransitioning) return;
 
-    // Filter frequency modulation based on environment:
-    // Section 1 (Arena Opening): ~2200 Hz
-    // Section 2 (Raw Jam Pad): ~450 Hz (muffled, acoustic isolation)
-    // Section 3 (Journey): Expands 600 Hz -> 2500 Hz
-    // Section 4 & 5 (Grand Live Climax): 5000 Hz+ (full frequency roar)
-    let targetFreq = 2200;
-    let targetGuitarGain = 0.08;
-
+    let targetFreq = 3200;
     if (scrollProgress < 0.20) {
-      targetFreq = 2200;
-      targetGuitarGain = 0.08;
+      targetFreq = 3200;
     } else if (scrollProgress >= 0.20 && scrollProgress < 0.40) {
       const p = (scrollProgress - 0.20) / 0.20;
-      targetFreq = 2200 - p * 1750; // drops to 450Hz
-      targetGuitarGain = 0.04;
-    } else if (scrollProgress >= 0.40 && scrollProgress < 0.65) {
-      const p = (scrollProgress - 0.40) / 0.25;
-      targetFreq = 450 + p * 2000;
-      targetGuitarGain = 0.05 + p * 0.07;
+      targetFreq = 3200 - p * 1800; // drops to 1400Hz (jam room acoustic warmth)
+    } else if (scrollProgress >= 0.40 && scrollProgress < 0.70) {
+      const p = (scrollProgress - 0.40) / 0.30;
+      targetFreq = 1400 + p * 3000; // expands to 4400Hz
     } else {
-      const p = (scrollProgress - 0.65) / 0.35;
-      targetFreq = 2450 + p * 3500; // up to 6000Hz!
-      targetGuitarGain = 0.12 + p * 0.08;
+      const p = (scrollProgress - 0.70) / 0.30;
+      targetFreq = 4400 + p * 3600; // full arena treble brilliance up to 8000Hz
     }
 
-    this.filter.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.1);
-    this.guitarGain.gain.setTargetAtTime(targetGuitarGain, this.ctx.currentTime, 0.1);
+    this.filter.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.12);
   }
 }
