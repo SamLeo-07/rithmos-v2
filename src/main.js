@@ -331,30 +331,25 @@ class RithmosApp {
 
     // Section 03 Elements
     const sec03 = document.getElementById('why-enter');
-    const term03 = document.getElementById('terminal-03');
     const benefitBoxes = sec03 ? sec03.querySelectorAll('.benefit-box') : [];
     const acousticRadar = document.getElementById('acoustic-radar-col');
 
     // Section 04 Elements
     const sec04 = document.getElementById('the-competition');
-    const term04 = document.getElementById('terminal-04');
     const compCableGlow = document.getElementById('comp-cable-glow');
     const compNodes = sec04 ? sec04.querySelectorAll('.timeline-node') : [];
 
     // Section 05 Elements
     const sec05 = document.getElementById('for-bands');
-    const term05 = document.getElementById('terminal-05');
     const panelRedGlowing = document.getElementById('panel-red-glowing');
     const etchedWords = sec05 ? sec05.querySelectorAll('.etched-word') : [];
 
     // Section 06 Elements
     const sec06 = document.getElementById('the-big-stage');
-    const term06 = document.getElementById('terminal-06');
     const isoSteps = [1, 2, 3, 4, 5, 6, 7].map(n => document.getElementById(`step-${n}`));
 
     // Section 07 Elements
     const sec07 = document.getElementById('whats-next');
-    const term07 = document.getElementById('terminal-07');
     const haloFrame = document.getElementById('amphitheater-halo-frame');
 
     const getProgress = (el, winH) => {
@@ -405,23 +400,6 @@ class RithmosApp {
           link.classList.remove('active');
         }
       });
-
-      // Terminals energization
-      const checkTerminal = (termEl) => {
-        if (!termEl) return;
-        const rect = termEl.getBoundingClientRect();
-        if (rect.top < winH * 0.88) {
-          termEl.classList.add('is-energized');
-        } else {
-          termEl.classList.remove('is-energized');
-        }
-      };
-
-      checkTerminal(term03);
-      checkTerminal(term04);
-      checkTerminal(term05);
-      checkTerminal(term06);
-      checkTerminal(term07);
 
       // SECTION 03: Benefit Cards + Equalizers + Acoustic Radar
       if (sec03) {

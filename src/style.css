@@ -2563,7 +2563,7 @@ body::after {
 
 /* Inter-Section Bridges */
 .story-conduit-bridge {
-  display: flex;
+  display: none !important;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
@@ -2573,6 +2573,7 @@ body::after {
 }
 
 .bridge-stem {
+  display: none !important;
   width: 2px;
   height: 80px;
   background: linear-gradient(180deg, #ff1c36 0%, rgba(255, 28, 54, 0.45) 80%, rgba(255, 28, 54, 0.15) 100%);
@@ -2611,7 +2612,7 @@ body::after {
 }
 
 .bridge-tag {
-  display: inline-flex;
+  display: none !important;
   align-items: center;
   gap: 8px;
   margin-top: 10px;
@@ -2645,7 +2646,7 @@ body::after {
 
 /* Section Input Terminals (Top of Each Section) */
 .section-input-terminal {
-  display: flex;
+  display: none !important;
   justify-content: center;
   margin-bottom: 28px;
 }
