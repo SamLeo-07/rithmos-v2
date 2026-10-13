@@ -79,8 +79,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  filter: brightness(0.68) contrast(1.15) saturate(1.1);
-  transform: scale(1.03);
+  filter: brightness(0.92) contrast(1.12) saturate(1.15);
+  transform: scale(1.02);
   display: block;
 }
 
@@ -91,14 +91,15 @@
   pointer-events: none;
   background: 
     linear-gradient(180deg, 
-      rgba(5, 5, 8, 0.78) 0%, 
-      rgba(5, 5, 8, 0.52) 35%, 
-      rgba(5, 5, 8, 0.78) 75%, 
+      rgba(5, 5, 8, 0.55) 0%, 
+      rgba(5, 5, 8, 0.20) 30%, 
+      rgba(5, 5, 8, 0.40) 70%, 
       #060508 100%
     ),
-    radial-gradient(ellipse at 50% 40%, 
-      rgba(255, 17, 45, 0.16) 0%, 
-      transparent 70%
+    linear-gradient(to right,
+      rgba(5, 5, 8, 0.70) 0%,
+      rgba(5, 5, 8, 0.35) 50%,
+      rgba(5, 5, 8, 0.10) 100%
     );
 }
 
