@@ -11,3 +11,8 @@ Thumbs.db
 
 # Local environment
 .env.local
+
+# Scratch and audit test scripts
+scratch/
+audit-whole-page.js
+assets/logo-old-backup.png

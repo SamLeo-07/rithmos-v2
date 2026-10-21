@@ -7,7 +7,9 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,2 30,10 26,28 6,28 2,10' fill='%23ff112d'/%3E%3Cpath d='M8 16 L12 11 L16 21 L20 13 L24 16' stroke='%23ffffff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/fonts/alderwood-regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/alderwood-textured.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/src/style.css">
   <link rel="stylesheet" href="/src/subpages.css">
 </head>
@@ -47,10 +49,6 @@
     <!-- Foreground Content (Matching Reference Img 1:1) -->
     <div class="subpage-container sponsors-hero-container">
       <div class="sponsors-hero-col">
-        <!-- Logo Lockup (Top Left) -->
-        <div class="sponsors-hero-logo-lockup">
-          <img src="/assets/logo.png" alt="RITHMOS — WHERE BRANDS RISE" class="sponsors-hero-logo">
-        </div>
 
         <!-- Headline (Matches exact text and red split) -->
         <h1 class="sponsors-hero-headline">
@@ -101,154 +99,195 @@
     </div>
   </section>
 
-  <!-- SECTION 1: Digital Reach & Hyderabad to Global Connection -->
-  <section class="subpage-section">
-    <div class="subpage-container">
+  <!-- SECTION 1: DIGITAL CONTENT ECOSYSTEM -->
+  <section class="subpage-section stage-intro-section" id="digital-ecosystem">
+    <div class="subpage-container stage-cinematic-container">
       <div class="section-label-row">
         <span class="section-label">01 // DIGITAL CONTENT ECOSYSTEM</span>
         <span class="tag-accent-bar red"></span>
       </div>
-      <h2 class="section-title">THE STAGE IS IN HYDERABAD.<br><span class="accent-text">THE AUDIENCE IS EVERYWHERE.</span></h2>
-      <p class="section-desc">
-        RITHMOS will build a dedicated digital content ecosystem around the competition, including band stories, performance moments, social content and live coverage through the RITHMOS YouTube channel — extending the experience to Telugu audiences across India and around the world.
+      <h2 class="stage-intro-title">
+        THE STAGE IS IN HYDERABAD.<br>
+        <span class="accent-text">THE AUDIENCE IS EVERYWHERE.</span>
+      </h2>
+      <p class="stage-intro-desc">
+        RITHMOS builds a dedicated digital content ecosystem around the competition, including band stories, performance moments, social content and live coverage through the RITHMOS YouTube channel &mdash; extending the experience to Telugu audiences across India and around the world.
       </p>
+    </div>
+  </section>
 
-      <!-- WHAT A PARTNER CAN OWN (Matches Reference Img 1:1) -->
-      <div class="partner-deliverables-section" style="margin-top: 48px;">
-        <div class="partner-deliverables-header">
-          <div class="heading-accent-line"></div>
-          <h3 class="partner-deliverables-heading">
-            WHAT A PARTNER CAN <span class="highlight-red">OWN</span>
-          </h3>
-          <p class="partner-deliverables-sub">
-            Customizable deliverables and branded assets available for category partners.
+  <!-- SECTION 2: SPONSORS DECK // 11 SLEEK MINIMALISTIC CARDS (SCROLL-DRIVEN SLIDER) -->
+  <section class="own-the-stage-section stage-cards-section" id="own-the-stage">
+    
+    <!-- Sticky Fullscreen Viewport for Horizontal Card Sliding -->
+    <div class="stage-cards-sticky-viewport" id="stage-cards-viewport">
+      
+      <!-- Top Section Header & Minimalist Controls -->
+      <div class="stage-cards-header">
+        <div class="stage-cards-header-info">
+          <div class="section-label-row">
+            <span class="section-label">SPONSORS DECK // 11 WAYS TO OWN THE STAGE</span>
+            <span class="tag-accent-bar red"></span>
+          </div>
+          <h2 class="stage-cards-main-title">
+            WHAT A PARTNER CAN <span class="accent-text">OWN.</span>
+          </h2>
+          <p class="stage-cards-subtitle">
+            Explore 11 experiential ownership tiers engineered for brand resonance, stage dominance, and crowd engagement.
           </p>
         </div>
 
-        <!-- 11 Horizontal Inventory Cards in 3-col + 2-col Grid -->
-        <div class="partner-inventory-grid">
-          <!-- Card 01: TITLE ASSOCIATION -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">TITLE ASSOCIATION</h4>
-              <p class="inventory-card-desc">Headline naming rights across all key festival assets and official media.</p>
-            </div>
+        <div class="stage-cards-nav-cluster">
+          <div class="stage-cards-counter">
+            <span class="cards-active-num" id="cards-active-num">01</span>
+            <span class="cards-counter-div">/</span>
+            <span class="cards-total-num">11</span>
           </div>
-
-          <!-- Card 02: POWERED BY ASSOCIATION -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><polygon points="13 2 4 14 11 14 9 22 20 10 13 10 13 2"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">POWERED BY ASSOCIATION</h4>
-              <p class="inventory-card-desc">Prominent secondary marquee billing across venues, campaigns and broadcast content.</p>
-            </div>
-          </div>
-
-          <!-- Card 03: CATEGORY EXCLUSIVITY -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm4 11.5h-4v-5h4v5z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">CATEGORY EXCLUSIVITY</h4>
-              <p class="inventory-card-desc">Single-brand category protection across key sectors.</p>
-            </div>
-          </div>
-
-          <!-- Card 04: STAGE / SEGMENT ASSOCIATION -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">STAGE / SEGMENT ASSOCIATION</h4>
-              <p class="inventory-card-desc">Naming rights to specific arena zones, heats, or special segments.</p>
-            </div>
-          </div>
-
-          <!-- Card 05: ON-GROUND BRAND ACTIVATION -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M4 4h16l1 5H3L4 4zm-1 7h18v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9zm6 2v6h6v-6H9z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">ON-GROUND BRAND ACTIVATION</h4>
-              <p class="inventory-card-desc">Real estate for brand pavilions, interactive kiosks and experiences.</p>
-            </div>
-          </div>
-
-          <!-- Card 06: DIGITAL & SOCIAL INTEGRATIONS -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#ff112d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" fill="#ff112d"/><circle cx="6" cy="12" r="3" fill="#ff112d"/><circle cx="18" cy="19" r="3" fill="#ff112d"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">DIGITAL &amp; SOCIAL INTEGRATIONS</h4>
-              <p class="inventory-card-desc">Branded content, artist features, reels and platform integrations.</p>
-            </div>
-          </div>
-
-          <!-- Card 07: YOUTUBE / LIVESTREAM INTEGRATION -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M21.58 7.19a2.5 2.5 0 00-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42A2.5 2.5 0 002.42 7.19C2 8.76 2 12 2 12s0 3.24.42 4.81a2.5 2.5 0 001.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 001.76-1.77C22 15.24 22 12 22 12s0-3.24-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">YOUTUBE / LIVESTREAM INTEGRATION</h4>
-              <p class="inventory-card-desc">On-screen branding, lower-third graphics and live chat visibility.</p>
-            </div>
-          </div>
-
-          <!-- Card 08: BRANDED CONTENT -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M18 4v1h-2V4h-4v1h-2V4H6v1H4a2 2 0 00-2 2v10a2 2 0 002 2h2v-1h2v1h4v-1h2v1h4v-1h2a2 2 0 002-2V7a2 2 0 00-2-2h-2zm0 10H6v-4h12v4z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">BRANDED CONTENT</h4>
-              <p class="inventory-card-desc">Band stories, backstage interviews and after-movies.</p>
-            </div>
-          </div>
-
-          <!-- Card 09: AUDIENCE ENGAGEMENT & EXPERIENCES -->
-          <div class="partner-inventory-card">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">AUDIENCE ENGAGEMENT &amp; EXPERIENCES</h4>
-              <p class="inventory-card-desc">Fan voting, meet-and-greets, giveaways and immersive experiences.</p>
-            </div>
-          </div>
-
-          <!-- Card 10: HOSPITALITY & VIP ACCESS -->
-          <div class="partner-inventory-card span-half">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="#ff112d"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">HOSPITALITY &amp; VIP ACCESS</h4>
-              <p class="inventory-card-desc">Executive hospitality, VIP lounge privileges and artist meet-and-greets.</p>
-            </div>
-          </div>
-
-          <!-- Card 11: POST-EVENT CONTENT MILEAGE -->
-          <div class="partner-inventory-card span-half">
-            <div class="inventory-icon-box">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#ff112d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            </div>
-            <div class="inventory-text-wrap">
-              <h4 class="inventory-card-title">POST-EVENT CONTENT MILEAGE</h4>
-              <p class="inventory-card-desc">Sustained digital viewership and comprehensive ROI reporting.</p>
-            </div>
+          <div class="stage-cards-arrows">
+            <button type="button" class="stage-card-arrow prev" id="stage-card-prev" aria-label="Previous card">&larr;</button>
+            <button type="button" class="stage-card-arrow next" id="stage-card-next" aria-label="Next card">&rarr;</button>
           </div>
         </div>
       </div>
+
+      <!-- Horizontal Cards Track Container -->
+      <div class="stage-cards-track-container" id="stage-cards-track-container">
+        <div class="stage-cards-track" id="stage-cards-track">
+
+          <!-- Card 01: TITLE ASSOCIATION -->
+          <article class="stage-minimal-card active" data-index="0" data-tier="Title Partner (Presented By)" data-category="TITLE ASSOCIATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-01-title.jpg" alt="TITLE ASSOCIATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">TITLE ASSOCIATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 02: POWERED BY ASSOCIATION -->
+          <article class="stage-minimal-card" data-index="1" data-tier="Powered By Partner" data-category="POWERED BY ASSOCIATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-02-powered.jpg" alt="POWERED BY ASSOCIATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">POWERED BY ASSOCIATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 03: CATEGORY EXCLUSIVITY -->
+          <article class="stage-minimal-card" data-index="2" data-tier="Category Exclusive Partner" data-category="CATEGORY EXCLUSIVITY">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-03-category.jpg" alt="CATEGORY EXCLUSIVITY" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">CATEGORY EXCLUSIVITY</h3>
+            </div>
+          </article>
+
+          <!-- Card 04: STAGE / SEGMENT ASSOCIATION -->
+          <article class="stage-minimal-card" data-index="3" data-tier="Custom Experiential Activation" data-category="STAGE / SEGMENT ASSOCIATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-04-stage.jpg" alt="STAGE / SEGMENT ASSOCIATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">STAGE / SEGMENT ASSOCIATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 05: ON-GROUND BRAND ACTIVATION -->
+          <article class="stage-minimal-card" data-index="4" data-tier="Custom Experiential Activation" data-category="ON-GROUND BRAND ACTIVATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-05-activation.jpg" alt="ON-GROUND BRAND ACTIVATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">ON-GROUND BRAND ACTIVATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 06: DIGITAL & SOCIAL INTEGRATION -->
+          <article class="stage-minimal-card" data-index="5" data-tier="Digital & Broadcast Partner" data-category="DIGITAL & SOCIAL INTEGRATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-06-digital.jpg" alt="DIGITAL & SOCIAL INTEGRATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">DIGITAL &amp; SOCIAL INTEGRATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 07: YOUTUBE / LIVESTREAM INTEGRATION -->
+          <article class="stage-minimal-card" data-index="6" data-tier="Digital & Broadcast Partner" data-category="YOUTUBE / LIVESTREAM INTEGRATION">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-07-livestream.jpg" alt="YOUTUBE / LIVESTREAM INTEGRATION" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">YOUTUBE / LIVESTREAM INTEGRATION</h3>
+            </div>
+          </article>
+
+          <!-- Card 08: BRANDED CONTENT -->
+          <article class="stage-minimal-card" data-index="7" data-tier="Digital & Broadcast Partner" data-category="BRANDED CONTENT">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-08-content.jpg" alt="BRANDED CONTENT" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">BRANDED CONTENT</h3>
+            </div>
+          </article>
+
+          <!-- Card 09: AUDIENCE ENGAGEMENT & EXPERIENCES -->
+          <article class="stage-minimal-card" data-index="8" data-tier="Custom Experiential Activation" data-category="AUDIENCE ENGAGEMENT & EXPERIENCES">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-09-audience.jpg" alt="AUDIENCE ENGAGEMENT & EXPERIENCES" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">AUDIENCE ENGAGEMENT &amp; EXPERIENCES</h3>
+            </div>
+          </article>
+
+          <!-- Card 10: HOSPITALITY & VIP ACCESS -->
+          <article class="stage-minimal-card" data-index="9" data-tier="Custom Experiential Activation" data-category="HOSPITALITY & VIP ACCESS">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-10-vip.jpg" alt="HOSPITALITY & VIP ACCESS" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">HOSPITALITY &amp; VIP ACCESS</h3>
+            </div>
+          </article>
+
+          <!-- Card 11: POST-EVENT CONTENT MILEAGE -->
+          <article class="stage-minimal-card" data-index="10" data-tier="Digital & Broadcast Partner" data-category="POST-EVENT CONTENT MILEAGE">
+            <div class="card-visual-window">
+              <img src="/assets/stage-env-11-postevent.jpg" alt="POST-EVENT CONTENT MILEAGE" loading="eager">
+              <div class="card-visual-overlay"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">POST-EVENT CONTENT MILEAGE</h3>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Bottom Progress Track & Scroll Hint -->
+      <div class="stage-cards-bottom-bar">
+        <div class="stage-cards-progress-wrap">
+          <div class="stage-cards-progress-bar">
+            <div class="stage-cards-progress-fill" id="cards-progress-fill"></div>
+          </div>
+          <span class="stage-cards-progress-hint">SCROLL TO DISCOVER ALL 11 TIERS &rarr;</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -378,75 +417,123 @@
         <div class="founder-gallery-slider-wrap" id="founder-slider-wrap" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); background: #08070c; padding: 22px 0;">
           <div class="founder-marquee-track" id="founder-marquee-track" style="display: flex; gap: 24px; width: max-content; padding: 0 20px; transition: transform 0.4s ease;">
             
-            <!-- Card 01 -->
+            <!-- Card 01: Great Wines of Italy Bangkok -->
             <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
               <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-1.jpg" alt="Curated Wine Cellars & Luxury Portfolios" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                <img src="/assets/founder-work-wines-italy.jpg" alt="Great Wines of Italy Bangkok Showcase" style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">GLOBAL WINE SUMMIT</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Great Wines of Italy Showcase</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Representing Indian luxury wine curation at premier international showcases including Great Wines of Italy Bangkok.</p>
+              </div>
+            </div>
+
+            <!-- Card 02: Star Alliances with Bobby Deol -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-bobby-deol.jpg" alt="Ravikanth Popuri with Bobby Deol" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">BOLLYWOOD ALLIANCE</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Star Alliances with Bobby Deol</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Forging high-profile creative alliances and industry connections with Indian cinema icon Bobby Deol at marquee galas.</p>
+              </div>
+            </div>
+
+            <!-- Card 03: Teach For Change Initiative -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-teach-for-change.jpg" alt="Teach For Change Initiative with Swami Agnivesh" style="width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">COMMUNITY IMPACT</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Teach For Change Outreach</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Championing youth development and community causes alongside activist Swami Agnivesh and prominent cultural figures.</p>
+              </div>
+            </div>
+
+            <!-- Card 04: Literary Conclaves with Chetan Bhagat -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-chetan-bhagat.jpg" alt="Literary Conclave with Chetan Bhagat" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">CULTURAL ICONS</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Literary Conclave with Chetan Bhagat</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Hosting youth dialogues and cultural leadership forums with celebrated bestselling author and speaker Chetan Bhagat.</p>
+              </div>
+            </div>
+
+            <!-- Card 05: Celebrity Gala Nights -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-bobby-deol-gala.jpg" alt="Celebrity Gala Night with Bobby Deol" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">CELEBRITY GALA</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Red-Carpet Entertainment Nights</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Executing star-studded gala nights and celebration parties connecting mainstream industry titans and elite stakeholders.</p>
+              </div>
+            </div>
+
+            <!-- Card 06: Contemporary Creative Direction -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-creative-lifestyle.jpg" alt="Contemporary Creative Direction" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">CREATIVE DIRECTION</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Contemporary Lifestyle Leadership</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Curating modern entertainment brands with an independent, authentic spirit — bringing disruptive festival vision to RITHMOS.</p>
+              </div>
+            </div>
+
+            <!-- Card 07: Global Terroir & Heritage Sourcing -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-nature-travel.jpg" alt="European Terroir Expeditions" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">TERROIR EXPEDITION</span>
+              </div>
+              <div style="padding: 16px;">
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Global Terroir &amp; Heritage Sourcing</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Exploring international landscapes and European wine regions to bring world-class experiential standards to Indian stages.</p>
+              </div>
+            </div>
+
+            <!-- Card 08: Curated Wine Cellars & Luxury Portfolios -->
+            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
+              <div style="height: 220px; overflow: hidden; position: relative;">
+                <img src="/assets/founder-work-1.jpg" alt="Curated Wine Cellars & Luxury Portfolios" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.5s ease;">
                 <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">BOTTLED POETRY</span>
               </div>
               <div style="padding: 16px;">
                 <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Curated Wine Cellars &amp; Luxury Portfolios</h4>
-                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Curating fine international wine cellars and bespoke lifestyle collections under Bottled Poetry.</p>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Curating fine international wine cellars and bespoke lifestyle collections under Bottled Poetry &amp; Madiza.</p>
               </div>
             </div>
 
-            <!-- Card 02 -->
+            <!-- Card 09: Red Carpet Celebrity Galas -->
             <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
               <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-2.jpg" alt="Executive Networking & VIP Hospitality" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">EXECUTIVE VIP</span>
-              </div>
-              <div style="padding: 16px;">
-                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Executive Networking &amp; VIP Hospitality</h4>
-                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Hosting high-net-worth networking galas and leadership evenings with prominent industry dignitaries.</p>
-              </div>
-            </div>
-
-            <!-- Card 03 -->
-            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
-              <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-3.jpg" alt="Royal Palace Runway Showcases" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">ROYAL RUNWAY</span>
-              </div>
-              <div style="padding: 16px;">
-                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Royal Palace Runway Showcases</h4>
-                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Producing grand heritage banquet fashion shows in royal palace settings with leading Indian designers.</p>
-              </div>
-            </div>
-
-            <!-- Card 04 -->
-            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
-              <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-4.jpg" alt="Red Carpet Celebrity Galas" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                <img src="/assets/founder-work-4.jpg" alt="Red Carpet Celebrity Galas" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.5s ease;">
                 <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">CELEBRITY GALA</span>
               </div>
               <div style="padding: 16px;">
-                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Red Carpet Celebrity Galas</h4>
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">The Westin Celebrity Gala</h4>
                 <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Official media wall at The Westin Hyderabad featuring Tollywood stars Sumanth &amp; Lakshmi Manchu.</p>
               </div>
             </div>
 
-            <!-- Card 05 -->
+            <!-- Card 10: Royal Palace Runway Showcases -->
             <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
               <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-5.jpg" alt="High-Energy Luxury Nightlife Events" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">LUXURY NIGHTLIFE</span>
+                <img src="/assets/founder-work-3.jpg" alt="Royal Palace Runway Showcases" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; transition: transform 0.5s ease;">
+                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">ROYAL RUNWAY</span>
               </div>
               <div style="padding: 16px;">
-                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">High-Energy Luxury Nightlife Events</h4>
-                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Electric celebratory galas and private VIP experiences curated for discerning brand partners.</p>
-              </div>
-            </div>
-
-            <!-- Card 06 -->
-            <div class="founder-slide-card" style="width: 330px; flex-shrink: 0; background: #100e16; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;">
-              <div style="height: 220px; overflow: hidden; position: relative;">
-                <img src="/assets/founder-work-6.jpg" alt="International Grand Prize Delegations" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-                <span style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #ff112d; font-family: 'Space Grotesk', monospace; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,17,45,0.4);">ITALY TOUR</span>
-              </div>
-              <div style="padding: 16px;">
-                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">International Grand Prize Delegations</h4>
-                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Awarding global luxury experiences — Mega Grand Prize 6-day trip to Italy under Bottled Poetry &amp; Pitars.</p>
+                <h4 style="color: #fff; font-size: 0.95rem; margin: 0 0 6px; font-weight: 700;">Royal Palace Runway Showcases</h4>
+                <p style="color: #9e9ea8; font-size: 0.82rem; margin: 0; line-height: 1.45;">Producing grand heritage banquet fashion shows in royal palace settings with leading Indian couture designers.</p>
               </div>
             </div>
 
@@ -457,91 +544,254 @@
     </div>
   </section>
 
-  <!-- SECTION 3: WHY YOU SHOULD JOIN (PACKAGES & ROI) -->
-  <section class="subpage-section" style="background: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-    <div class="subpage-container">
-      <div class="section-label-row">
-        <span class="section-label">03 // TIERED ACTIVATIONS &amp; ROI</span>
-        <span class="tag-accent-bar red"></span>
+  <!-- SECTION 3: WHY YOU SHOULD JOIN (UNORGANIZED DECK SCROLL REVEAL) -->
+  <section class="subpage-section tiers-scroll-section" id="tiers-section" style="background: #08070c; border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 0;">
+    <div class="tiers-reveal-scroll-track" id="tiers-reveal-scroll-track">
+      <div class="tiers-sticky-viewport" id="tiers-sticky-viewport">
+        <div class="subpage-container tiers-sticky-container">
+
+          <!-- Fixed Top Header (Cleanly separated from deck) -->
+          <div class="tiers-sticky-header">
+            <div class="tiers-header-left">
+              <div class="section-label-row">
+                <span class="section-label">COMMERCIAL PARTNERSHIP TIERS</span>
+                <span class="tag-accent-bar red"></span>
+              </div>
+              <h2 class="section-title tiers-main-title runway-hero-title">Choose the best plan for you</h2>
+              <p class="section-desc tiers-main-desc">
+                Four strategic partnership tiers engineered for measurable ROI, category exclusivity, and physical-to-digital festival reach.
+              </p>
+            </div>
+
+            <!-- Interactive HUD Controller (Runway Pill Toggle Style) -->
+            <div class="tiers-hud">
+              <div class="tiers-hud-counter">
+                <span class="hud-step-tag" id="hud-step-tag">DECK // TIER 01: TITLE PARTNER</span>
+              </div>
+              <div class="tiers-hud-dots" id="tiers-hud-dots">
+                <button type="button" class="tier-hud-dot active" data-step="0" aria-label="Tier 01: Title Partner"><span>01</span></button>
+                <button type="button" class="tier-hud-dot" data-step="1" aria-label="Tier 02: Powered By Partner"><span>02</span></button>
+                <button type="button" class="tier-hud-dot" data-step="2" aria-label="Tier 03: Category Partner"><span>03</span></button>
+                <button type="button" class="tier-hud-dot" data-step="3" aria-label="Tier 04: Digital Partner"><span>04</span></button>
+                <button type="button" class="tier-hud-dot" data-step="4" aria-label="All 4 Tiers Revealed"><span>ALL</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main 3D Deck Stage -->
+          <div class="tiers-deck-stage mode-deck" id="tiers-deck-stage">
+            <div class="deck-spotlight-beam"></div>
+
+            <!-- Card 01: Title Partner (Flagship / POPULAR) -->
+            <article class="tier-physical-card card-tier-0 is-active is-popular" data-tier-idx="0" data-tier="Title Partner (Presented By)">
+              <div class="tier-card-accent-bar tier-accent-title"></div>
+              
+              <div class="runway-card-top">
+                <div class="runway-badge">POPULAR</div>
+                <h3 class="runway-plan-name">Title Partner</h3>
+                <p class="runway-plan-desc">
+                  For principal brands seeking full festival property naming rights, main stage domination, and complete category lock.
+                </p>
+              </div>
+
+              <!-- Price & Metric Row -->
+              <div class="runway-price-block">
+                <div class="runway-price-main">
+                  <span class="runway-price-num">Tier 01</span>
+                  <div class="runway-price-sub-wrap">
+                    <span class="runway-price-sub-main">Headline Presenter</span>
+                    <span class="runway-price-sub-note">Exclusive 1 of 1</span>
+                  </div>
+                </div>
+                <div class="runway-metric-line">
+                  <span>Festival Property Naming Rights</span>
+                  <span class="runway-info-icon" title="Sole presentation and naming rights across all official collateral">ⓘ</span>
+                </div>
+              </div>
+
+              <!-- Primary Action Pill Button (Runway ML Placement: Directly below price!) -->
+              <div class="runway-btn-wrapper">
+                <button type="button" class="runway-plan-btn runway-btn-primary" data-tier-select="Title Partner (Presented By)">
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Features / Deliverables List (Runway ML Placement: Below button!) -->
+              <div class="runway-features-block">
+                <div class="runway-features-kicker">Includes all Headline Partner rights:</div>
+                <ul class="runway-features-list">
+                  <li><span class="runway-bullet">&bull;</span><span>Principal co-branding across website, venues &amp; creatives</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Main stage presence &amp; integration into Grand Finale</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>YouTube livestream mentions, opening/closing &amp; stream bug</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Major branded audience activation &amp; signature festival moment</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Premium VIP complimentary passes &amp; executive hospitality</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Comprehensive post-event ROI report across footfall &amp; leads</span></li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Card 02: Powered By Partner -->
+            <article class="tier-physical-card card-tier-1" data-tier-idx="1" data-tier="Powered By Partner">
+              <div class="tier-card-accent-bar tier-accent-powered"></div>
+              
+              <div class="runway-card-top">
+                <div class="runway-badge-space"></div>
+                <h3 class="runway-plan-name">Powered By</h3>
+                <p class="runway-plan-desc">
+                  For co-headline partners seeking dominant stage presence, physical venue branding, and multi-platform livestream integration.
+                </p>
+              </div>
+
+              <!-- Price & Metric Row -->
+              <div class="runway-price-block">
+                <div class="runway-price-main">
+                  <span class="runway-price-num">Tier 02</span>
+                  <div class="runway-price-sub-wrap">
+                    <span class="runway-price-sub-main">Co-Presenter</span>
+                    <span class="runway-price-sub-note">2 Slots Available</span>
+                  </div>
+                </div>
+                <div class="runway-metric-line">
+                  <span>Arena Co-Branding &amp; Stage Anchor</span>
+                  <span class="runway-info-icon" title="Prominent stage positioning directly below Title Partner">ⓘ</span>
+                </div>
+              </div>
+
+              <!-- Outline Action Pill Button -->
+              <div class="runway-btn-wrapper">
+                <button type="button" class="runway-plan-btn runway-btn-outline" data-tier-select="Powered By Partner">
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Features / Deliverables List -->
+              <div class="runway-features-block">
+                <div class="runway-features-kicker">Includes all Powered By rights:</div>
+                <ul class="runway-features-list">
+                  <li><span class="runway-bullet">&bull;</span><span>&ldquo;Powered By&rdquo; branding across agreed festival communications</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Branding at selected venues, event zones &amp; stage assets</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>YouTube livestream presence &amp; social promotional creatives</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Dedicated on-ground brand activation &amp; consumer sampling</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>VIP passes &amp; hospitality allocation for clients and guests</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Post-event reporting on digital reach, engagement &amp; footfall</span></li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Card 03: Category Exclusive -->
+            <article class="tier-physical-card card-tier-2" data-tier-idx="2" data-tier="Category Exclusive Partner">
+              <div class="tier-card-accent-bar tier-accent-category"></div>
+              
+              <div class="runway-card-top">
+                <div class="runway-badge-space"></div>
+                <h3 class="runway-plan-name">Category Exclusive</h3>
+                <p class="runway-plan-desc">
+                  For market leaders seeking 100% sector lock, on-ground experiential trial zones, and direct consumer sampling.
+                </p>
+              </div>
+
+              <!-- Price & Metric Row -->
+              <div class="runway-price-block">
+                <div class="runway-price-main">
+                  <span class="runway-price-num">Tier 03</span>
+                  <div class="runway-price-sub-wrap">
+                    <span class="runway-price-sub-main">Sector Lock</span>
+                    <span class="runway-price-sub-note">5 Categories Available</span>
+                  </div>
+                </div>
+                <div class="runway-metric-line">
+                  <span>100% Market Sector Exclusivity</span>
+                  <span class="runway-info-icon" title="Beverage, Tech, Audio, Fashion or Mobility sector lockout">ⓘ</span>
+                </div>
+              </div>
+
+              <!-- Outline Action Pill Button -->
+              <div class="runway-btn-wrapper">
+                <button type="button" class="runway-plan-btn runway-btn-outline" data-tier-select="Category Exclusive Partner">
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Features / Deliverables List -->
+              <div class="runway-features-block">
+                <div class="runway-features-kicker">Includes Category Exclusive rights:</div>
+                <ul class="runway-features-list">
+                  <li><span class="runway-bullet">&bull;</span><span>Category exclusivity: Beverage, Tech, Audio, Fashion or Auto</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Dedicated activation zone, product displays &amp; sampling/trials</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Strategic branding across audience-facing touchpoints</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Social media inclusion &amp; YouTube livestream visibility</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Consumer contests, giveaways, QR engagement &amp; lead capture</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Measurable post-event report on footfall, samples &amp; interactions</span></li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Card 04: Digital & Broadcast -->
+            <article class="tier-physical-card card-tier-3" data-tier-idx="3" data-tier="Digital & Broadcast Partner">
+              <div class="tier-card-accent-bar tier-accent-digital"></div>
+              
+              <div class="runway-card-top">
+                <div class="runway-badge-space"></div>
+                <h3 class="runway-plan-name">Digital &amp; Broadcast</h3>
+                <p class="runway-plan-desc">
+                  For digital-first brands seeking livestream broadcast bugs, branded content reach, and performance tracking attribution.
+                </p>
+              </div>
+
+              <!-- Price & Metric Row -->
+              <div class="runway-price-block">
+                <div class="runway-price-main">
+                  <span class="runway-price-num">Tier 04</span>
+                  <div class="runway-price-sub-wrap">
+                    <span class="runway-price-sub-main">Broadcast Anchor</span>
+                    <span class="runway-price-sub-note">3 Slots Available</span>
+                  </div>
+                </div>
+                <div class="runway-metric-line">
+                  <span>Multi-Platform Stream &amp; Social Bug</span>
+                  <span class="runway-info-icon" title="Digital broadcast lower-thirds and custom reel campaigns">ⓘ</span>
+                </div>
+              </div>
+
+              <!-- Outline Action Pill Button -->
+              <div class="runway-btn-wrapper">
+                <button type="button" class="runway-plan-btn runway-btn-outline" data-tier-select="Digital & Broadcast Partner">
+                  Select Plan
+                </button>
+              </div>
+
+              <!-- Features / Deliverables List -->
+              <div class="runway-features-block">
+                <div class="runway-features-kicker">Includes Digital &amp; Broadcast rights:</div>
+                <ul class="runway-features-list">
+                  <li><span class="runway-bullet">&bull;</span><span>Digital Partner recognition on official website &amp; social assets</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Livestream broadcast branding, lower-thirds &amp; segment mentions</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Branded content: &ldquo;Band Stories&rdquo;, &ldquo;Live&rdquo; &amp; &ldquo;Road to RITHMOS&rdquo;</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Social campaigns, branded reels, digital contests &amp; engagement</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Tracked click-throughs, promo codes &amp; QR lead attribution</span></li>
+                  <li><span class="runway-bullet">&bull;</span><span>Complete digital ROI report on views, watch time &amp; reach</span></li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Bottom Progress Bar -->
+          <div class="tiers-sticky-bottom-bar">
+            <div class="tiers-progress-track">
+              <div class="tiers-progress-fill" id="tiers-progress-fill"></div>
+            </div>
+            <span class="tiers-scroll-hint" id="tiers-scroll-hint">SCROLL TO UNPACK DECK &rarr;</span>
+          </div>
+
+        </div>
       </div>
-      <h2 class="section-title">WHY YOU SHOULD JOIN</h2>
-      <p class="section-desc">
-        We offer clearly defined partnership tiers engineered for measurable ROI, guaranteed category exclusivity, prime physical footprint, and all-round digital media amplification.
-      </p>
+    </div>
 
-      <!-- 4 Sponsorship Tiers -->
-      <div class="grid-4col" style="margin-bottom: 40px;">
-        <!-- Title Tier -->
-        <div class="subpage-card" style="border-color: rgba(255, 28, 54, 0.6); background: linear-gradient(180deg, #18141f 0%, #0d0c12 100%);">
-          <div class="card-timeline-tag" style="background: #ff1c36; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; display: inline-block; margin-bottom: 12px;">TIER 01 &bull; EXCLUSIVE (1 AVAILABLE)</div>
-          <h3 class="card-heading" style="color: #ff475b; font-size: 1.35rem;">TITLE PARTNER</h3>
-          <p class="card-text" style="margin-bottom: 16px;">
-            <em>&ldquo;RITHMOS presented by [Brand]&rdquo;</em> &mdash; The highest-value ownership package, designed around principal association with the RITHMOS property and category exclusivity.
-          </p>
-          <ul style="padding-left: 18px; margin: 0; color: #b7b4c7; font-size: 0.85rem; line-height: 1.6;">
-            <li>Principal co-branding across website, venues &amp; event creatives</li>
-            <li>Main stage presence &amp; integration into the Grand Finale</li>
-            <li>YouTube livestream mentions, opening/closing &amp; stream bug</li>
-            <li>Major branded audience activation &amp; signature festival moment</li>
-            <li>Premium VIP complimentary passes &amp; executive hospitality access</li>
-            <li>Comprehensive post-event ROI report across footfall, stream &amp; leads</li>
-          </ul>
-        </div>
-
-        <!-- Powered By Tier -->
-        <div class="subpage-card">
-          <div class="card-timeline-tag" style="color: #ff475b; font-family: 'Space Grotesk', monospace; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px;">TIER 02 &bull; 2 AVAILABLE</div>
-          <h3 class="card-heading">POWERED BY PARTNER</h3>
-          <p class="card-text" style="margin-bottom: 16px;">
-            <em>&ldquo;RITHMOS powered by [Brand]&rdquo;</em> &mdash; A strong visibility and engagement package positioned below Title Partner, delivering high-impact stage and digital presence.
-          </p>
-          <ul style="padding-left: 18px; margin: 0; color: #b7b4c7; font-size: 0.85rem; line-height: 1.6;">
-            <li>&ldquo;Powered By&rdquo; branding across agreed communications &amp; website</li>
-            <li>Branding at selected venues, event zones &amp; stage assets</li>
-            <li>YouTube livestream presence &amp; social promotional creatives</li>
-            <li>Dedicated on-ground brand activation &amp; consumer sampling</li>
-            <li>VIP passes &amp; hospitality allocation for clients and guests</li>
-            <li>Post-event reporting on digital reach, engagement &amp; footfall</li>
-          </ul>
-        </div>
-
-        <!-- Category Exclusive Tier -->
-        <div class="subpage-card">
-          <div class="card-timeline-tag" style="color: #ff475b; font-family: 'Space Grotesk', monospace; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px;">TIER 03 &bull; 5 CATEGORIES</div>
-          <h3 class="card-heading">CATEGORY PARTNER</h3>
-          <p class="card-text" style="margin-bottom: 16px;">
-            <em>&ldquo;Official [Category] Partner of RITHMOS&rdquo;</em> &mdash; A focused category-ownership package designed to integrate your product or service directly into the event experience.
-          </p>
-          <ul style="padding-left: 18px; margin: 0; color: #b7b4c7; font-size: 0.85rem; line-height: 1.6;">
-            <li>Category exclusivity across Beverage, Tech, Audio, Fashion, or Mobility</li>
-            <li>Dedicated activation zone, product displays &amp; sampling/trials</li>
-            <li>Strategic branding across audience-facing locations &amp; touchpoints</li>
-            <li>Social media inclusion &amp; YouTube livestream visibility</li>
-            <li>Consumer contests, giveaways, QR engagement &amp; lead capture</li>
-            <li>Measurable post-event report on footfall, samples &amp; interactions</li>
-          </ul>
-        </div>
-
-        <!-- Digital & Broadcast Tier -->
-        <div class="subpage-card">
-          <div class="card-timeline-tag" style="color: #ff475b; font-family: 'Space Grotesk', monospace; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px;">TIER 04 &bull; 3 AVAILABLE</div>
-          <h3 class="card-heading">DIGITAL PARTNER</h3>
-          <p class="card-text" style="margin-bottom: 16px;">
-            <em>&ldquo;RITHMOS Digital Partner&rdquo;</em> &mdash; A digital-first partnership built around the online journey, content ecosystem, social reach, and livestream broadcast of RITHMOS.
-          </p>
-          <ul style="padding-left: 18px; margin: 0; color: #b7b4c7; font-size: 0.85rem; line-height: 1.6;">
-            <li>Digital Partner recognition on official website &amp; social assets</li>
-            <li>Livestream broadcast branding, lower-thirds &amp; segment mentions</li>
-            <li>Branded content: &ldquo;Band Stories&rdquo;, &ldquo;RITHMOS Live&rdquo; &amp; &ldquo;Road to RITHMOS&rdquo;</li>
-            <li>Social campaigns, branded reels, digital contests &amp; engagement</li>
-            <li>Tracked click-throughs, promo codes &amp; QR lead attribution</li>
-            <li>Complete digital ROI report on views, watch time &amp; reach</li>
-          </ul>
-        </div>
-      </div>
-
+    <!-- Below the scroll track: ROI Table in normal container -->
+    <div class="subpage-container" style="padding-top: 48px; padding-bottom: 48px;">
       <!-- ROI & Deliverables Comparison Matrix Table -->
-      <div style="background: #0d0c12; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 28px; overflow-x: auto;">
+      <div id="matrix-section" style="background: #0d0c12; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 28px; overflow-x: auto;">
         <div style="font-family: 'Space Grotesk', monospace; font-size: 0.8rem; color: #ff1c36; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 16px;">PARTNERSHIP DELIVERABLES &amp; ROI COMPARISON MATRIX</div>
         <table style="width: 100%; border-collapse: collapse; min-width: 650px; text-align: left; font-size: 0.88rem;">
           <thead>

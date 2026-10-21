@@ -634,6 +634,653 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // ==========================================================================
+  // SECTION 2: SPONSORS DECK // 11 SLEEK MINIMALISTIC CARDS HORIZONTAL SLIDER
+  // ==========================================================================
+  function initSleekCardsSlider() {
+    const stageSection = document.getElementById('own-the-stage');
+    const viewport = document.getElementById('stage-cards-viewport');
+    const trackContainer = document.getElementById('stage-cards-track-container');
+    const track = document.getElementById('stage-cards-track');
+    if (!stageSection || !viewport || !trackContainer || !track) return;
+
+    const cards = Array.from(document.querySelectorAll('.stage-minimal-card'));
+    const activeNumEl = document.getElementById('cards-active-num');
+    const progressBar = document.getElementById('cards-progress-fill');
+    const prevBtn = document.getElementById('stage-card-prev');
+    const nextBtn = document.getElementById('stage-card-next');
+
+    const totalCards = cards.length;
+    if (totalCards === 0) return;
+
+    let currentActiveIndex = 0;
+    let isNavigating = false;
+
+    function updateActiveState(index) {
+      if (index < 0 || index >= totalCards) return;
+      currentActiveIndex = index;
+
+      cards.forEach((card, idx) => {
+        card.classList.toggle('active', idx === index);
+      });
+
+      if (activeNumEl) {
+        activeNumEl.textContent = String(index + 1).padStart(2, '0');
+      }
+
+      if (progressBar) {
+        progressBar.style.width = `${((index) / (totalCards - 1)) * 100}%`;
+      }
+    }
+
+    // Scroll Progression: Window Scroll drives the horizontal sliding of the cards
+    function handleWindowScroll() {
+      if (isNavigating) return;
+
+      const rect = stageSection.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      const totalScrollable = stageSection.offsetHeight - windowH;
+
+      if (totalScrollable <= 0) return;
+
+      const maxTranslate = Math.max(0, track.scrollWidth - trackContainer.clientWidth);
+
+      if (rect.top <= 0 && rect.bottom >= windowH) {
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+        
+        // Translate the track horizontally
+        track.style.transform = `translate3d(-${progress * maxTranslate}px, 0, 0)`;
+
+        // Calculate which card is currently active/centered
+        const activeIdx = Math.min(totalCards - 1, Math.round(progress * (totalCards - 1)));
+        if (activeIdx !== currentActiveIndex) {
+          updateActiveState(activeIdx);
+        }
+      } else if (rect.top > 0) {
+        track.style.transform = 'translate3d(0, 0, 0)';
+        if (currentActiveIndex !== 0) {
+          updateActiveState(0);
+        }
+      } else if (rect.bottom < windowH) {
+        track.style.transform = `translate3d(-${maxTranslate}px, 0, 0)`;
+        if (currentActiveIndex !== totalCards - 1) {
+          updateActiveState(totalCards - 1);
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    window.addEventListener('resize', handleWindowScroll, { passive: true });
+
+    // Smoothly Jump to a specific card via window scroll
+    function jumpToCard(index) {
+      if (index < 0 || index >= totalCards) return;
+      updateActiveState(index);
+
+      const sectionTop = stageSection.getBoundingClientRect().top + window.scrollY;
+      const totalScrollable = stageSection.offsetHeight - window.innerHeight;
+      const progress = index / (totalCards - 1);
+      const targetScrollY = sectionTop + (progress * totalScrollable);
+
+      isNavigating = true;
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: 'smooth'
+      });
+      setTimeout(() => {
+        isNavigating = false;
+        handleWindowScroll();
+      }, 700);
+    }
+
+    // Card click -> Center if inactive, or prefill form & scroll to #sponsor-desk if already active
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        if (idx !== currentActiveIndex) {
+          jumpToCard(idx);
+        } else {
+          const targetTier = card.getAttribute('data-tier') || '';
+          const categoryName = card.getAttribute('data-category') || '';
+          
+          const deskSection = document.getElementById('sponsor-desk');
+          const tierSelect = document.getElementById('sp-tier');
+          const notesField = document.getElementById('sp-notes');
+          const brandField = document.getElementById('sp-brand');
+
+          if (tierSelect && targetTier) {
+            for (let i = 0; i < tierSelect.options.length; i++) {
+              if (tierSelect.options[i].value === targetTier) {
+                tierSelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+
+          if (notesField && categoryName) {
+            notesField.value = `Interested in exploring: ${categoryName}`;
+          }
+
+          if (deskSection) {
+            deskSection.scrollIntoView({ behavior: 'smooth' });
+          }
+
+          if (brandField) {
+            setTimeout(() => {
+              brandField.focus();
+            }, 650);
+          }
+        }
+      });
+    });
+
+    // Prev / Next Arrows
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        jumpToCard(Math.max(0, currentActiveIndex - 1));
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        jumpToCard(Math.min(totalCards - 1, currentActiveIndex + 1));
+      });
+    }
+
+    // Keyboard Arrow Navigation (Left/Right & Up/Down)
+    document.addEventListener('keydown', (e) => {
+      const rect = stageSection.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (!isVisible) return;
+
+      if (e.key === 'ArrowRight') {
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+        if (currentActiveIndex < totalCards - 1) {
+          e.preventDefault();
+          jumpToCard(currentActiveIndex + 1);
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+        if (currentActiveIndex > 0) {
+          e.preventDefault();
+          jumpToCard(currentActiveIndex - 1);
+        }
+      }
+    });
+
+    // Touch Swipe Gestures
+    let touchStartX = 0;
+    let touchStartY = 0;
+    viewport.addEventListener('touchstart', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      const diffY = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0 && currentActiveIndex < totalCards - 1) {
+          jumpToCard(currentActiveIndex + 1);
+        } else if (diffX > 0 && currentActiveIndex > 0) {
+          jumpToCard(currentActiveIndex - 1);
+        }
+      }
+    }, { passive: true });
+
+    // Trackpad Horizontal Wheel
+    let wheelTimeout = null;
+    viewport.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > 35 && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        if (wheelTimeout) return;
+        wheelTimeout = setTimeout(() => {
+          wheelTimeout = null;
+        }, 450);
+
+        if (e.deltaX > 0 && currentActiveIndex < totalCards - 1) {
+          jumpToCard(currentActiveIndex + 1);
+        } else if (e.deltaX < 0 && currentActiveIndex > 0) {
+          jumpToCard(currentActiveIndex - 1);
+        }
+      }
+    }, { passive: true });
+
+    // CTA Button Action -> Seamless Form Pre-Fill & Navigation to #sponsor-desk
+    const ctaButtons = document.querySelectorAll('.card-action-btn, .slide-action-cta');
+    ctaButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetTier = btn.getAttribute('data-tier') || '';
+        const categoryName = btn.getAttribute('data-category') || '';
+        
+        const deskSection = document.getElementById('sponsor-desk');
+        const tierSelect = document.getElementById('sp-tier');
+        const notesField = document.getElementById('sp-notes');
+        const brandField = document.getElementById('sp-brand');
+
+        if (tierSelect && targetTier) {
+          for (let i = 0; i < tierSelect.options.length; i++) {
+            if (tierSelect.options[i].value === targetTier) {
+              tierSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+
+        if (notesField && categoryName) {
+          notesField.value = `Interested in exploring: ${categoryName}`;
+        }
+
+        if (deskSection) {
+          deskSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        if (brandField) {
+          setTimeout(() => {
+            brandField.focus();
+          }, 650);
+        }
+      });
+    });
+
+    // Initialize first card
+    updateActiveState(0);
+    handleWindowScroll();
+  }
+
+  // Initialize Sleek Cards Slider
+  initSleekCardsSlider();
+
+  // ==========================================================================
+  // SECTION 3: CINEMATIC SCROLL REVEAL TIERS
+  // True continuous scroll-driven physical unorganized card deck peel & reveal
+  // ==========================================================================
+  function initTiersScrollReveal() {
+    const scrollTrack = document.getElementById('tiers-reveal-scroll-track');
+    const stage = document.getElementById('tiers-deck-stage');
+    const cards = Array.from(document.querySelectorAll('.tier-physical-card'));
+    const hudStepTag = document.getElementById('hud-step-tag');
+    const hudDots = document.querySelectorAll('.tier-hud-dot');
+    const progressFill = document.getElementById('tiers-progress-fill');
+    const scrollHint = document.getElementById('tiers-scroll-hint');
+
+    if (!scrollTrack || !stage || cards.length !== 4) return;
+
+    const stepTitles = [
+      'DECK // TIER 01: TITLE PARTNER',
+      'DECK // TIER 02: POWERED BY PARTNER',
+      'DECK // TIER 03: CATEGORY PARTNER',
+      'DECK // TIER 04: DIGITAL PARTNER',
+      'COMPLETE LINEUP // ALL 4 TIERS REVEALED'
+    ];
+
+    function smoothstep(min, max, val) {
+      const x = Math.max(0, Math.min(1, (val - min) / (max - min)));
+      return x * x * (3 - 2 * x);
+    }
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    let isNavigating = false;
+    let targetProgress = 0;
+
+    function applyTransforms(p) {
+      // Progress fill width (8% to 100%)
+      if (progressFill) {
+        const percent = Math.min(100, Math.max(8, Math.round(p * 100)));
+        progressFill.style.width = `${percent}%`;
+      }
+
+      // Phase 4: All-Cards Mode (p >= 0.74)
+      if (p >= 0.74) {
+        if (!stage.classList.contains('mode-all-cards')) {
+          stage.classList.remove('mode-deck');
+          stage.classList.add('mode-all-cards');
+          cards.forEach((c) => {
+            c.style.transform = '';
+            c.style.opacity = '';
+            c.style.filter = '';
+            c.style.zIndex = '';
+            c.classList.remove('is-active');
+          });
+        }
+        if (hudStepTag) hudStepTag.textContent = stepTitles[4];
+        hudDots.forEach((dot, idx) => dot.classList.toggle('active', idx === 4));
+        if (scrollHint) scrollHint.textContent = 'ALL 4 TIERS REVEALED \u2014 SCROLL FOR ROI TABLE \u2193';
+        return;
+      }
+
+      // Otherwise: Deck Mode
+      if (!stage.classList.contains('mode-deck')) {
+        stage.classList.remove('mode-all-cards');
+        stage.classList.add('mode-deck');
+      }
+
+      // Determine active chapter & HUD text
+      let activeIdx = 0;
+      if (p < 0.22) {
+        activeIdx = 0;
+      } else if (p < 0.44) {
+        activeIdx = 1;
+      } else if (p < 0.62) {
+        activeIdx = 2;
+      } else {
+        activeIdx = 3;
+      }
+
+      if (hudStepTag) hudStepTag.textContent = stepTitles[activeIdx];
+      hudDots.forEach((dot, idx) => dot.classList.toggle('active', idx === activeIdx));
+      if (scrollHint) scrollHint.textContent = 'SCROLL TO PEEL CARDS \u2192';
+
+      cards.forEach((card, idx) => {
+        card.classList.toggle('is-active', idx === activeIdx);
+      });
+
+      // --- CARD 0 (Title Partner) ---
+      // Peels from p = 0.04 to p = 0.22 (left peel)
+      if (p < 0.04) {
+        cards[0].style.transform = 'translate3d(0, -6px, 80px) rotate(-1.8deg) scale(1)';
+        cards[0].style.opacity = '1';
+        cards[0].style.filter = 'brightness(1)';
+        cards[0].style.zIndex = '10';
+        cards[0].style.pointerEvents = 'auto';
+      } else if (p < 0.22) {
+        const t = smoothstep(0.04, 0.22, p);
+        const x = lerp(0, -145, t);
+        const y = lerp(-6, -90, t);
+        const z = lerp(80, 240, t);
+        const rot = lerp(-1.8, -34, t);
+        const rotY = lerp(0, 28, t);
+        const op = lerp(1, 0, t);
+        cards[0].style.transform = `translate3d(${x}%, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${rot}deg) scale(${lerp(1, 0.88, t)})`;
+        cards[0].style.opacity = op.toFixed(3);
+        cards[0].style.filter = `blur(${lerp(0, 4, t)}px)`;
+        cards[0].style.zIndex = '10';
+        cards[0].style.pointerEvents = t > 0.5 ? 'none' : 'auto';
+      } else {
+        cards[0].style.transform = 'translate3d(-150%, -90px, 240px) rotateY(28deg) rotateZ(-34deg) scale(0.88)';
+        cards[0].style.opacity = '0';
+        cards[0].style.filter = 'blur(4px)';
+        cards[0].style.zIndex = '1';
+        cards[0].style.pointerEvents = 'none';
+      }
+
+      // --- CARD 1 (Powered By Partner) ---
+      // Starts stacked under Card 0: (38px, -18px, 40px, 5.8deg, bright 0.82)
+      // Rises to top as Card 0 peels (p = 0.04 to 0.22)
+      // Resting top from p = 0.22 to 0.26
+      // Peels right from p = 0.26 to 0.44
+      if (p < 0.04) {
+        cards[1].style.transform = 'translate3d(38px, -18px, 40px) rotate(5.8deg)';
+        cards[1].style.opacity = '0.94';
+        cards[1].style.filter = 'brightness(0.82)';
+        cards[1].style.zIndex = '8';
+        cards[1].style.pointerEvents = 'auto';
+      } else if (p < 0.22) {
+        const t = smoothstep(0.04, 0.22, p);
+        const x = lerp(38, 0, t);
+        const y = lerp(-18, -6, t);
+        const z = lerp(40, 80, t);
+        const rot = lerp(5.8, 1.5, t);
+        const br = lerp(0.82, 1.0, t);
+        const op = lerp(0.94, 1.0, t);
+        cards[1].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg) scale(1)`;
+        cards[1].style.opacity = op.toFixed(3);
+        cards[1].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[1].style.zIndex = '8';
+        cards[1].style.pointerEvents = 'auto';
+      } else if (p < 0.26) {
+        cards[1].style.transform = 'translate3d(0, -6px, 80px) rotate(1.5deg) scale(1)';
+        cards[1].style.opacity = '1';
+        cards[1].style.filter = 'brightness(1)';
+        cards[1].style.zIndex = '10';
+        cards[1].style.pointerEvents = 'auto';
+      } else if (p < 0.44) {
+        const t = smoothstep(0.26, 0.44, p);
+        const x = lerp(0, 145, t);
+        const y = lerp(-6, -90, t);
+        const z = lerp(80, 240, t);
+        const rot = lerp(1.5, 34, t);
+        const rotY = lerp(0, -28, t);
+        const op = lerp(1, 0, t);
+        cards[1].style.transform = `translate3d(${x}%, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${rot}deg) scale(${lerp(1, 0.88, t)})`;
+        cards[1].style.opacity = op.toFixed(3);
+        cards[1].style.filter = `blur(${lerp(0, 4, t)}px)`;
+        cards[1].style.zIndex = '10';
+        cards[1].style.pointerEvents = t > 0.5 ? 'none' : 'auto';
+      } else {
+        cards[1].style.transform = 'translate3d(150%, -90px, 240px) rotateY(-28deg) rotateZ(34deg) scale(0.88)';
+        cards[1].style.opacity = '0';
+        cards[1].style.filter = 'blur(4px)';
+        cards[1].style.zIndex = '1';
+        cards[1].style.pointerEvents = 'none';
+      }
+
+      // --- CARD 2 (Category Partner) ---
+      // Starts under Card 1: (-44px, 16px, 10px, -6.4deg, bright 0.72)
+      // Shifts up as Card 0 peels (0.04 to 0.22): (-40px, 14px, 40px, -5.8deg, 0.84)
+      // Shifts to top as Card 1 peels (0.26 to 0.44): (0, -6px, 80px, -1.4deg, 1.0)
+      // Resting top from 0.44 to 0.48
+      // Peels left from 0.48 to 0.64
+      if (p < 0.22) {
+        const t = smoothstep(0.04, 0.22, p);
+        const x = lerp(-44, -40, t);
+        const y = lerp(16, 14, t);
+        const z = lerp(10, 40, t);
+        const rot = lerp(-6.4, -5.8, t);
+        const br = lerp(0.72, 0.84, t);
+        cards[2].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg)`;
+        cards[2].style.opacity = '0.88';
+        cards[2].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[2].style.zIndex = '6';
+        cards[2].style.pointerEvents = 'auto';
+      } else if (p < 0.44) {
+        const t = smoothstep(0.26, 0.44, p);
+        const x = lerp(-40, 0, t);
+        const y = lerp(14, -6, t);
+        const z = lerp(40, 80, t);
+        const rot = lerp(-5.8, -1.4, t);
+        const br = lerp(0.84, 1.0, t);
+        const op = lerp(0.88, 1.0, t);
+        cards[2].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg)`;
+        cards[2].style.opacity = op.toFixed(3);
+        cards[2].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[2].style.zIndex = '8';
+        cards[2].style.pointerEvents = 'auto';
+      } else if (p < 0.48) {
+        cards[2].style.transform = 'translate3d(0, -6px, 80px) rotate(-1.4deg) scale(1)';
+        cards[2].style.opacity = '1';
+        cards[2].style.filter = 'brightness(1)';
+        cards[2].style.zIndex = '10';
+        cards[2].style.pointerEvents = 'auto';
+      } else if (p < 0.64) {
+        const t = smoothstep(0.48, 0.64, p);
+        const x = lerp(0, -145, t);
+        const y = lerp(-6, -90, t);
+        const z = lerp(80, 240, t);
+        const rot = lerp(-1.4, -34, t);
+        const rotY = lerp(0, 28, t);
+        const op = lerp(1, 0, t);
+        cards[2].style.transform = `translate3d(${x}%, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${rot}deg) scale(${lerp(1, 0.88, t)})`;
+        cards[2].style.opacity = op.toFixed(3);
+        cards[2].style.filter = `blur(${lerp(0, 4, t)}px)`;
+        cards[2].style.zIndex = '10';
+        cards[2].style.pointerEvents = t > 0.5 ? 'none' : 'auto';
+      } else {
+        cards[2].style.transform = 'translate3d(-150%, -90px, 240px) rotateY(28deg) rotateZ(-34deg) scale(0.88)';
+        cards[2].style.opacity = '0';
+        cards[2].style.filter = 'blur(4px)';
+        cards[2].style.zIndex = '1';
+        cards[2].style.pointerEvents = 'none';
+      }
+
+      // --- CARD 3 (Digital Partner) ---
+      // Starts at bottom: (52px, 32px, -20px, 8.8deg, bright 0.62)
+      // Shifts up to (44px, 24px, 10px, 7.8deg, 0.74) by p = 0.22
+      // Shifts up to (38px, 16px, 40px, 6.2deg, 0.88) by p = 0.44
+      // Shifts to top center by p = 0.64: (0, -6px, 80px, 0.8deg, 1.0)
+      // Resting top from p = 0.64 to 0.74!
+      if (p < 0.22) {
+        const t = smoothstep(0.04, 0.22, p);
+        const x = lerp(52, 44, t);
+        const y = lerp(32, 24, t);
+        const z = lerp(-20, 10, t);
+        const rot = lerp(8.8, 7.8, t);
+        const br = lerp(0.62, 0.74, t);
+        cards[3].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg)`;
+        cards[3].style.opacity = '0.80';
+        cards[3].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[3].style.zIndex = '4';
+        cards[3].style.pointerEvents = 'auto';
+      } else if (p < 0.44) {
+        const t = smoothstep(0.26, 0.44, p);
+        const x = lerp(44, 38, t);
+        const y = lerp(24, 16, t);
+        const z = lerp(10, 40, t);
+        const rot = lerp(7.8, 6.2, t);
+        const br = lerp(0.74, 0.88, t);
+        cards[3].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg)`;
+        cards[3].style.opacity = '0.88';
+        cards[3].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[3].style.zIndex = '6';
+        cards[3].style.pointerEvents = 'auto';
+      } else if (p < 0.64) {
+        const t = smoothstep(0.48, 0.64, p);
+        const x = lerp(38, 0, t);
+        const y = lerp(16, -6, t);
+        const z = lerp(40, 80, t);
+        const rot = lerp(6.2, 0.8, t);
+        const br = lerp(0.88, 1.0, t);
+        const op = lerp(0.88, 1.0, t);
+        cards[3].style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${rot}deg)`;
+        cards[3].style.opacity = op.toFixed(3);
+        cards[3].style.filter = `brightness(${br.toFixed(2)})`;
+        cards[3].style.zIndex = '8';
+        cards[3].style.pointerEvents = 'auto';
+      } else {
+        cards[3].style.transform = 'translate3d(0, -6px, 80px) rotate(0.8deg) scale(1)';
+        cards[3].style.opacity = '1';
+        cards[3].style.filter = 'brightness(1)';
+        cards[3].style.zIndex = '10';
+        cards[3].style.pointerEvents = 'auto';
+      }
+    }
+
+    function handleScroll() {
+      if (isNavigating) return;
+
+      const rect = scrollTrack.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const scrollableDist = scrollTrack.offsetHeight - windowHeight;
+
+      if (scrollableDist <= 0) return;
+
+      // Track sticks when top is <= 72px
+      const scrolled = 72 - rect.top;
+      targetProgress = Math.max(0, Math.min(1, scrolled / scrollableDist));
+
+      applyTransforms(targetProgress);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    // Interactive Dot Navigation
+    hudDots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetStep = parseInt(dot.getAttribute('data-step'), 10);
+        if (isNaN(targetStep)) return;
+
+        const trackTop = scrollTrack.getBoundingClientRect().top + window.scrollY;
+        const scrollableDist = scrollTrack.offsetHeight - window.innerHeight;
+
+        const targetPMap = [0.02, 0.23, 0.45, 0.65, 0.88];
+        const targetP = targetPMap[targetStep] !== undefined ? targetPMap[targetStep] : 0;
+        const targetY = (trackTop - 72) + (targetP * scrollableDist);
+
+        isNavigating = true;
+        applyTransforms(targetP);
+
+        window.scrollTo({
+          top: targetY,
+          behavior: 'smooth'
+        });
+
+        // Robust scroll completion detection
+        let navTimeout;
+        const onNavScroll = () => {
+          clearTimeout(navTimeout);
+          navTimeout = setTimeout(() => {
+            isNavigating = false;
+            window.removeEventListener('scroll', onNavScroll);
+            handleScroll();
+          }, 120);
+        };
+        window.addEventListener('scroll', onNavScroll, { passive: true });
+
+        // Safety fallback
+        setTimeout(() => {
+          isNavigating = false;
+          window.removeEventListener('scroll', onNavScroll);
+          handleScroll();
+        }, 1600);
+      });
+    });
+
+    // Card & Button Click -> Pre-fill form & navigate to #sponsor-desk
+    const selectTierAndNavigate = (targetTier) => {
+      const deskSection = document.getElementById('sponsor-desk');
+      const tierSelect = document.getElementById('sp-tier');
+      const notesField = document.getElementById('sp-notes');
+      const brandField = document.getElementById('sp-brand');
+
+      if (tierSelect && targetTier) {
+        for (let i = 0; i < tierSelect.options.length; i++) {
+          if (tierSelect.options[i].value === targetTier) {
+            tierSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      if (notesField && targetTier) {
+        notesField.value = `Inquiring about ${targetTier} sponsorship package.`;
+      }
+
+      if (deskSection) {
+        deskSection.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      if (brandField) {
+        setTimeout(() => {
+          brandField.focus();
+        }, 650);
+      }
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        const btn = e.target.closest('.runway-plan-btn, .tier-plan-btn');
+        const targetTier = (btn && btn.getAttribute('data-tier-select')) || card.getAttribute('data-tier') || '';
+        selectTierAndNavigate(targetTier);
+      });
+    });
+
+    // Initial render
+    applyTransforms(0);
+    handleScroll();
+  }
+
+  initTiersScrollReveal();
+
 });
 
 
