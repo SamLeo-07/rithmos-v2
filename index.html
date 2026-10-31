@@ -49,29 +49,6 @@
     </div>
   </header>
 
-  <!-- Journey HUD / 8-Beat Story Camera Scrubber -->
-  <aside class="journey-hud" aria-label="Camera Journey Map">
-    <div class="hud-track">
-      <div id="hud-indicator" class="hud-indicator"></div>
-    </div>
-    <div class="hud-content-col">
-      <ul class="hud-stages">
-        <li data-target="0.00" class="hud-node active"><span class="node-num">01</span><span class="node-name">STORY</span></li>
-        <li data-target="0.14" class="hud-node"><span class="node-num">02</span><span class="node-name">STAGE</span></li>
-        <li data-target="0.28" class="hud-node"><span class="node-num">03</span><span class="node-name">RITHMOS</span></li>
-        <li data-target="0.43" class="hud-node"><span class="node-num">04</span><span class="node-name">MOMENT</span></li>
-        <li data-target="0.57" class="hud-node"><span class="node-num">05</span><span class="node-name">KEYBOARD</span></li>
-        <li data-target="0.71" class="hud-node"><span class="node-num">06</span><span class="node-name">BASS</span></li>
-        <li data-target="0.85" class="hud-node"><span class="node-num">07</span><span class="node-name">FLASH</span></li>
-        <li data-target="1.00" class="hud-node"><span class="node-num">08</span><span class="node-name">RISE</span></li>
-      </ul>
-      <div class="hud-coords">
-        <span class="coord-label">CAM Z:</span>
-        <span id="hud-cam-z" class="coord-val">+25.0</span>
-      </div>
-    </div>
-  </aside>
-
   <!-- Virtual Scroll Track for 3D Hero Camera Journey -->
   <section id="hero-stage" class="hero-stage-container">
     <div id="scroll-track" class="scroll-track"></div>
@@ -399,10 +376,10 @@
             </div>
             <h2 class="static-headline text-white">YOUR BAND.<br>YOUR SOUND.<br>YOUR SHOT.</h2>
             <p class="static-subhead text-muted">Take the next step. Register now and be part of something bigger.</p>
-            <button class="pill-cta-btn open-band-modal-btn">
+            <a href="/register" class="pill-cta-btn" style="text-decoration: none;">
               <span>REGISTER YOUR BAND</span>
               <span class="arrow-sym">→</span>
-            </button>
+            </a>
           </div>
 
           <!-- Center Column: Continuously rotating cube, one title per face -->
@@ -562,26 +539,14 @@
             </div>
             <h2 class="static-headline text-white halo-title">WHERE BANDS RISE.</h2>
             <p class="static-subhead text-muted halo-sub">Register your band and take the first step towards a bigger tomorrow.</p>
-            <button class="pill-cta-btn open-band-modal-btn center-btn">
+            <a href="/register" class="pill-cta-btn center-btn" style="text-decoration: none;">
               <span>REGISTER YOUR BAND</span>
               <span class="arrow-sym">→</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Floating Landing Storyline Chapter HUD -->
-    <aside class="landing-story-hud" id="landing-story-hud" aria-label="Tour Storyline Log">
-      <div class="story-hud-title">TOUR LOG</div>
-      <div class="story-hud-steps">
-        <a href="#how-it-works" class="story-hud-step active" data-step="02"><span class="hud-step-num">02</span><span class="hud-step-name">INTAKE</span></a>
-        <a href="#why-enter" class="story-hud-step" data-step="03"><span class="hud-step-num">03</span><span class="hud-step-name">ECOSYSTEM</span></a>
-        <a href="#for-bands" class="story-hud-step" data-step="04"><span class="hud-step-num">04</span><span class="hud-step-name">JAM PAD</span></a>
-        <a href="#the-big-stage" class="story-hud-step" data-step="05"><span class="hud-step-num">05</span><span class="hud-step-name">ASCENT</span></a>
-        <a href="#whats-next" class="story-hud-step" data-step="06"><span class="hud-step-num">06</span><span class="hud-step-name">ARENA</span></a>
-      </div>
-    </aside>
 
     <!-- MASTER FOOTER -->
     <footer class="static-master-footer theme-dark" id="site-footer">
@@ -714,7 +679,7 @@
       <div class="modal-header">
         <span class="modal-tag">COMPETITION BLUEPRINT</span>
         <h3 id="explore-title">THE RITHMOS ROADMAP</h3>
-        <p>From underground Hyderabad jamming to the festival spotlight.</p>
+        <p>From underground Hyderabad jamming to the big-stage spotlight.</p>
       </div>
 
       <div class="roadmap-grid">
@@ -739,7 +704,7 @@
         <div class="roadmap-card highlight">
           <span class="card-step">STAGE 04</span>
           <h4>GRAND STAGE CLIMAX</h4>
-          <p>Top 6 bands perform on the arena festival stage with multi-camera live broadcast, ₹5 Lakh prize pool, and studio recording deal.</p>
+          <p>Top 6 bands perform on the arena stage with multi-camera live broadcast, ₹5 Lakh prize pool, and studio recording deal.</p>
         </div>
       </div>
     </div>

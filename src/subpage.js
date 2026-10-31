@@ -284,29 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Direct PDF Deck Download Trigger (on /sponsors)
-  const downloadBtns = document.querySelectorAll('#quick-download-deck-btn, #direct-pdf-btn');
-  downloadBtns.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<span>Downloading Prospectus PDF...</span>';
-      setTimeout(() => {
-        // Trigger simulated PDF download prompt
-        const link = document.createElement('a');
-        link.href = '/assets/logo.png';
-        link.download = 'RITHMOS-2026-Sponsorship-Prospectus.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        btn.innerHTML = '<span>✓ Prospectus Downloaded</span>';
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-        }, 3000);
-      }, 600);
-    });
-  });
-
   // ==========================================================================
   // SCROLL MOTION & INTERACTIVE HOVER EFFECTS (About Page Foundations & 5 Pillars)
   // ==========================================================================
@@ -419,20 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // SPONSORS DECK // 5 FESTIVAL BRAND ENVIRONMENTS PILLS (STATIC BG, NO SLIDESHOW)
-  // ==========================================================================
-  const envPills = document.querySelectorAll('.env-pill-btn');
-
-  if (envPills.length > 0) {
-    envPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        envPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-      });
-    });
-  }
-
-  // ==========================================================================
   // CONTACT PAGE // TAB SWITCHER (BAND, BRAND, MESSAGE)
   // ==========================================================================
   const contactTabs = document.querySelectorAll('.contact-tab-btn');
@@ -461,6 +424,15 @@ document.addEventListener('DOMContentLoaded', () => {
         switchContactTab(btn.dataset.tab);
       });
     });
+
+    // Deep link: /contact#partner-form opens the brand partnership form
+    if (window.location.hash === '#partner-form') {
+      switchContactTab('brand');
+      const formsContainer = document.getElementById('contact-forms-container');
+      if (formsContainer) {
+        window.scrollTo(0, formsContainer.getBoundingClientRect().top + window.scrollY - 100);
+      }
+    }
 
     // Department route buttons in channels
     const channelRouteBtns = document.querySelectorAll('.channel-route-btn');
@@ -569,33 +541,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Cable progress track scroll update on /competition
-  const compCableGlowSub = document.getElementById('comp-cable-glow');
-  const compStepCards = document.querySelectorAll('.steps-flow-grid .step-card');
-  const compIndicators = document.querySelectorAll('.cable-nodes-indicator-row .timeline-indicator-node');
-  if (compCableGlowSub && compStepCards.length > 0) {
-    const onScrollCompTrack = () => {
-      const trackEl = document.getElementById('comp-journey-track') || document.querySelector('.steps-flow-grid');
-      if (!trackEl) return;
-      const rect = trackEl.getBoundingClientRect();
-      const winH = window.innerHeight;
-      const start = winH * 0.90;
-      const end = -rect.height * 0.25;
-      const total = start - end;
-      if (total <= 0) return;
-      const p = Math.max(0, Math.min(1.0, (start - rect.top) / total));
-      const offset = 1000 * (1.0 - p);
-      compCableGlowSub.style.strokeDashoffset = `${offset}`;
+  // Pinned six-stage journey on /competition: scroll reveals one stage at a time
+  const compJourney = document.getElementById('comp-journey');
+  if (compJourney && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    compJourney.classList.add('is-ready');
+    const stageEls = Array.from(compJourney.querySelectorAll('.comp-stage'));
+    const counterEl = compJourney.querySelector('.comp-counter-current');
+    const last = stageEls.length - 1;
+    let activeIdx = -1;
 
-      compStepCards.forEach((card, idx) => {
-        if (p >= 0.08 + idx * 0.15) {
-          card.classList.add('is-energized');
-          if (compIndicators[idx]) compIndicators[idx].classList.add('is-energized');
-        }
+    const scrollRange = () => Math.max(compJourney.offsetHeight - window.innerHeight, 1);
+
+    const updateJourney = () => {
+      const p = Math.min(1, Math.max(0, -compJourney.getBoundingClientRect().top / scrollRange()));
+      compJourney.style.setProperty('--p', p.toFixed(4));
+      const idx = Math.min(last, Math.floor(p * stageEls.length));
+      if (idx === activeIdx) return;
+      activeIdx = idx;
+      stageEls.forEach((el, i) => {
+        el.classList.toggle('is-active', i === idx);
+        el.classList.toggle('is-past', i < idx);
+        el.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
       });
+      if (counterEl) counterEl.textContent = String(idx + 1).padStart(2, '0');
+      compJourney.classList.toggle('is-finale', idx === last);
     };
-    window.addEventListener('scroll', onScrollCompTrack, { passive: true });
-    onScrollCompTrack();
+
+    window.addEventListener('scroll', updateJourney, { passive: true });
+    window.addEventListener('resize', updateJourney);
+    updateJourney();
+  }
+
+  // Cinematic "why participate" stage on /competition: cards light up on entry, silhouettes rise with scroll
+  const whyStage = document.getElementById('why-participate');
+  if (whyStage && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    whyStage.classList.add('is-armed');
+    const whyIO = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        whyStage.classList.add('is-visible');
+        whyIO.disconnect();
+      }
+    }, { threshold: 0.12 });
+    whyIO.observe(whyStage);
+
+    const tableau = whyStage.querySelector('.why-stage-tableau');
+    let whyTicking = false;
+    const updateWhyStage = () => {
+      whyTicking = false;
+      const vh = window.innerHeight;
+      const t = tableau.getBoundingClientRect().top;
+      const sp = Math.min(1, Math.max(0, (vh - t) / (vh * 0.8)));
+      whyStage.style.setProperty('--sp', sp.toFixed(3));
+    };
+    window.addEventListener('scroll', () => {
+      if (!whyTicking) {
+        whyTicking = true;
+        requestAnimationFrame(updateWhyStage);
+      }
+    }, { passive: true });
+    updateWhyStage();
   }
 
   // ==========================================================================
@@ -953,7 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (hudStepTag) hudStepTag.textContent = stepTitles[4];
         hudDots.forEach((dot, idx) => dot.classList.toggle('active', idx === 4));
-        if (scrollHint) scrollHint.textContent = 'ALL 4 TIERS REVEALED \u2014 SCROLL FOR ROI TABLE \u2193';
+        if (scrollHint) scrollHint.textContent = 'ALL 4 TIERS REVEALED \u2193';
         return;
       }
 

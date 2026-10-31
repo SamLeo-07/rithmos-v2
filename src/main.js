@@ -36,7 +36,6 @@ class RithmosApp {
     this.scrollVelocity = 0;
 
     const heroStage = document.getElementById('hero-stage');
-    const hud = document.querySelector('.journey-hud');
     const shot10 = document.getElementById('shot-10');
 
     this.lenis.on('scroll', (e) => {
@@ -44,15 +43,6 @@ class RithmosApp {
       const heroHeight = heroStage ? Math.max(heroStage.offsetHeight - window.innerHeight, 1) : 5500;
       this.scrollProgress = Math.min(1, Math.max(0, e.scroll / heroHeight));
       this.scrollVelocity = e.velocity || 0;
-
-      // Hide left camera journey HUD when user scrolls past 3D hero stage into landing sections
-      if (hud) {
-        if (e.scroll > heroHeight + 80) {
-          hud.classList.add('hidden');
-        } else {
-          hud.classList.remove('hidden');
-        }
-      }
 
       // Smoothly fade out Shot 12 hero payoff once user enters editorial sections
       if (shot10) {
@@ -316,17 +306,7 @@ class RithmosApp {
   }
 
   initContinuousStorytelling() {
-    const storyHud = document.getElementById('landing-story-hud');
-    const hudSteps = document.querySelectorAll('.story-hud-step');
-    const heroStage = document.getElementById('hero-stage');
-
-    const sections = [
-      { id: 'how-it-works', step: '02' },
-      { id: 'why-enter', step: '03' },
-      { id: 'for-bands', step: '04' },
-      { id: 'the-big-stage', step: '05' },
-      { id: 'whats-next', step: '06' }
-    ];
+    const sectionIds = ['how-it-works', 'why-enter', 'for-bands', 'the-big-stage', 'whats-next'];
 
     // Section 03 Elements
     const sec03 = document.getElementById('why-enter');
@@ -353,40 +333,15 @@ class RithmosApp {
 
     const updateStoryJourney = () => {
       const winH = window.innerHeight;
-      const scrollY = window.scrollY;
-      const heroHeight = heroStage ? Math.max(heroStage.offsetHeight - winH, 1) : 5500;
 
-      // Toggle HUD visibility: show when user scrolls past 3D hero stage into landing sections
-      if (storyHud) {
-        if (scrollY > heroHeight + 120) {
-          storyHud.classList.add('is-visible');
-        } else {
-          storyHud.classList.remove('is-visible');
-        }
-      }
-
-      // Track active section for HUD
-      let currentActiveStep = '02';
-      const readLine = winH * 0.45;
-      sections.forEach(({ id, step }) => {
+      sectionIds.forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= readLine && rect.bottom >= readLine) {
-            currentActiveStep = step;
-          }
           // Ensure reveal-on-scroll elements are cleanly visible once section is reached
           if (rect.top < winH * 0.95 && rect.bottom > 0) {
             el.querySelectorAll('.reveal-on-scroll').forEach(rev => rev.classList.add('is-revealed'));
           }
-        }
-      });
-
-      hudSteps.forEach(link => {
-        if (link.getAttribute('data-step') === currentActiveStep) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
         }
       });
 

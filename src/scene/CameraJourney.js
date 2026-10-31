@@ -61,29 +61,6 @@ export class CameraJourney {
     this.shot08 = document.getElementById('shot-08');
     this.shot10 = document.getElementById('shot-10');
     this.s5Content = document.getElementById('s5-content');
-
-    // HUD Elements
-    this.hudNodes = document.querySelectorAll('.hud-node');
-    this.hudIndicator = document.getElementById('hud-indicator');
-    this.hudCamZ = document.getElementById('hud-cam-z');
-
-    this.initHUDClicks();
-  }
-
-  initHUDClicks() {
-    this.hudNodes.forEach(node => {
-      node.addEventListener('click', () => {
-        const target = parseFloat(node.getAttribute('data-target'));
-        const heroStage = document.getElementById('hero-stage');
-        const heroHeight = heroStage ? Math.max(heroStage.offsetHeight - window.innerHeight, 1) : 5500;
-        const scrollY = target * heroHeight;
-        if (this.lenis) {
-          this.lenis.scrollTo(scrollY, { duration: 1.6 });
-        } else {
-          window.scrollTo({ top: scrollY, behavior: 'smooth' });
-        }
-      });
-    });
   }
 
   getFOV(p) {
@@ -164,9 +141,8 @@ export class CameraJourney {
     camera.up.set(0, 1, 0);
     camera.lookAt(this.currentTarget);
 
-    // 6. Update typography overlays and HUD
+    // 6. Update typography overlays
     this.updateTypography(p);
-    this.updateHUD(p, camera.position.z);
   }
 
   updateTypography(p) {
@@ -228,43 +204,5 @@ export class CameraJourney {
         this.shot10.classList.remove('active');
       }
     }
-  }
-
-  updateHUD(p, camZ) {
-    if (this.hudIndicator) {
-      // 260px track height minus 20px indicator height = 240px range
-      this.hudIndicator.style.top = `${p * 240}px`;
-    }
-
-    if (this.hudCamZ) {
-      this.hudCamZ.textContent = `${camZ >= 0 ? '+' : ''}${camZ.toFixed(1)}`;
-    }
-
-    // 8-Beat Storyboard thresholds
-    const shotThresholds = [
-      0.00, // 01 STORY
-      0.14, // 02 STAGE
-      0.28, // 03 RITHMOS
-      0.43, // 04 MOMENT
-      0.57, // 05 KEYBOARD
-      0.71, // 06 BASS
-      0.85, // 07 FLASH
-      1.00  // 08 RISE
-    ];
-
-    let activeIdx = 0;
-    let minDiff = Infinity;
-    shotThresholds.forEach((thresh, idx) => {
-      const diff = Math.abs(p - thresh);
-      if (diff < minDiff) {
-        minDiff = diff;
-        activeIdx = idx;
-      }
-    });
-
-    this.hudNodes.forEach((node, idx) => {
-      if (idx === activeIdx) node.classList.add('active');
-      else node.classList.remove('active');
-    });
   }
 }

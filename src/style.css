@@ -323,102 +323,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Journey HUD */
-.journey-hud {
-  position: fixed;
-  left: 36px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  pointer-events: auto;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
-}
-
-.journey-hud.hidden {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transform: translateY(-50%) translateX(-24px);
-}
-
-.hud-track {
-  width: 2px;
-  height: 260px;
-  background: rgba(255, 255, 255, 0.1);
-  position: relative;
-  border-radius: 1px;
-}
-
-.hud-indicator {
-  position: absolute;
-  top: 0;
-  left: -2px;
-  width: 6px;
-  height: 20px;
-  border-radius: 3px;
-  background: var(--color-red-primary);
-  box-shadow: 0 0 12px var(--color-red-primary);
-  transition: top 0.1s linear;
-}
-
-.hud-content-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.hud-stages {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.hud-node {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.35);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.hud-node .node-num {
-  font-family: var(--font-heading);
-  font-size: 0.65rem;
-}
-
-.hud-node:hover, .hud-node.active {
-  color: #fff;
-}
-
-.hud-node.active .node-num {
-  color: var(--color-red-primary);
-}
-
-.hud-coords {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.4);
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.hud-coords .coord-val {
-  color: var(--color-red-primary);
-  font-weight: bold;
-}
-
 /* Story Overlay & Typography Sections */
 .story-overlay {
   position: fixed;
@@ -1130,9 +1034,6 @@ body {
 @media (max-width: 900px) {
   .top-nav {
     padding: 16px 20px;
-  }
-  .journey-hud {
-    display: none;
   }
   .performer-parallel-card.side-right,
   .performer-parallel-card.side-left,
@@ -2940,87 +2841,6 @@ body {
   0% { stroke-opacity: 0.9; stroke-width: 3.5; }
   50% { stroke-opacity: 0.45; stroke-width: 2.2; }
   100% { stroke-opacity: 0.1; stroke-width: 1.2; }
-}
-
-/* Floating Landing Storyline Chapter HUD */
-.landing-story-hud {
-  position: fixed;
-  right: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 14px;
-  z-index: 900;
-  pointer-events: auto;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.landing-story-hud.is-visible {
-  opacity: 1;
-}
-
-.story-hud-title {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
-  color: #ff1c36;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.story-hud-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.story-hud-step {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background: rgba(13, 12, 18, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
-}
-
-.story-hud-step:hover,
-.story-hud-step.active {
-  border-color: #ff1c36;
-  background: rgba(255, 28, 54, 0.12);
-  box-shadow: 0 0 14px rgba(255, 28, 54, 0.25);
-}
-
-.hud-step-num {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #ff475b;
-}
-
-.hud-step-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: #c5c2d3;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.story-hud-step.active .hud-step-name {
-  color: #ffffff;
-}
-
-@media (max-width: 900px) {
-  .landing-story-hud {
-    display: none;
-  }
 }
 
 /* =========================================================================
