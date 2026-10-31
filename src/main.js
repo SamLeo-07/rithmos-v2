@@ -323,10 +323,9 @@ class RithmosApp {
     const sections = [
       { id: 'how-it-works', step: '02' },
       { id: 'why-enter', step: '03' },
-      { id: 'the-competition', step: '04' },
-      { id: 'for-bands', step: '05' },
-      { id: 'the-big-stage', step: '06' },
-      { id: 'whats-next', step: '07' }
+      { id: 'for-bands', step: '04' },
+      { id: 'the-big-stage', step: '05' },
+      { id: 'whats-next', step: '06' }
     ];
 
     // Section 03 Elements
@@ -334,21 +333,11 @@ class RithmosApp {
     const benefitBoxes = sec03 ? sec03.querySelectorAll('.benefit-box') : [];
     const acousticRadar = document.getElementById('acoustic-radar-col');
 
-    // Section 04 Elements
-    const sec04 = document.getElementById('the-competition');
-    const compCableGlow = document.getElementById('comp-cable-glow');
-    const compNodes = sec04 ? sec04.querySelectorAll('.timeline-node') : [];
-
     // Section 05 Elements
-    const sec05 = document.getElementById('for-bands');
-    const panelRedGlowing = document.getElementById('panel-red-glowing');
-    const etchedWords = sec05 ? sec05.querySelectorAll('.etched-word') : [];
-
-    // Section 06 Elements
     const sec06 = document.getElementById('the-big-stage');
     const isoSteps = [1, 2, 3, 4, 5, 6, 7].map(n => document.getElementById(`step-${n}`));
 
-    // Section 07 Elements
+    // Section 06 Elements
     const sec07 = document.getElementById('whats-next');
     const haloFrame = document.getElementById('amphitheater-halo-frame');
 
@@ -416,39 +405,7 @@ class RithmosApp {
         });
       }
 
-      // SECTION 04: Live SVG Tournament Circuit Cable + Nodes
-      if (sec04) {
-        const p4 = getProgress(sec04, winH);
-        if (compCableGlow) {
-          const clamped = Math.min(1.0, Math.max(0, p4 * 1.35));
-          const offset = 1000 * (1.0 - clamped);
-          compCableGlow.style.strokeDashoffset = `${offset}`;
-        }
-        compNodes.forEach((node, idx) => {
-          if (p4 >= 0.08 + idx * 0.16) {
-            node.classList.add('is-energized');
-          } else {
-            node.classList.remove('is-energized');
-          }
-        });
-      }
-
-      // SECTION 05: Rehearsal Studio Radiant Glass Panel + Etched Typography
-      if (sec05) {
-        const p5 = getProgress(sec05, winH);
-        if (panelRedGlowing) {
-          panelRedGlowing.classList.toggle('is-energized', p5 > 0.05 && p5 < 1.05);
-        }
-        etchedWords.forEach((word, idx) => {
-          if (p5 >= 0.10 + idx * 0.12) {
-            word.classList.add('is-lit');
-          } else {
-            word.classList.remove('is-lit');
-          }
-        });
-      }
-
-      // SECTION 06: Isometric Ascending Steps Climbing
+      // SECTION 05: Isometric Ascending Steps Climbing
       if (sec06) {
         const p6 = getProgress(sec06, winH);
         isoSteps.forEach((step, idx) => {
@@ -462,7 +419,7 @@ class RithmosApp {
         });
       }
 
-      // SECTION 07: Curved Stadium Halo Shockwave Resonance
+      // SECTION 06: Curved Stadium Halo Shockwave Resonance
       if (sec07) {
         const p7 = getProgress(sec07, winH);
         if (haloFrame) {
