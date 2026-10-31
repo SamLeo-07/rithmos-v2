@@ -1,7 +1,7 @@
 /**
  * Mobile Navigation Drawer Manager
- * Provides a fluid, accessible mobile drawer navigation for viewports <= 768px.
- * On desktop (>= 769px), elements remain hidden via CSS.
+ * Provides a fluid, accessible mobile drawer navigation for viewports <= 860px.
+ * On desktop (>= 861px), elements remain hidden via CSS.
  */
 export class MobileNav {
   constructor() {
@@ -65,13 +65,6 @@ export class MobileNav {
           <div class="mobile-nav-footer">
             <div class="mobile-nav-brand-sub">WHERE BANDS RISE</div>
             <div class="mobile-nav-brand-prop">A property of Right Hand Entertainments</div>
-            <div class="mobile-nav-socials">
-              <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-              <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
-              <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">LI</a>
-              <a href="https://x.com" target="_blank" rel="noopener" aria-label="X">X</a>
-            </div>
           </div>
         </div>
       `;
@@ -124,7 +117,7 @@ export class MobileNav {
 
     // Close drawer on viewport resize to desktop
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 768 && drawer.classList.contains('is-open')) {
+      if (window.innerWidth > 860 && drawer.classList.contains('is-open')) {
         closeDrawer();
       }
     });

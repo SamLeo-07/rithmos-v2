@@ -7,6 +7,7 @@ import { ParticleSystem } from './scene/Particles.js';
 import { CameraJourney } from './scene/CameraJourney.js';
 import { ConcertAudio } from './audio/ConcertAudio.js';
 import { ModalManager } from './ui/ModalManager.js';
+import { MobileNav } from './ui/MobileNav.js';
 
 class RithmosApp {
   constructor() {
@@ -16,6 +17,7 @@ class RithmosApp {
     this.init3D();
     this.initAudio();
     this.initModals();
+    new MobileNav();
     this.initScrollReveal();
     this.initNarrativeCable();
     this.initContinuousStorytelling();

@@ -1,195 +1,197 @@
+// Gapless "Live Track" loop.
+// The theme is decoded once and played as a looping Web Audio buffer, so the loop point has no restart gap
+// and no volume dip. rithmos-theme-loop.mp3 is a loop-ready edit of the theme (silence trimmed, end blended
+// into the start); any codec padding left after decoding is trimmed below by setting loopStart / loopEnd.
+const LOOP_URL = '/assets/rithmos-theme-loop.mp3';
+
 export class ConcertAudio {
   constructor() {
-    this.audio = null;
     this.ctx = null;
-    this.source = null;
     this.gainNode = null;
     this.filter = null;
+    this.source = null;
+    this.buffer = null;
+    this.loopStart = 0;
+    this.loopEnd = 0;
+    this.ready = null;
+    this.fallback = null;
     this.isPlaying = false;
+    this.wantPlaying = false;
     this.targetVolume = 0.70;
     this.fadeDuration = 2.0;
     this.fadeOutDuration = 1.2;
-    this.loopFadeDuration = 2.5;
     this.onStateChange = null;
     this.isTransitioning = false;
+    this.suspendTimer = null;
+    this.transitionTimer = null;
   }
 
   init() {
-    if (this.audio) return;
+    if (this.ready) return;
 
-    this.audio = new Audio('/assets/rithmos-theme.mp3');
-    this.audio.loop = true;
-    this.audio.preload = 'auto';
-
-    // Set up Web Audio API routing for smooth master gain ramps & acoustic filter sweep
     const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (AudioContext) {
+    if (!AudioContext) {
+      this.useFallback();
+      return;
+    }
+
+    try {
+      this.ctx = new AudioContext();
+      this.gainNode = this.ctx.createGain();
+      this.gainNode.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+
+      // Lowpass sweep driven by scroll position (see updateScroll)
+      this.filter = this.ctx.createBiquadFilter();
+      this.filter.type = 'lowpass';
+      this.filter.frequency.setValueAtTime(3200, this.ctx.currentTime);
+      this.filter.Q.setValueAtTime(1.5, this.ctx.currentTime);
+
+      this.filter.connect(this.gainNode);
+      this.gainNode.connect(this.ctx.destination);
+    } catch (err) {
+      console.warn('Web Audio unavailable, using plain audio loop:', err);
+      this.ctx = null;
+      this.useFallback();
+      return;
+    }
+
+    this.ready = fetch(LOOP_URL)
+      .then((res) => res.arrayBuffer())
+      .then((data) => this.ctx.decodeAudioData(data))
+      .then((buf) => {
+        this.buffer = buf;
+        this.trimLoopPoints(buf);
+      })
+      .catch((err) => {
+        console.warn('Loop decode failed, using plain audio loop:', err);
+        this.useFallback();
+      });
+  }
+
+  // Loop only the audible part of the decoded buffer (drops any encoder / decoder padding)
+  trimLoopPoints(buf) {
+    const data = buf.getChannelData(0);
+    const threshold = 0.0005;
+    let first = 0;
+    let last = data.length - 1;
+    while (first < last && Math.abs(data[first]) < threshold) first++;
+    while (last > first && Math.abs(data[last]) < threshold) last--;
+    this.loopStart = first / buf.sampleRate;
+    this.loopEnd = (last + 1) / buf.sampleRate;
+  }
+
+  useFallback() {
+    if (this.fallback) return;
+    this.fallback = new Audio(LOOP_URL);
+    this.fallback.loop = true;
+    this.fallback.preload = 'auto';
+    this.fallback.volume = 0;
+    this.ready = this.ready || Promise.resolve();
+  }
+
+  startSource() {
+    const src = this.ctx.createBufferSource();
+    src.buffer = this.buffer;
+    src.loop = true;
+    src.loopStart = this.loopStart;
+    src.loopEnd = this.loopEnd;
+    src.connect(this.filter);
+    src.start(0, this.loopStart);
+    this.source = src;
+  }
+
+  async fadeIn(duration = 2.0) {
+    this.init();
+    this.wantPlaying = true;
+    clearTimeout(this.suspendTimer);
+    clearTimeout(this.transitionTimer);
+    this.isTransitioning = true;
+
+    try {
+      if (this.ctx) await this.ctx.resume(); // stays pending / rejects until the first user gesture
+      await this.ready;
+    } catch (err) {
+      this.isTransitioning = false;
+      return; // autoplay deferred until a user gesture calls fadeIn again
+    }
+
+    if (!this.wantPlaying) return;
+
+    if (this.fallback) {
       try {
-        this.ctx = new AudioContext();
-        this.gainNode = this.ctx.createGain();
-        this.gainNode.gain.setValueAtTime(0.0001, this.ctx.currentTime);
-
-        this.filter = this.ctx.createBiquadFilter();
-        this.filter.type = 'lowpass';
-        this.filter.frequency.setValueAtTime(3200, this.ctx.currentTime);
-        this.filter.Q.setValueAtTime(1.5, this.ctx.currentTime);
-
-        this.source = this.ctx.createMediaElementSource(this.audio);
-        this.source.connect(this.filter);
-        this.filter.connect(this.gainNode);
-        this.gainNode.connect(this.ctx.destination);
+        await this.fallback.play();
       } catch (err) {
-        console.warn('Web Audio routing fallback to element volume:', err);
-        this.ctx = null;
+        this.isTransitioning = false;
+        return;
       }
-    }
-
-    this.setupLoopFade();
-  }
-
-  setupLoopFade() {
-    if (!this.audio) return;
-
-    // Smooth loop boundary fade-out and fade-in
-    this.audio.addEventListener('timeupdate', () => {
-      if (!this.isPlaying || !this.audio || !this.audio.duration || this.isTransitioning) return;
-
-      const duration = this.audio.duration;
-      const current = this.audio.currentTime;
-      const fadeOutWindow = this.loopFadeDuration; // 2.5s before end
-      const fadeInWindow = 2.0;                   // 2.0s after loop start
-
-      // Approaching end of track -> smooth fade out before loop point
-      if (current >= duration - fadeOutWindow) {
-        const remaining = duration - current;
-        const p = Math.max(0, remaining / fadeOutWindow); // 1.0 -> 0.0
-        const vol = Math.max(0.0001, this.targetVolume * p);
-        this.setVolumeDirect(vol, 0.1);
+      this.fadeElement(this.fallback.volume, this.targetVolume, duration);
+    } else {
+      if (this.ctx.state !== 'running') {
+        this.isTransitioning = false;
+        return;
       }
-      // Just looped back to start -> smooth fade in
-      else if (current <= fadeInWindow) {
-        const p = Math.min(1, current / fadeInWindow); // 0.0 -> 1.0
-        const vol = Math.max(0.0001, this.targetVolume * Math.max(0.08, p));
-        this.setVolumeDirect(vol, 0.15);
-      }
-    });
-
-    this.audio.addEventListener('ended', () => {
-      if (this.isPlaying) {
-        this.fadeIn(1.8);
-      }
-    });
-  }
-
-  setVolumeDirect(vol, timeConstant = 0.1) {
-    if (this.ctx && this.gainNode) {
-      this.gainNode.gain.setTargetAtTime(vol, this.ctx.currentTime, timeConstant);
-    } else if (this.audio) {
-      this.audio.volume = Math.max(0, Math.min(1, vol));
-    }
-  }
-
-  fadeIn(duration = 2.0) {
-    if (!this.audio) this.init();
-
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume().catch(() => {});
-    }
-
-    this.isTransitioning = true;
-    const playPromise = this.audio.play();
-
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          this.isPlaying = true;
-          if (this.onStateChange) this.onStateChange(true);
-
-          if (this.ctx && this.gainNode) {
-            const now = this.ctx.currentTime;
-            this.gainNode.gain.cancelScheduledValues(now);
-            this.gainNode.gain.setValueAtTime(Math.max(0.0001, this.gainNode.gain.value), now);
-            this.gainNode.gain.linearRampToValueAtTime(this.targetVolume, now + duration);
-          } else if (this.audio) {
-            this.fadeVolume(0, this.targetVolume, duration);
-          }
-
-          setTimeout(() => {
-            this.isTransitioning = false;
-          }, duration * 1000);
-        })
-        .catch((err) => {
-          this.isTransitioning = false;
-          // Autoplay deferred pending user interaction
-        });
-    }
-  }
-
-  fadeOut(duration = 1.2, pauseAfter = true) {
-    if (!this.isPlaying || !this.audio) return;
-
-    this.isTransitioning = true;
-
-    if (this.ctx && this.gainNode) {
+      if (!this.source) this.startSource();
       const now = this.ctx.currentTime;
       this.gainNode.gain.cancelScheduledValues(now);
       this.gainNode.gain.setValueAtTime(Math.max(0.0001, this.gainNode.gain.value), now);
-      this.gainNode.gain.linearRampToValueAtTime(0.0001, now + duration);
-
-      if (pauseAfter) {
-        setTimeout(() => {
-          if (!this.isPlaying && this.audio) {
-            this.audio.pause();
-          }
-          this.isTransitioning = false;
-        }, duration * 1000);
-      } else {
-        this.isTransitioning = false;
-      }
-    } else if (this.audio) {
-      this.fadeVolume(this.audio.volume, 0, duration, () => {
-        if (pauseAfter && this.audio) this.audio.pause();
-        this.isTransitioning = false;
-      });
+      this.gainNode.gain.linearRampToValueAtTime(this.targetVolume, now + duration);
     }
 
-    if (pauseAfter) {
-      this.isPlaying = false;
-      if (this.onStateChange) this.onStateChange(false);
-    }
+    this.isPlaying = true;
+    if (this.onStateChange) this.onStateChange(true);
+    this.transitionTimer = setTimeout(() => {
+      this.isTransitioning = false;
+    }, duration * 1000);
   }
 
-  fadeVolume(from, to, duration, onComplete = null) {
-    if (!this.audio) return;
+  fadeOut(duration = 1.2) {
+    this.wantPlaying = false;
+    if (!this.isPlaying) return;
+
+    clearTimeout(this.transitionTimer);
+    this.isTransitioning = true;
+    this.isPlaying = false;
+    if (this.onStateChange) this.onStateChange(false);
+
+    if (this.fallback) {
+      this.fadeElement(this.fallback.volume, 0, duration, () => {
+        this.fallback.pause();
+        this.isTransitioning = false;
+      });
+      return;
+    }
+
+    const now = this.ctx.currentTime;
+    this.gainNode.gain.cancelScheduledValues(now);
+    this.gainNode.gain.setValueAtTime(Math.max(0.0001, this.gainNode.gain.value), now);
+    this.gainNode.gain.linearRampToValueAtTime(0.0001, now + duration);
+
+    // Suspending keeps the loop position, so the next fade-in carries on where it stopped
+    this.suspendTimer = setTimeout(() => {
+      if (!this.wantPlaying) this.ctx.suspend();
+      this.isTransitioning = false;
+    }, duration * 1000);
+  }
+
+  fadeElement(from, to, duration, onComplete = null) {
     const start = performance.now();
     const durationMs = duration * 1000;
-
     const step = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / durationMs, 1);
-      const val = from + (to - from) * progress;
-      if (this.audio) {
-        this.audio.volume = Math.max(0, Math.min(1, val));
-      }
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else if (onComplete) {
-        onComplete();
-      }
+      const progress = Math.min((now - start) / durationMs, 1);
+      this.fallback.volume = Math.max(0, Math.min(1, from + (to - from) * progress));
+      if (progress < 1) requestAnimationFrame(step);
+      else if (onComplete) onComplete();
     };
     requestAnimationFrame(step);
   }
 
   toggle() {
-    if (!this.audio) this.init();
-
     if (this.isPlaying) {
-      this.fadeOut(this.fadeOutDuration, true);
+      this.fadeOut(this.fadeOutDuration);
       return false;
-    } else {
-      this.fadeIn(this.fadeDuration);
-      return true;
     }
+    this.fadeIn(this.fadeDuration);
+    return true;
   }
 
   updateScroll(scrollProgress) {
