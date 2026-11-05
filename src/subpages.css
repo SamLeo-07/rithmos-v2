@@ -4595,14 +4595,13 @@
   .slash-item .slash-text {
     margin-left: calc(var(--sx) * 1% + 64px);
     width: min(440px, calc(100% - var(--sx) * 1% - 64px));
-    transform: rotate(-6deg); transform-origin: 0 50%;
   }
   .slash-item:nth-child(odd) { --hide: polygon(100% 0, 100% 0, 116% 100%, 116% 100%); --show: polygon(100% 0, -18% 0, 0 100%, 100% 100%); }
   .slash-item:nth-child(odd) .slash-text {
     margin-left: auto;
     margin-right: calc(100% - var(--sx) * 1% + 64px);
     width: min(440px, calc(var(--sx) * 1% - 64px));
-    text-align: right; transform-origin: 100% 50%;
+    text-align: right;
   }
   .slash-item:nth-child(odd) .slash-meta { justify-content: flex-start; flex-direction: row-reverse; }
   .slash-item:nth-child(odd) .slash-desc { margin-left: auto; }
@@ -4636,14 +4635,14 @@
 }
 
 @keyframes slashStamp {
-  0%   { transform: translateX(-26px) skewX(-10deg) scale(1.16); text-shadow: 0 0 30px #fff, 0 0 60px #ff1c36; }
-  55%  { transform: translateX(4px) skewX(0) scale(0.985); text-shadow: 0 0 16px rgba(255, 60, 80, 0.9); }
+  0%   { transform: translateX(-22px); text-shadow: 0 0 26px rgba(255, 255, 255, 0.9), 0 0 50px #ff1c36; }
+  55%  { transform: translateX(3px); text-shadow: 0 0 14px rgba(255, 60, 80, 0.8); }
   100% { transform: none; text-shadow: 0 0 0 rgba(255, 60, 80, 0); }
 }
 @keyframes slashStampL {
-  0%   { transform: translateX(26px) skewX(10deg) scale(1.16); text-shadow: 0 0 30px #fff, 0 0 60px #ff1c36; transform-origin: 100% 50%; }
-  55%  { transform: translateX(-4px) skewX(0) scale(0.985); text-shadow: 0 0 16px rgba(255, 60, 80, 0.9); transform-origin: 100% 50%; }
-  100% { transform: none; text-shadow: 0 0 0 rgba(255, 60, 80, 0); transform-origin: 100% 50%; }
+  0%   { transform: translateX(22px); text-shadow: 0 0 26px rgba(255, 255, 255, 0.9), 0 0 50px #ff1c36; }
+  55%  { transform: translateX(-3px); text-shadow: 0 0 14px rgba(255, 60, 80, 0.8); }
+  100% { transform: none; text-shadow: 0 0 0 rgba(255, 60, 80, 0); }
 }
 @keyframes slashLine {
   0%   { transform: scaleX(0); opacity: 1; }
