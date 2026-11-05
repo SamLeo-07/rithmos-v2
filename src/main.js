@@ -1,3 +1,4 @@
+import './cms/runtime.js'; // must stay first: maps the page text before any script changes it
 import Lenis from 'lenis';
 import { SceneManager } from './scene/SceneManager.js';
 import { LayerCompositor } from './scene/LayerCompositor.js';

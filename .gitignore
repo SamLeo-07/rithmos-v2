@@ -16,3 +16,6 @@ Thumbs.db
 scratch/
 audit-whole-page.js
 assets/logo-old-backup.png
+
+# Local content-editor data (dev server only)
+.cms-data/

@@ -3,6 +3,7 @@
  * Handles navigation, registration modal triggers, and form interactions for /about, /competition, /contact
  */
 
+import './cms/runtime.js'; // must stay first: maps the page text before any script changes it
 import { MobileNav } from './ui/MobileNav.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: randCode,
         type: 'band',
         bandName: document.getElementById('b-name')?.value || '',
-        language: document.getElementById('b-lang')?.value || 'Telugu (Mandatory)',
+        language: document.getElementById('b-lang')?.value || 'Telugu + Hindi',
         leader: document.getElementById('b-leader')?.value || '',
         city: document.getElementById('b-city')?.value || '',
         phone: document.getElementById('b-phone')?.value || '',
@@ -429,9 +430,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Deep link: /contact#partner-form opens the brand partnership form
-    if (window.location.hash === '#partner-form') {
-      switchContactTab('brand');
+    // Deep links: /contact#register-band opens the band form, /contact#partner-form the brand form
+    if (window.location.hash === '#register-band' || window.location.hash === '#partner-form') {
+      switchContactTab(window.location.hash === '#partner-form' ? 'brand' : 'band');
       const formsContainer = document.getElementById('contact-forms-container');
       if (formsContainer) {
         window.scrollTo(0, formsContainer.getBoundingClientRect().top + window.scrollY - 100);
@@ -522,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: randId,
         type: 'band',
         bandName: document.getElementById('comp-b-name')?.value || 'Band',
-        language: document.getElementById('comp-b-lang')?.value || 'Telugu (Mandatory)',
+        language: document.getElementById('comp-b-lang')?.value || 'Telugu + Hindi',
         leader: document.getElementById('comp-b-leader')?.value || '',
         city: document.getElementById('comp-b-city')?.value || '',
         phone: document.getElementById('comp-b-phone')?.value || '',
@@ -1277,6 +1278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach((card) => {
       card.addEventListener('click', (e) => {
         const btn = e.target.closest('.runway-plan-btn, .tier-plan-btn');
+        if (!btn && window.matchMedia('(max-width: 860px)').matches) return; // stacked list: only the button navigates
         const targetTier = (btn && btn.getAttribute('data-tier-select')) || card.getAttribute('data-tier') || '';
         selectTierAndNavigate(targetTier);
       });
@@ -1287,6 +1289,61 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll();
   }
 
+  // ==========================================================================
+  // SPONSORS: live motion for "The Idea" and "The RITHMOS Journey"
+  // ==========================================================================
+  function initDeckSections() {
+    const sections = document.querySelectorAll('.deck-idea-section, .deck-journey-section');
+    if (!sections.length) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const targets = document.querySelectorAll('.deck-reveal');
+    sections.forEach((s) => s.classList.add('deck-armed'));
+    if (reduce || !('IntersectionObserver' in window)) {
+      targets.forEach((t) => t.classList.add('is-in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+      targets.forEach((t) => io.observe(t));
+    }
+
+    // cursor spotlight on the pillar cards
+    document.querySelectorAll('.deck-pillar').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        card.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+
+    // journey line follows the scroll and lights each step as it is reached
+    const steps = document.getElementById('deck-steps');
+    if (!steps) return;
+    const stepEls = Array.from(steps.querySelectorAll('.deck-step'));
+    const vertical = () => window.matchMedia('(max-width: 860px)').matches;
+    const update = () => {
+      const r = steps.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.78 - r.top) / (r.height + vh * 0.12)));
+      steps.style.setProperty('--p', p.toFixed(3));
+      stepEls.forEach((el, i) => {
+        const sr = el.getBoundingClientRect();
+        const reached = vertical() ? sr.top < vh * 0.72 : p >= (i / Math.max(1, stepEls.length - 1)) * 0.92 + 0.02;
+        el.classList.toggle('is-lit', reduce || reached);
+      });
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+
+  initDeckSections();
   initTiersScrollReveal();
 
 });

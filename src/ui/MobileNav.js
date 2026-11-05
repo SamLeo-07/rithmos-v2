@@ -56,7 +56,7 @@ export class MobileNav {
           </nav>
 
           <div class="mobile-nav-actions">
-            <a href="/register" class="mobile-nav-cta-btn">
+            <a href="/contact/#register-band" class="mobile-nav-cta-btn">
               <span>REGISTER YOUR BAND</span>
               <span>→</span>
             </a>

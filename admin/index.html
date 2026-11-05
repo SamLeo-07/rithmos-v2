@@ -357,6 +357,11 @@
           </span>
         </div>
 
+        <div class="admin-view-switch" role="tablist" aria-label="Admin sections">
+          <button type="button" data-admin-view="submissions" class="active">SUBMISSIONS</button>
+          <button type="button" data-admin-view="content">WEBSITE CONTENT</button>
+        </div>
+
         <div style="display: flex; align-items: center; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #1ec86e; font-family: 'Space Grotesk', monospace;">
             <span style="width: 8px; height: 8px; border-radius: 50%; background: #1ec86e;"></span>
@@ -373,7 +378,7 @@
     </header>
 
     <!-- Main Dashboard Body -->
-    <main class="admin-dashboard-container">
+    <main class="admin-dashboard-container" id="view-submissions">
       
       <!-- KPI Stats Grid -->
       <div class="admin-kpi-grid">
@@ -436,6 +441,11 @@
       </div>
 
     </main>
+
+    <!-- Website content editor (src/cms/admin.js) -->
+    <main class="admin-dashboard-container cms-container" id="view-content" style="display: none;">
+      <div id="cms-root"></div>
+    </main>
   </div>
 
   <!-- =========================================================================
@@ -496,7 +506,7 @@
               timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
               type: 'band',
               bandName: 'Asura Syndicate',
-              language: 'Telugu (Mandatory)',
+              language: 'Telugu + Hindi',
               leader: 'Vikramaditya Rao',
               city: 'Hyderabad',
               phone: '+91 98765 43210',
@@ -525,7 +535,7 @@
               timestamp: new Date(Date.now() - 3600000 * 12).toISOString(),
               type: 'band',
               bandName: 'Deccan Groove Collective',
-              language: 'Telugu + Multilingual',
+              language: 'Telugu + Hindi',
               leader: 'Ananya Reddy',
               city: 'Secunderabad',
               phone: '+91 94401 55667',
@@ -598,6 +608,7 @@
 
         if (u === 'admin' && p === 'admin123') {
           sessionStorage.setItem(AUTH_KEY, 'true');
+          sessionStorage.setItem('rithmos_cms_pw', p); // used as the publishing password for the content editor
           loginError.style.display = 'none';
           checkAuth();
         } else {
@@ -637,7 +648,7 @@
             timestamp: new Date().toISOString(),
             type: 'band',
             bandName: `Test Live Act #${rand}`,
-            language: 'Telugu (Mandatory)',
+            language: 'Telugu + Hindi',
             leader: 'Karthik Varma',
             city: 'Hyderabad',
             phone: '+91 98888 77777',
@@ -822,7 +833,7 @@
           detailsHtml += `
             <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
               <strong style="color:#a4a1b4;">Language:</strong>
-              <div>${item.language || 'Telugu (Mandatory)'}</div>
+              <div>${item.language || 'Telugu + Hindi'}</div>
             </div>
             <div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin-bottom: 8px;">
               <strong style="color:#a4a1b4;">Base City:</strong>
@@ -926,5 +937,6 @@
       checkAuth();
     })();
   </script>
+  <script type="module" src="/src/cms/admin.js"></script>
 </body>
 </html>

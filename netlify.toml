@@ -2,8 +2,26 @@
   command = "npm run build"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/cms-media/:id"
+  to = "/.netlify/functions/cms?media=:id"
+  status = 200
+
+[[redirects]]
+  from = "/register"
+  to = "/contact/"
+  status = 301
+
+[[redirects]]
+  from = "/register/*"
+  to = "/contact/"
+  status = 301
 
 [[redirects]]
   from = "/partners"
