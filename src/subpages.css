@@ -4659,3 +4659,21 @@
 @media (prefers-reduced-motion: reduce) {
   .slash-pick, .slash-eq i, .slash-text::after { display: none; }
 }
+
+/* ==========================================================================
+   SPONSORS: one shared left/right edge for every section (they used five different ones)
+   ========================================================================== */
+.sponsors-page { --gx: clamp(20px, 4vw, 56px); --gw: 1380px; }
+@media (min-width: 861px) {
+  .sponsors-page .subpage-container,
+  .sponsors-page .stage-cinematic-container,
+  .sponsors-page .sponsors-hero-container {
+    max-width: var(--gw);
+    padding-left: var(--gx);
+    padding-right: var(--gx);
+  }
+  .sponsors-page .stage-cards-sticky-viewport {
+    padding-left: max(var(--gx), calc((100% - var(--gw)) / 2 + var(--gx)));
+    padding-right: max(var(--gx), calc((100% - var(--gw)) / 2 + var(--gx)));
+  }
+}
