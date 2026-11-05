@@ -4618,3 +4618,11 @@
   .deck-idea-section::after, .deck-journey-section::after,
   .deck-eq i, .deck-ring, .deck-play::after, .deck-flow span, .deck-step:last-child.is-lit .deck-step-num { animation: none; }
 }
+
+/* ==========================================================================
+   SPONSORS: one heading font (Alderwood, the same display face as the founder heading)
+   ========================================================================== */
+.sponsors-page :is(h1, h2, h3) {
+  font-family: var(--font-heading) !important;
+  font-weight: 700;
+}
