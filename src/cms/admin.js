@@ -4,7 +4,7 @@
  * then press Publish: the changes go live for every visitor on their next page load.
  */
 import './admin.css';
-import { API, PAGES, scanText, scanAssets, cssBackgroundSelectors } from './core.js';
+import { API, PAGES, scanText, scanAssets, cssBackgroundSelectors, remapText } from './core.js';
 
 const PW_KEY = 'rithmos_cms_pw';
 const root = document.getElementById('cms-root');
@@ -140,7 +140,7 @@ function refreshStatus() {
   const total = totalChanges();
   const status = root.querySelector('.cms-status');
   if (status) {
-    status.textContent = total ? `${total} unpublished change${total > 1 ? 's' : ''}` : (state.updatedAt ? `Live version saved ${new Date(state.updatedAt).toLocaleString()}` : 'No edits published yet');
+    status.textContent = total ? `${total} unpublished change${total > 1 ? 's' : ''} - press PUBLISH CHANGES to make ${total > 1 ? 'them' : 'it'} live` : (state.updatedAt ? `Live version saved ${new Date(state.updatedAt).toLocaleString()}` : 'No edits published yet');
     status.classList.toggle('dirty', total > 0);
   }
   root.querySelector('[data-publish]').disabled = state.busy || total === 0;
@@ -409,11 +409,17 @@ async function publish() {
     toast('Published. The live website now shows these changes.', 'ok');
   } catch (err) {
     if (err.status === 409) staleNotice();
-    else if (err.message !== 'Cancelled') toast(err.message, 'err');
+    else if (err.message !== 'Cancelled') failNotice(err.message);
   }
   state.busy = false;
   refreshStatus();
   renderPanel();
+}
+
+function failNotice(message) {
+  const m = modal(`<h3>Not published</h3><p>${esc(message)}</p><p>Your edits are still here, nothing was lost. Fix the problem above and press PUBLISH CHANGES again.</p>
+    <div class="cms-modal-actions"><button class="cms-btn primary" data-ok>OK</button></div>`);
+  m.querySelector('[data-ok]').onclick = () => m.remove();
 }
 
 function staleNotice() {
@@ -540,6 +546,7 @@ async function openPage(key, force = false) {
     const html = await (await fetch(pg.url, { cache: 'no-store' })).text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
     state.items = scanText(doc);
+    [state.edits, state.published].forEach((m) => { if (m[key]) m[key].text = remapText(m[key].text, state.items); });
     const found = scanAssets(doc);
     state.images = found.images;
     state.docs = found.docs;

@@ -6,7 +6,7 @@
  * The text map is built before any other script touches the page, so ids always match the
  * original HTML that /admin scanned.
  */
-import { API, pageKeyFromPath, scanText } from './core.js';
+import { API, pageKeyFromPath, scanText, remapText } from './core.js';
 
 const CACHE_KEY = 'rithmos-cms-v1';
 const params = new URLSearchParams(window.location.search);
@@ -48,7 +48,8 @@ export function apply(edits) {
   revert();
   if (!edits) return;
 
-  const text = edits.text || {};
+  const items = [...textItems].map(([id, t]) => ({ id, orig: t.orig }));
+  const text = remapText(edits.text || {}, items);
   Object.keys(text).forEach((id) => {
     const t = textItems.get(id);
     const rec = text[id];
@@ -113,17 +114,15 @@ function boot() {
     if (cached && cached.pages) apply(cached.pages[page]);
   } catch (e) { /* no cache */ }
 
-  const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-  const timer = setTimeout(() => ctrl && ctrl.abort(), 3000);
-  return fetch(API, { signal: ctrl ? ctrl.signal : undefined })
+  // no timeout on purpose: nothing waits for this, and on a busy phone a short timeout dropped the edits
+  return fetch(API)
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
-      clearTimeout(timer);
       if (!data || !data.pages) return;
       try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (e) { /* storage full */ }
       apply(data.pages[page]);
     })
-    .catch(() => clearTimeout(timer));
+    .catch(() => { /* offline: the cached edits stay applied */ });
 }
 
 window.__cmsReady = boot();

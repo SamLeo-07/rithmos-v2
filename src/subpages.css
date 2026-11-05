@@ -4335,7 +4335,12 @@
 .deck-idea-section,
 .deck-journey-section { border-top: 1px solid rgba(255, 255, 255, 0.06); }
 
-.deck-title { max-width: 22ch; text-transform: none !important; letter-spacing: -0.01em; }
+.deck-title {
+  max-width: 24ch;
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  line-height: 1.05;
+  margin: 12px 0 16px;
+}
 .deck-sub { max-width: 68ch; color: #a8a4b8; }
 
 .deck-pillars {

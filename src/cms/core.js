@@ -73,6 +73,28 @@ export function scanText(doc) {
   return out;
 }
 
+/**
+ * Re-attaches saved text edits whose element path moved because the page HTML changed,
+ * by matching their original text (only when that text is unique on the page).
+ */
+export function remapText(edits, items) {
+  const byId = new Map(items.map((it) => [it.id, it]));
+  const byOrig = new Map();
+  items.forEach((it) => byOrig.set(it.orig, byOrig.has(it.orig) ? null : it));
+  const out = {};
+  Object.keys(edits || {}).forEach((id) => {
+    const rec = edits[id];
+    const hit = byId.get(id);
+    if (hit && hit.orig === rec.o) {
+      out[id] = rec;
+      return;
+    }
+    const alt = byOrig.get(rec.o);
+    if (alt && !edits[alt.id] && !out[alt.id]) out[alt.id] = rec;
+  });
+  return out;
+}
+
 const IMG_EXT = /\.(jpe?g|png|webp|gif|svg|avif)(\?.*)?$/i;
 const PDF_EXT = /\.pdf(\?.*)?$/i;
 

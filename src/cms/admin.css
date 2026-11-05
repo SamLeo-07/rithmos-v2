@@ -100,3 +100,11 @@
   .cms-body { grid-template-columns: minmax(0, 1fr); }
   .cms-panel, .cms-preview { height: 70vh; }
 }
+
+/* a pending change is hard to miss: the Publish button pulses until it is pressed */
+.cms-btn.primary:not([disabled]) { animation: cms-pulse 1.6s ease-in-out infinite; }
+@keyframes cms-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 28, 54, 0.55); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 28, 54, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .cms-btn.primary:not([disabled]) { animation: none; } }
