@@ -4626,3 +4626,48 @@
   font-family: var(--font-heading) !important;
   font-weight: 700;
 }
+
+/* ==========================================================================
+   COMPETITION // WHY PARTICIPATE: larger, more premium cards
+   ========================================================================== */
+.why-stage .benefit-cards-grid.six-up { counter-reset: why; gap: 24px; }
+.why-stage .benefit-cards-grid.six-up .benefit-box {
+  counter-increment: why;
+  padding: 34px 30px 36px;
+  gap: 12px;
+  border-radius: 14px;
+  min-height: 210px;
+  background: linear-gradient(160deg, rgba(26, 18, 30, 0.94), rgba(11, 10, 17, 0.9));
+}
+.why-stage .benefit-cards-grid.six-up .benefit-title {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.why-stage .benefit-cards-grid.six-up .benefit-title::before {
+  content: counter(why, decimal-leading-zero);
+  display: block;
+  margin-bottom: 14px;
+  font: 700 0.78rem 'Space Grotesk', monospace;
+  letter-spacing: 0.2em;
+  color: #ff475b;
+}
+.why-stage .benefit-cards-grid.six-up .benefit-desc {
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.6;
+  color: #d3d0de;
+}
+/* the prize is the headline reward: give it a warmer glow */
+.why-stage .benefit-cards-grid.six-up .benefit-box:nth-child(5) {
+  background: linear-gradient(160deg, rgba(120, 18, 34, 0.55), rgba(14, 10, 16, 0.92));
+  border-color: rgba(255, 90, 105, 0.7);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 28, 54, 0.25);
+}
+@media (max-width: 820px) {
+  .why-stage .benefit-cards-grid.six-up .benefit-box { min-height: 0; padding: 28px 24px 30px; }
+}
+@media (max-width: 560px) {
+  .why-stage .benefit-cards-grid.six-up .benefit-title { font-size: 1.2rem; }
+  .why-stage .benefit-cards-grid.six-up .benefit-desc { font-size: 1rem; line-height: 1.55; }
+}
