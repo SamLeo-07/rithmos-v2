@@ -605,6 +605,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
     updateWhyStage();
+
+    // live cards: cursor spotlight + gentle 3D tilt, and a glow that travels card to card on its own
+    const whyCards = Array.from(whyStage.querySelectorAll('.benefit-box'));
+    let whyHover = false;
+    let whyInView = false;
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      whyCards.forEach((card) => {
+        card.addEventListener('pointerenter', () => {
+          whyHover = true;
+          whyCards.forEach((c) => c.classList.remove('is-lit'));
+        });
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          card.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
+          card.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
+          card.style.setProperty('--ry', `${((x - 0.5) * 10).toFixed(2)}deg`);
+          card.style.setProperty('--rx', `${((0.5 - y) * 8).toFixed(2)}deg`);
+        });
+        card.addEventListener('pointerleave', () => {
+          whyHover = false;
+          ['--mx', '--my', '--rx', '--ry'].forEach((p) => card.style.removeProperty(p));
+        });
+      });
+    }
+    new IntersectionObserver((entries) => {
+      whyInView = entries.some((e) => e.isIntersecting);
+      if (!whyInView) whyCards.forEach((c) => c.classList.remove('is-lit'));
+    }, { threshold: 0.25 }).observe(whyStage.querySelector('.benefit-cards-grid'));
+    let whyLit = 0;
+    setInterval(() => {
+      if (whyHover || !whyInView || !whyCards.length) return;
+      whyCards.forEach((c, k) => c.classList.toggle('is-lit', k === whyLit));
+      whyLit = (whyLit + 1) % whyCards.length;
+    }, 2200);
   }
 
   // ==========================================================================

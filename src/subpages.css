@@ -4637,7 +4637,8 @@
   gap: 12px;
   border-radius: 14px;
   min-height: 210px;
-  background: linear-gradient(160deg, rgba(26, 18, 30, 0.94), rgba(11, 10, 17, 0.9));
+  --base: linear-gradient(160deg, rgba(26, 18, 30, 0.94), rgba(11, 10, 17, 0.9));
+  background: radial-gradient(280px circle at var(--mx) var(--my), rgba(255, 70, 90, calc(var(--spot) * 0.3)), transparent 70%), var(--base);
 }
 .why-stage .benefit-cards-grid.six-up .benefit-title {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
@@ -4660,7 +4661,7 @@
 }
 /* the prize is the headline reward: give it a warmer glow */
 .why-stage .benefit-cards-grid.six-up .benefit-box:nth-child(5) {
-  background: linear-gradient(160deg, rgba(120, 18, 34, 0.55), rgba(14, 10, 16, 0.92));
+  --base: linear-gradient(160deg, rgba(120, 18, 34, 0.55), rgba(14, 10, 16, 0.92));
   border-color: rgba(255, 90, 105, 0.7);
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 28, 54, 0.25);
 }
@@ -4670,4 +4671,84 @@
 @media (max-width: 560px) {
   .why-stage .benefit-cards-grid.six-up .benefit-title { font-size: 1.2rem; }
   .why-stage .benefit-cards-grid.six-up .benefit-desc { font-size: 1rem; line-height: 1.55; }
+}
+
+/* ---- Why-Participate cards: live motion (cursor spotlight + tilt, animated icons, one-by-one glow) ---- */
+@property --spot { syntax: '<number>'; inherits: true; initial-value: 0; }
+
+.why-stage .benefit-cards-grid.six-up .benefit-box {
+  --mx: 50%; --my: 0%; --rx: 0deg; --ry: 0deg; --lift: 0px; --spot: 0;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift));
+  transition: transform 0.18s ease-out, --spot 0.4s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+}
+.why-stage .benefit-cards-grid.six-up .benefit-box:hover,
+.why-stage .benefit-cards-grid.six-up .benefit-box.is-lit {
+  --lift: -8px;
+  --spot: 1;
+  border-color: #ff1c36;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.85), 0 0 34px rgba(255, 28, 54, 0.35);
+}
+.why-stage .benefit-box:hover .benefit-title,
+.why-stage .benefit-box.is-lit .benefit-title { color: #fff; text-shadow: 0 0 18px rgba(255, 60, 80, 0.7); }
+.why-stage .benefit-box:hover .benefit-title::before,
+.why-stage .benefit-box.is-lit .benefit-title::before { letter-spacing: 0.5em; color: #ff8591; }
+.why-stage .benefit-title::before { transition: letter-spacing 0.45s ease, color 0.3s ease; }
+
+/* small animated icon, one per card */
+.bx-art {
+  position: absolute; top: 24px; right: 24px; width: 40px; height: 40px;
+  display: flex; align-items: flex-end; justify-content: center; gap: 4px;
+  opacity: 0.6; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.benefit-box:hover .bx-art, .benefit-box.is-lit .bx-art { opacity: 1; transform: scale(1.15); }
+.bx-art i { display: block; background: linear-gradient(180deg, #ff6b7d, #ff1c36); border-radius: 2px; }
+
+.bx-eq i { width: 5px; height: 100%; transform-origin: bottom; animation: bxEq 1s ease-in-out infinite alternate; }
+.bx-eq i:nth-child(2) { animation-duration: 0.75s; animation-delay: -0.3s; }
+.bx-eq i:nth-child(3) { animation-duration: 1.2s; animation-delay: -0.6s; }
+.bx-eq i:nth-child(4) { animation-duration: 0.85s; animation-delay: -0.2s; }
+.bx-eq i:nth-child(5) { animation-duration: 1.05s; animation-delay: -0.5s; }
+@keyframes bxEq { from { transform: scaleY(0.15); } to { transform: scaleY(1); } }
+
+.bx-ripple { align-items: center; }
+.bx-ripple::before { content: ''; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #ff3b4e; box-shadow: 0 0 10px #ff1c36; left: 16px; top: 16px; }
+.bx-ripple i { position: absolute; inset: 0; background: none; border: 2px solid #ff3b4e; border-radius: 50%; opacity: 0; animation: bxRipple 2.4s ease-out infinite; }
+.bx-ripple i:nth-child(2) { animation-delay: 0.8s; }
+.bx-ripple i:nth-child(3) { animation-delay: 1.6s; }
+@keyframes bxRipple { 0% { transform: scale(0.15); opacity: 0.9; } 100% { transform: scale(1); opacity: 0; } }
+
+.bx-signal i, .bx-steps i { width: 6px; transform-origin: bottom; }
+.bx-signal i { opacity: 0.25; animation: bxSig 2s ease-in-out infinite; }
+.bx-signal i:nth-child(1), .bx-steps i:nth-child(1) { height: 30%; }
+.bx-signal i:nth-child(2), .bx-steps i:nth-child(2) { height: 55%; }
+.bx-signal i:nth-child(3), .bx-steps i:nth-child(3) { height: 78%; }
+.bx-signal i:nth-child(4), .bx-steps i:nth-child(4) { height: 100%; }
+.bx-signal i:nth-child(2) { animation-delay: 0.25s; }
+.bx-signal i:nth-child(3) { animation-delay: 0.5s; }
+.bx-signal i:nth-child(4) { animation-delay: 0.75s; }
+@keyframes bxSig { 0%, 100% { opacity: 0.25; } 35% { opacity: 1; } }
+.bx-steps i { animation: bxGrow 1.8s ease-in-out infinite; }
+.bx-steps i:nth-child(2) { animation-delay: 0.2s; }
+.bx-steps i:nth-child(3) { animation-delay: 0.4s; }
+.bx-steps i:nth-child(4) { animation-delay: 0.6s; }
+@keyframes bxGrow { 0%, 100% { transform: scaleY(0.55); } 50% { transform: scaleY(1); } }
+
+.bx-star { align-items: center; filter: drop-shadow(0 0 8px rgba(255, 60, 80, 0.8)); }
+.bx-star i {
+  width: 100%; height: 100%; border-radius: 0;
+  background: linear-gradient(135deg, #ffd27a, #ff3b4e);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: bxSpin 7s linear infinite;
+}
+@keyframes bxSpin { to { transform: rotate(360deg); } }
+
+.bx-orbit { align-items: center; }
+.bx-orbit i:nth-child(1) { position: absolute; inset: 4px; background: none; border: 2px dashed rgba(255, 90, 105, 0.6); border-radius: 50%; animation: bxSpin 9s linear infinite; }
+.bx-orbit i:nth-child(2) { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: #ff1c36; box-shadow: 0 0 10px #ff1c36; animation: bxOrbit 3s linear infinite; }
+@keyframes bxOrbit { from { transform: rotate(0) translateX(16px); } to { transform: rotate(360deg) translateX(16px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bx-art i { animation: none !important; }
+  .why-stage .benefit-cards-grid.six-up .benefit-box { transform: none; }
 }
