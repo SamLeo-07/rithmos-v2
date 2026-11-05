@@ -4538,7 +4538,7 @@
 /* ==========================================================================
    COMPETITION // WHY PARTICIPATE: the "strike" reel.
    A red guitar string is drawn down the section as you scroll. A pick rides its tip and
-   each reason is slashed in with a diagonal wipe, claw marks and an equalizer hit.
+   each reason is slashed in on alternating sides of the string, text slanted along the cut.
    ========================================================================== */
 .slash-reel { position: relative; margin-top: 46px; padding: 10px 0 0; counter-reset: slash; }
 
@@ -4554,88 +4554,101 @@
   clip-path: polygon(50% 100%, 6% 30%, 16% 8%, 50% 0, 84% 8%, 94% 30%);
 }
 
-.slash-list { list-style: none; margin: 0; padding: 0 0 0 46px; position: relative; z-index: 1; }
+.slash-list { list-style: none; margin: 0; padding: 0 0 0 34px; position: relative; z-index: 1; }
 
 .slash-item {
-  --W: min(560px, 100%);
+  --hide: polygon(0 0, 0 0, -16% 100%, -16% 100%);
+  --show: polygon(0 0, 118% 0, 100% 100%, 0 100%);
   position: relative;
-  width: var(--W);
-  margin-left: calc((100% - var(--W)) * (1 - var(--i) / 5));
-  margin-bottom: clamp(26px, 5vh, 54px);
-  padding: 4px 0 6px 58px;
+  margin-bottom: clamp(30px, 5.5vh, 60px);
   counter-increment: slash;
 }
-.slash-item::before {
+.slash-text { position: relative; max-width: 520px; }
+
+.slash-meta { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 6px; }
+.slash-meta::before {
   content: counter(slash, decimal-leading-zero);
-  display: block; margin-bottom: 6px;
-  font: 700 0.8rem 'Space Grotesk', monospace; letter-spacing: 0.22em; color: #ff475b;
+  font: 700 0.8rem/1 'Space Grotesk', monospace; letter-spacing: 0.22em; color: #ff475b;
 }
+.slash-eq { display: flex; align-items: flex-end; gap: 3px; width: 34px; height: 16px; }
+.slash-eq i { flex: 1; height: 100%; background: linear-gradient(180deg, #ff6b7d, #ff1c36); border-radius: 2px; transform-origin: bottom; transform: scaleY(0.2); }
+
 .slash-title {
   margin: 0 0 8px;
   font-family: var(--font-heading); font-weight: 700;
   font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.02; letter-spacing: 0.03em;
-  color: #fff; text-transform: uppercase; transform-origin: 0 60%;
+  color: #fff; text-transform: uppercase;
 }
-.slash-desc { margin: 0; max-width: 46ch; font-size: clamp(1rem, 1.25vw, 1.15rem); line-height: 1.6; color: #d3d0de; }
+.slash-desc { margin: 0; max-width: 42ch; font-size: clamp(1rem, 1.25vw, 1.15rem); line-height: 1.6; color: #d3d0de; }
 
-/* claw marks beside each reason (the two parallel slashes) */
-.slash-cut { position: absolute; left: 4px; top: 26px; width: 44px; height: 30px; pointer-events: none; }
-.slash-cut b {
-  position: absolute; left: 0; width: 100%; height: 4px; border-radius: 4px;
-  background: linear-gradient(90deg, #ff1c36, #ff6b7d); transform-origin: 0 50%;
-  box-shadow: 0 0 10px rgba(255, 28, 54, 0.7);
-}
-.slash-cut b:nth-child(1) { top: 4px; transform: rotate(-26deg); }
-.slash-cut b:nth-child(2) { top: 18px; width: 78%; transform: rotate(-26deg); }
-
-/* equalizer that jumps when the slash lands */
-.slash-eq { position: absolute; left: 100px; top: 2px; width: 36px; height: 16px; display: flex; align-items: flex-end; gap: 3px; pointer-events: none; }
-.slash-eq i { flex: 1; height: 100%; background: linear-gradient(180deg, #ff6b7d, #ff1c36); border-radius: 2px; transform-origin: bottom; transform: scaleY(0.18); }
-
-/* the white-hot line that cuts across the row */
-.slash-item::after {
-  content: ''; position: absolute; left: 30px; top: 40px; width: 112%; height: 3px; border-radius: 3px;
+/* the white-hot line that cuts along the text when it lands */
+.slash-text::after {
+  content: ''; position: absolute; left: -20px; top: 40px; width: 118%; height: 3px; border-radius: 3px;
   background: linear-gradient(90deg, #fff, #ff1c36 55%, transparent);
   box-shadow: 0 0 14px rgba(255, 60, 80, 0.9);
-  transform-origin: 0 50%; transform: rotate(-12deg) scaleX(0); opacity: 0; pointer-events: none;
+  transform-origin: 0 50%; transform: scaleX(0); opacity: 0; pointer-events: none;
 }
 
-/* armed (JS on): hidden until the pick reaches the row */
-.slash-armed .slash-title,
-.slash-armed .slash-desc { clip-path: polygon(0 0, 0 0, -16% 100%, -16% 100%); opacity: 0; }
-.slash-armed .slash-item::before { opacity: 0; transition: opacity 0.3s ease 0.1s; }
-.slash-armed .slash-cut b { transform: rotate(-26deg) scaleX(0); }
-.slash-armed .slash-eq { opacity: 0; transition: opacity 0.2s ease; }
-.slash-armed .slash-item.is-struck .slash-eq { opacity: 1; }
+/* ---- desktop: text on both sides of the diagonal string, slanted along it ---- */
+@media (min-width: 861px) {
+  .slash-list { padding-left: 0; }
+  .slash-item .slash-text {
+    margin-left: calc(var(--sx) * 1% + 64px);
+    width: min(440px, calc(100% - var(--sx) * 1% - 64px));
+    transform: rotate(-6deg); transform-origin: 0 50%;
+  }
+  .slash-item:nth-child(odd) { --hide: polygon(100% 0, 100% 0, 116% 100%, 116% 100%); --show: polygon(100% 0, -18% 0, 0 100%, 100% 100%); }
+  .slash-item:nth-child(odd) .slash-text {
+    margin-left: auto;
+    margin-right: calc(100% - var(--sx) * 1% + 64px);
+    width: min(440px, calc(var(--sx) * 1% - 64px));
+    text-align: right; transform-origin: 100% 50%;
+  }
+  .slash-item:nth-child(odd) .slash-meta { justify-content: flex-start; flex-direction: row-reverse; }
+  .slash-item:nth-child(odd) .slash-desc { margin-left: auto; }
+  .slash-text::after { left: -64px; }
+  .slash-item:nth-child(odd) .slash-text::after { left: auto; right: -64px; transform-origin: 100% 50%; background: linear-gradient(270deg, #fff, #ff1c36 55%, transparent); }
+}
 
-.slash-armed .slash-item.is-struck::before { opacity: 1; }
+/* ---- armed (JS on): hidden until the pick reaches the row ---- */
+.slash-armed .slash-title,
+.slash-armed .slash-desc { clip-path: var(--hide); opacity: 0; }
+.slash-armed .slash-meta { opacity: 0; transition: opacity 0.25s ease 0.1s; }
+
+.slash-armed .slash-item.is-struck .slash-meta { opacity: 1; }
 .slash-armed .slash-item.is-struck .slash-title {
-  opacity: 1; clip-path: polygon(0 0, 118% 0, 100% 100%, 0 100%);
+  opacity: 1; clip-path: var(--show);
   transition: clip-path 0.42s cubic-bezier(0.2, 0.9, 0.2, 1), opacity 0.1s linear;
   animation: slashStamp 0.62s cubic-bezier(0.2, 0.9, 0.25, 1) both;
 }
 .slash-armed .slash-item.is-struck .slash-desc {
-  opacity: 1; clip-path: polygon(0 0, 118% 0, 100% 100%, 0 100%);
+  opacity: 1; clip-path: var(--show);
   transition: clip-path 0.55s cubic-bezier(0.2, 0.9, 0.2, 1) 0.12s, opacity 0.1s linear 0.12s;
 }
-.slash-armed .slash-item.is-struck .slash-cut b { transform: rotate(-26deg) scaleX(1); transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1); }
-.slash-armed .slash-item.is-struck .slash-cut b:nth-child(2) { transition-delay: 0.08s; }
-.slash-armed .slash-item.is-struck::after { animation: slashLine 0.7s ease-out both; }
+.slash-armed .slash-item.is-struck .slash-text::after { animation: slashLine 0.7s ease-out both; }
 .slash-armed .slash-item.is-struck .slash-eq i { animation: slashEq 1.1s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
 .slash-item.is-struck .slash-eq i:nth-child(2) { animation-delay: 0.05s; }
 .slash-item.is-struck .slash-eq i:nth-child(3) { animation-delay: 0.1s; }
 .slash-item.is-struck .slash-eq i:nth-child(4) { animation-delay: 0.15s; }
 .slash-item.is-struck .slash-eq i:nth-child(5) { animation-delay: 0.2s; }
+@media (min-width: 861px) {
+  .slash-armed .slash-item:nth-child(odd).is-struck .slash-title { animation-name: slashStampL; }
+}
 
 @keyframes slashStamp {
   0%   { transform: translateX(-26px) skewX(-10deg) scale(1.16); text-shadow: 0 0 30px #fff, 0 0 60px #ff1c36; }
   55%  { transform: translateX(4px) skewX(0) scale(0.985); text-shadow: 0 0 16px rgba(255, 60, 80, 0.9); }
   100% { transform: none; text-shadow: 0 0 0 rgba(255, 60, 80, 0); }
 }
+@keyframes slashStampL {
+  0%   { transform: translateX(26px) skewX(10deg) scale(1.16); text-shadow: 0 0 30px #fff, 0 0 60px #ff1c36; transform-origin: 100% 50%; }
+  55%  { transform: translateX(-4px) skewX(0) scale(0.985); text-shadow: 0 0 16px rgba(255, 60, 80, 0.9); transform-origin: 100% 50%; }
+  100% { transform: none; text-shadow: 0 0 0 rgba(255, 60, 80, 0); transform-origin: 100% 50%; }
+}
 @keyframes slashLine {
-  0%   { transform: rotate(-12deg) scaleX(0); opacity: 1; }
-  45%  { transform: rotate(-12deg) scaleX(1); opacity: 1; }
-  100% { transform: rotate(-12deg) scaleX(1); opacity: 0; }
+  0%   { transform: scaleX(0); opacity: 1; }
+  45%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
 }
 @keyframes slashEq {
   0%   { transform: scaleY(1); }
@@ -4644,12 +4657,6 @@
   100% { transform: scaleY(0.2); }
 }
 
-@media (max-width: 860px) {
-  .slash-list { padding-left: 34px; }
-  .slash-item { --W: 100%; margin-left: 0; padding-left: 52px; }
-  .slash-cut { width: 38px; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .slash-pick, .slash-eq i, .slash-item::after { display: none; }
+  .slash-pick, .slash-eq i, .slash-text::after { display: none; }
 }

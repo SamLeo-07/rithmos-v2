@@ -630,9 +630,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const measure = () => {
         const rr = reel.getBoundingClientRect();
+        const wide = window.matchMedia('(min-width: 861px)').matches;
         const pts = items.map((li) => {
-          const r = li.getBoundingClientRect();
-          return { x: r.left - rr.left + 6, y: r.top - rr.top + 34 };
+          const t = li.querySelector('.slash-title').getBoundingClientRect();
+          const sx = parseFloat(li.style.getPropertyValue('--sx')) || 50;
+          return { x: wide ? (rr.width * sx) / 100 : 14, y: t.top + t.height / 2 - rr.top };
         });
         const a = pts[0];
         const b = pts[pts.length - 1];
