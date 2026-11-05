@@ -606,41 +606,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
     updateWhyStage();
 
-    // live cards: cursor spotlight + gentle 3D tilt, and a glow that travels card to card on its own
-    const whyCards = Array.from(whyStage.querySelectorAll('.benefit-box'));
-    let whyHover = false;
-    let whyInView = false;
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      whyCards.forEach((card) => {
-        card.addEventListener('pointerenter', () => {
-          whyHover = true;
-          whyCards.forEach((c) => c.classList.remove('is-lit'));
+    // "strike" reel: a string is drawn down the list as you scroll, a pick rides its tip,
+    // and each reason is slashed in the moment the pick reaches it
+    const reel = whyStage.querySelector('.slash-reel');
+    if (reel) {
+      const items = Array.from(reel.querySelectorAll('.slash-item'));
+      const svg = reel.querySelector('.slash-spine');
+      const bgPath = svg.querySelector('.slash-spine-bg');
+      const fxPath = svg.querySelector('.slash-spine-fx');
+      const pick = reel.querySelector('.slash-pick');
+      let geo = null;
+
+      const update = () => {
+        if (!geo) return;
+        const top = reel.getBoundingClientRect().top;
+        const total = geo.p1.y - geo.p0.y || 1;
+        const p = Math.min(1, Math.max(0, (window.innerHeight * 0.7 - top - geo.p0.y) / total));
+        fxPath.style.strokeDashoffset = String(geo.len * (1 - p));
+        pick.style.transform = `translate(${geo.p0.x + (geo.p1.x - geo.p0.x) * p}px, ${geo.p0.y + total * p}px)`;
+        pick.style.opacity = p > 0.003 && p < 0.997 ? '1' : '0';
+        items.forEach((li, k) => li.classList.toggle('is-struck', p > 0 && p >= geo.marks[k]));
+      };
+
+      const measure = () => {
+        const rr = reel.getBoundingClientRect();
+        const pts = items.map((li) => {
+          const r = li.getBoundingClientRect();
+          return { x: r.left - rr.left + 6, y: r.top - rr.top + 34 };
         });
-        card.addEventListener('pointermove', (e) => {
-          const r = card.getBoundingClientRect();
-          const x = (e.clientX - r.left) / r.width;
-          const y = (e.clientY - r.top) / r.height;
-          card.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
-          card.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
-          card.style.setProperty('--ry', `${((x - 0.5) * 10).toFixed(2)}deg`);
-          card.style.setProperty('--rx', `${((0.5 - y) * 8).toFixed(2)}deg`);
-        });
-        card.addEventListener('pointerleave', () => {
-          whyHover = false;
-          ['--mx', '--my', '--rx', '--ry'].forEach((p) => card.style.removeProperty(p));
-        });
-      });
+        const a = pts[0];
+        const b = pts[pts.length - 1];
+        const L = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+        const ux = (b.x - a.x) / L;
+        const uy = (b.y - a.y) / L;
+        const p0 = { x: a.x - ux * 60, y: a.y - uy * 60 };
+        const p1 = { x: b.x + ux * 80, y: b.y + uy * 80 };
+        const d = `M${p0.x.toFixed(1)} ${p0.y.toFixed(1)}L${p1.x.toFixed(1)} ${p1.y.toFixed(1)}`;
+        svg.setAttribute('viewBox', `0 0 ${rr.width} ${rr.height}`);
+        bgPath.setAttribute('d', d);
+        fxPath.setAttribute('d', d);
+        const len = Math.hypot(p1.x - p0.x, p1.y - p0.y);
+        fxPath.style.strokeDasharray = String(len);
+        const total = p1.y - p0.y || 1;
+        geo = { p0, p1, len, marks: pts.map((pt) => Math.min(1, Math.max(0, (pt.y - p0.y) / total))) };
+        update();
+      };
+
+      reel.classList.add('slash-armed');
+      let reelTick = false;
+      window.addEventListener('scroll', () => {
+        if (!reelTick) {
+          reelTick = true;
+          requestAnimationFrame(() => { reelTick = false; update(); });
+        }
+      }, { passive: true });
+      window.addEventListener('resize', measure);
+      window.addEventListener('load', measure);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+      measure();
     }
-    new IntersectionObserver((entries) => {
-      whyInView = entries.some((e) => e.isIntersecting);
-      if (!whyInView) whyCards.forEach((c) => c.classList.remove('is-lit'));
-    }, { threshold: 0.25 }).observe(whyStage.querySelector('.benefit-cards-grid'));
-    let whyLit = 0;
-    setInterval(() => {
-      if (whyHover || !whyInView || !whyCards.length) return;
-      whyCards.forEach((c, k) => c.classList.toggle('is-lit', k === whyLit));
-      whyLit = (whyLit + 1) % whyCards.length;
-    }, 2200);
   }
 
   // ==========================================================================
